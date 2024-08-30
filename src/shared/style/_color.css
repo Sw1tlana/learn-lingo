@@ -1,0 +1,18 @@
+:root {
+        --primery-btn-color: #F4C550;
+        --secondary-btn-accent: #FBE9BA;
+        --pale-green: #9FBAAE;
+        --mint-green: #CBDED3;
+        --soft-blue: #9FB7CE;
+         --sky-blue: #BFD6EA;
+        --peach-pink: #E0A39A;
+        --light-peach: #F2C0BD;
+        --sunset-orange: #F0AA8D;
+        --blush-pink: #F4C8BA;
+        --green-color: #38CD3E;
+        --primery-color: #121417;
+        --secondary-bg-color: #8A8A89;
+        --white-bg-color: #FFFFFF;
+
+        --secondary-color: rgba(18, 20, 23, 0.2);
+}
