@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.navLink {
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    position: relative;
+}
+
+.navLink.active {
+    border-bottom: 2px solid var(--secondary-btn-accent);
+}
+
+.navLink:hover {
+    color: #ddd;
+}
