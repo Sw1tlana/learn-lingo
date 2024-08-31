@@ -6,9 +6,9 @@ import { lazy } from 'react';
 import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 
-const Home = lazy(() => import('./pages/Home/Home'));
-const Teachers = lazy(() => import('./pages/Teachers/Teachers'));
-const Favorites = lazy(() => import('./pages/Favorites/Favorites'));
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const TeachersPage = lazy(() => import('./pages/TeachersPage/TeachersPage'));
+const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 
 function App() {
 
@@ -17,10 +17,10 @@ function App() {
       <Layout>
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/teachers" element={<Teachers />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/teachers" element={<TeachersPage />} />
             <Route path="/favorites" element={           
-              <Favorites />
+              <FavoritesPage />
             } />
             <Route path="*" element={<Navigate to="/" />} />
 
