@@ -1,0 +1,12 @@
+.customScrollWrapper {
+    height: 75%;
+}
+
+.customScrollWrapper .simplebar-scrollbar::before {
+    background-color: var(--secondary-color);
+}
+
+.customScrollWrapper .simplebar-track {
+    background-color: var(--scroll-color);
+    border-radius: 7px;
+}

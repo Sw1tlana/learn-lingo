@@ -25,22 +25,25 @@ const RegistrationForm = () => {
       <div>
         <label>Name</label>
             <input type="text"
+            placeholder="Name"
             {...register('name')} />
         {errors.name && <p>{errors.name.message}</p>}
       </div>
       <div>
         <label>Email</label>
             <input type="email"
+            placeholder="Email"
             {...register('email')} />
         {errors.email && <p>{errors.email.message}</p>}
       </div>
       <div>
         <label>Password</label>
             <input type="password"
+            placeholder="Password"
             {...register('password')} />
         {errors.password && <p>{errors.password.message}</p>}
       </div>
-      <button type="submit">Register</button>
+      <button type="submit">Sign in</button>
     </form>   
     </section>
     )
