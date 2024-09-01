@@ -1,17 +1,21 @@
 import css from './RegistrationForm.module.css';
-
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registrSchema } from '../schemas/registrSchemas';
 import { INITIAL_FORM_DATA } from '../schemas/registrSchemas';
+import { register as registerUser  } from '../../redux/auth/operations';
 
 const RegistrationForm = () => {
+  const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(registrSchema),
          defaultValues: INITIAL_FORM_DATA
     });
     
-      const onSubmit = (data) => {
+  const onSubmit = (formData) => {
+          dispatch(registerUser(formData));
+          reset();
     };
     
     return (

@@ -1,4 +1,3 @@
-import './App.css';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import { lazy } from 'react';

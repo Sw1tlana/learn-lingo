@@ -5,6 +5,14 @@ const instance = axios.create({
     baseURL: 'https://teachersapp-72029-default-rtdb.europe-west1.firebasedatabase.app/',
 });
 
+export const setToken = (token) => {
+    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+export const clearToken = () => {
+    delete instance.defaults.headers.common.Authorization;
+};
+
 export const requestSignUp = async (formData) => {
     const { data } = await instance.post('/users/signup', formData);
     return data;

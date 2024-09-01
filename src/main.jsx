@@ -1,16 +1,25 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom";
+import "modern-normalize";
 import { AuthProvider } from "./context/AuthContext";
-import App from './App.jsx'
-import './index.css'
+import App from './App.jsx';
+import './index.css';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-      <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>,
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './redux/stores.js';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+<React.StrictMode>
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+        <BrowserRouter>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+</React.StrictMode>,
 )
