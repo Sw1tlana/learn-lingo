@@ -1,69 +1,90 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { login, logout, fetchCurrentUser, register } from "./operations";
-import { toast } from 'react-hot-toast';
+import { createSlice } from '@reduxjs/toolkit';
+import { register, login, fetchCurrentUser, logout } from './operations';
 
-const INITIAL_STATE = {
-    user: {
-        name: null,
-        email: null,
-    },
-    token: null,
-    isLoggedIn: false,
-    isRefreshing: false,
-    error: false,
+const initialState = {
+  name: '',
+  email: '',
+  token: null,
+  isLoggedIn: false,
+  isRefreshing: false,
+  error: null,
+  version: -1,
+  rehydrated: false
 };
 
-export const authSlice = createSlice({
-    name: "auth",
-    initialState: INITIAL_STATE,
-  
-    extraReducers: (builder) => {
-        builder
-            // REGISTER
-            .addCase(register.fulfilled, (state, action) => {
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-                state.isLoggedIn = true;
-                toast.success('You have registered✅');
-            })
-            // LOGIN
-            .addCase(login.fulfilled, (state, action) => {
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-                state.isLoggedIn = true;
-                toast.success('You are logged in✅');
-            })
-            // LOGOUT
-            .addCase(logout.fulfilled, () => {
-                return INITIAL_STATE;
-            })
-            // REFRESH
-            .addCase(fetchCurrentUser.pending, (state) => {
-                state.isRefreshing = true;
-                state.error = false;
-            })
-            .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-                state.isRefreshing = false;
-                state.user = action.payload;
-                state.isLoggedIn = true;
-            })
-            .addCase(fetchCurrentUser.rejected, (state) => {
-                state.isRefreshing = false;
-                state.error = true;
-            })
-            // pending/rejected
-            .addMatcher(isAnyOf(
-                register.pending, login.pending, logout.pending),
-                (state) => {
-                    state.error = false;
-                })
-            .addMatcher(isAnyOf(
-                register.rejected, login.rejected, logout.rejected),
-                (state) => {
-                    state.error = true;
-                    toast.error('Oops! Something went wrong ❌');
-                })
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setName(state, action) {
+      state.name = action.payload;
+    },
+    setEmail(state, action) {
+      state.email = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      // Register
+      .addCase(register.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.name = action.payload.name;
+        state.email = action.payload.email;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.error = action.payload || 'Registration failed';
+      })
+      // Login
+      .addCase(login.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.name = action.payload.name;
+        state.email = action.payload.email;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        state.error = null;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.error = action.payload || 'Login failed';
+      })
+      // Fetch Current User
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.isRefreshing = true;
+        state.error = null;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.name = action.payload.name;
+        state.email = action.payload.email;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+        state.error = null;
+      })
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
+        state.isRefreshing = false;
+        state.error = action.payload || 'Failed to fetch user';
+      })
+      // Logout
+      .addCase(logout.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.name = '';
+        state.email = '';
+        state.token = null;
+        state.isLoggedIn = false;
+        state.error = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.error = action.payload || 'Logout failed';
+      });
+  }
 });
 
+export const { setName, setEmail } = authSlice.actions;
 export const authReducer = authSlice.reducer;

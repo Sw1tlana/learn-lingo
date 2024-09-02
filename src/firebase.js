@@ -1,8 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth/cordova";
+
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB4KC97q9NwQ8eo_G0INEcumuG8bGo6hhk",
+  apiKey: API_KEY,
   authDomain: "teachersapp-72029.firebaseapp.com",
   projectId: "teachersapp-72029",
   storageBucket: "teachersapp-72029.appspot.com",
@@ -12,7 +14,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
 
-export { app, auth, googleAuthProvider };

@@ -1,19 +1,24 @@
 import css from './LoginForm.module.css';
-
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../schemas/loginSchemas';
 import { INITIAL_LOGIN_DATA } from '../schemas/loginSchemas';
+import { login } from '../../redux/auth/operations';
+import { selectUser } from '../../redux/auth/selectors';
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
+
     const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(loginSchema),
     defaultValues: INITIAL_LOGIN_DATA
     });
 
-    const onSubmit = (formData, formActions) => {
-        onSubmit(formData);
-        formActions.resetForm();
+    const onSubmit = (formData) => {
+        dispatch(login(formData));
+        reset();
     };
     
     return (
