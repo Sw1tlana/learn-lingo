@@ -14,11 +14,20 @@ const RegistrationForm = () => {
          defaultValues: INITIAL_FORM_DATA
     });
     
-  const onSubmit = (formData) => {
-    console.log(formData);
-          dispatch(registerUser(formData));
-          reset();
-    };
+  const onSubmit = async (formData) => {
+
+    try {
+      const resultAction = await dispatch(registerUser(formData));
+      if (registerUser.fulfilled.match(resultAction)) {
+        console.log('Registration successful:', resultAction.payload);
+        reset(); 
+      } else {
+        console.error('Error registering user:', resultAction.payload);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error.message);
+    }
+  };
     
     return (
         <section>

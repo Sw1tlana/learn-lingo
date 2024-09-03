@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    requestSignUp,
+    registerUserAndSave,
     requestSignIn,
     requestGetCurrentUser,
     requestLogOut,
@@ -12,7 +12,12 @@ export const register = createAsyncThunk(
     "auth/register",
     async (formData, thunkAPI) => {
         try {
-            const response = await requestSignUp(formData);
+            const response = await registerUserAndSave(formData);
+            
+                if (response?.firebaseUser?.accessToken) {
+                setToken(response.firebaseUser.accessToken); 
+            }
+            
             return response;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
@@ -30,30 +35,32 @@ export const login = createAsyncThunk(
         }
     });
 
-
-export const fetchCurrentUser = createAsyncThunk( 
+export const fetchCurrentUser = createAsyncThunk(
     "auth/refreshUser",
     async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
+        const state = thunkAPI.getState();
+        const token = state.auth.token;
 
-    setToken(token);
-    try {
-      const response = await requestGetCurrentUser();
-      return response;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
-  },
-  {
-    condition: (_, thunkAPI) => {
-      const state = thunkAPI.getState();
-      const token = state.auth.token;
+        if (!token) {
+            return thunkAPI.rejectWithValue("No token found");
+        }
 
-      if(!token) return false;
-      return true;
+        try {
+          
+            const response = await requestGetCurrentUser();
+            return response;
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err.message);
+        }
+    },
+    {
+        condition: (_, thunkAPI) => {
+            const state = thunkAPI.getState();
+            const token = state.auth.token;
+
+            return !!token;  
+        }
     }
-  }
 );
 
 export const logout = createAsyncThunk(

@@ -1,19 +1,28 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
 
-// const {onRequest} = require("firebase-functions/v2/https");
-// const logger = require("firebase-functions/logger");
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const cors = require("cors")({origin: true});
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+admin.initializeApp();
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.api = functions.https.onRequest((req, res) => {
+  cors(req, res, () => {
+    if (req.method === "OPTIONS") {
+      res.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+      res.set("Access-Control-Allow-Headers", "Content-Type");
+      res.status(204).send("");
+      return;
+    }
+
+    // Handle POST requests
+    if (req.method === "POST") {
+      const data = req.body;
+      // Perform operations with Firebase Realtime Database
+      admin.database().ref("/users/signup").push(data)
+          .then(() => res.status(200).send("Data saved successfully"))
+          .catch((error) => res.status(500).send(`Error: ${error.message}`));
+    } else {
+      res.status(405).send("Method Not Allowed");
+    }
+  });
+});
