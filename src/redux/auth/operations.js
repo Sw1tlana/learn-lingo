@@ -14,12 +14,20 @@ export const register = createAsyncThunk(
         try {
             const response = await registerUserAndSave(formData);
             
-                if (response?.firebaseUser?.accessToken) {
-                setToken(response.firebaseUser.accessToken); 
-            }
+         if (response?.firebaseUser) {
+            const token = await response.firebaseUser.getIdToken();
+            setToken(token);
+            console.log("Token set:", token);
+
+        return {
+            name: response.firebaseUser.displayName || formData.name,
+            email: formData.email,
+            token: token
+        };
+    }
             
-            return response;
-        } catch (error) {
+        return response;
+    } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
     });

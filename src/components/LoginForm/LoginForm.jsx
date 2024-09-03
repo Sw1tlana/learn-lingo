@@ -11,12 +11,13 @@ const LoginForm = () => {
     const dispatch = useDispatch();
     const user = useSelector(selectUser);
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(loginSchema),
     defaultValues: INITIAL_LOGIN_DATA
     });
 
     const onSubmit = (formData) => {
+        console.log('Form submitted:', formData);
         dispatch(login(formData));
         reset();
     };

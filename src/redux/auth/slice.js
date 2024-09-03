@@ -30,11 +30,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.name = action.payload.name;
-        state.email = action.payload.email;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        state.error = null;
+         console.log('Register fulfilled', action.payload);
+            const { name, email, token } = action.payload;
+            state.user = { name, email, token };
+            state.isLoggedIn = true;
+            state.error = null;
       })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload || 'Registration failed';
@@ -44,11 +44,12 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.name = action.payload.name;
-        state.email = action.payload.email;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        state.error = null;
+          console.log('Login fulfilled', action.payload);
+            const { token, email } = action.payload;
+            state.token = token;
+            state.email = email;
+            state.isLoggedIn = true;
+            state.error = null;
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload || 'Login failed';
