@@ -44,29 +44,18 @@ export const login = createAsyncThunk(
     });
 
 export const fetchCurrentUser = createAsyncThunk(
-    "auth/refreshUser",
+    "auth/refreshCurrentUser",
     async (_, thunkAPI) => {
-        const state = thunkAPI.getState();
-        const token = state.auth.token;
-
-        if (!token) {
-            return thunkAPI.rejectWithValue("No token found");
-        }
-
         try {
-          
+            const state = thunkAPI.getState();
+            const token = state.auth.token;
+            if (!token) {
+                throw new Error("No token available");
+            }
             const response = await requestGetCurrentUser();
             return response;
         } catch (err) {
             return thunkAPI.rejectWithValue(err.message);
-        }
-    },
-    {
-        condition: (_, thunkAPI) => {
-            const state = thunkAPI.getState();
-            const token = state.auth.token;
-
-            return !!token;  
         }
     }
 );
@@ -76,7 +65,8 @@ export const logout = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
         await requestLogOut();
-        clearToken();
+            clearToken();
+            return {};
         } catch(error) {
         return thunkAPI.rejectWithValue(error.message);
         }

@@ -4,6 +4,9 @@ import { selectUser } from '../../redux/auth/selectors';
 import { selectIsLoggedIn } from '../../redux/auth/selectors'; 
 import css from './UserMenu.module.css';
 
+    console.log('User:', user);
+    console.log('Is Logged In:', isLoggedIn);
+
 const UserMenu = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const user = useSelector(selectUser);
@@ -11,17 +14,28 @@ const UserMenu = () => {
 
     const userName = user ? user.name : '';
 
-  const onLogOut = () => {
-    dispatch(logout());
-  }
+    const onLogOut = async () => {
+    console.log('Logout button clicked');
+    try {
+        await dispatch(logout()).unwrap();
+        console.log('Logout successful');
+    } catch (error) {
+        console.error('Logout error:', error);
+    }
+    }
 
     return (
-        <div>
+        <div className={css.userMenu}>
             {isLoggedIn && user ? (
-          <button className={css.buttonUser} type="button" onClick={onLogOut}>
-            Logout
-          </button>
-            ): null }
+                <div>
+                    <span className={css.userName}>Welcome, {userName}!</span>
+                    <button className={css.buttonUser} type="button" onClick={onLogOut}>
+                        Logout
+                    </button>
+                </div>
+            ) : (
+                <p>Please log in</p>
+            )}
         </div>
     )
 };

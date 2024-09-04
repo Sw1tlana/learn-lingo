@@ -1,7 +1,8 @@
 import {
   createUserWithEmailAndPassword,
   getAuth,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut
 } from 'firebase/auth';
 
 import axios from 'axios';
@@ -20,6 +21,7 @@ export const setToken = (token) => {
 
 export const clearToken = () => {
     instance.defaults.headers.common.Authorization = '';
+    console.log('Token cleared');
 }
 
 export const registerUserAndSave = async ({ email, password, name }) => {
@@ -50,17 +52,31 @@ export const requestSignIn = async ({ email, password }) => {
     }
 };
 
-
 export const requestGetCurrentUser = async () => {
-    const { data } = await instance.get('/users/current');
+        const auth = getAuth();
+        const user = auth.currentUser;
 
-    return data;
+        if (user) {
+        return {
+            name: user.displayName,
+            email: user.email,
+            uid: user.uid
+        };
+    } else {
+        throw new Error('No user is currently logged in');
+    }
 };
 
 export const requestLogOut = async () => {
-    const { data } = await instance.post('/users/logout');
-
-    return data;
+    const auth = getAuth();
+    try {
+        await auth.signOut();
+         console.log('Successfully signed out');
+        return { success: true };
+    } catch (error) {
+        console.error('Logout Error:', error.message);
+        throw new Error(error.message);
+    }
 };
 
 
