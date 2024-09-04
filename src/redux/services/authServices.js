@@ -70,7 +70,7 @@ export const requestGetCurrentUser = async () => {
 export const requestLogOut = async () => {
     const auth = getAuth();
     try {
-        await auth.signOut();
+        await signOut(auth);
          console.log('Successfully signed out');
         return { success: true };
     } catch (error) {

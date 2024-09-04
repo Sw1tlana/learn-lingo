@@ -62,12 +62,16 @@ export const fetchCurrentUser = createAsyncThunk(
 
 export const logout = createAsyncThunk(
    "auth/logout",
-    async (_, thunkAPI) => {
-        try {
-        await requestLogOut();
-            clearToken();
-            return {};
-        } catch(error) {
-        return thunkAPI.rejectWithValue(error.message);
-        }
+  async (_, thunkAPI) => {
+    try {
+      console.log('Logout thunk started.');
+      await requestLogOut();
+      console.log('User signed out from Firebase.');
+      clearToken();
+      console.log('Token cleared.');
+      return {};
+    } catch (error) {
+      console.error('Error during logout:', error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
     });
