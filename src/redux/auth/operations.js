@@ -7,6 +7,8 @@ import {
     setToken,
     clearToken
 } from "../services/authServices";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../firebase/config";
 
 export const register = createAsyncThunk(
     "auth/register",
@@ -36,7 +38,8 @@ export const login = createAsyncThunk(
     "auth/login",
     async (formData, thunkAPI) => {
         try {
-            const response = await requestSignIn(formData);
+          const response = await requestSignIn(formData);
+             console.log('Login response:', response); 
             return response;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
@@ -44,26 +47,24 @@ export const login = createAsyncThunk(
     });
 
 export const fetchCurrentUser = createAsyncThunk(
-    "auth/refreshCurrentUser",
-    async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-
-    setToken(token);
+  "auth/refreshCurrentUser",
+  async (_, thunkAPI) => {
     try {
-      const response = await requestGetCurrentUser();
-      return response;
+      const firebaseUser = await requestGetCurrentUser();
+
+      const userDoc = await getDoc(doc(firestore, 'users', firebaseUser.uid));
+      const firestoreUserData = userDoc.data();
+
+      if (!firestoreUserData) {
+        throw new Error("User data not found in Firestore");
+      }
+      return {
+        name: firebaseUser.name,
+        email: firebaseUser.email,
+        ...firestoreUserData 
+      };
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
-    }
-  },
-  {
-    condition: (_, thunkAPI) => {
-      const state = thunkAPI.getState();
-      const token = state.auth.token;
-
-      if(!token) return false;
-      return true;
     }
   }
 );
@@ -76,7 +77,7 @@ export const logout = createAsyncThunk(
       await requestLogOut();
       console.log('User signed out from Firebase.');
       clearToken();
-      console.log('Token cleared.');
+       console.log('Token after logout:', instance.defaults.headers.common.Authorization);
       return {};
     } catch (error) {
       console.error('Error during logout:', error);

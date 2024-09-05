@@ -15,8 +15,12 @@ const UserMenu = () => {
     const onLogOut = async () => {
     console.log('Logout button clicked');
     try {
-        await dispatch(logout()).unwrap();
-        console.log('Logout successful');
+        const resultAction = await dispatch(logout());
+        if (logout.fulfilled.match(resultAction)) {
+            console.log('Logout successful');
+        } else {
+            console.error('Logout failed:', resultAction.error.message);
+        }
     } catch (error) {
         console.error('Logout error:', error);
     }

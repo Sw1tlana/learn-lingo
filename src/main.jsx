@@ -5,7 +5,7 @@ import "modern-normalize";
 import { Provider } from 'react-redux'; 
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './redux/stores.js';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.jsx';
 import App from './App.jsx';
 import './index.css';
 

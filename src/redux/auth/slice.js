@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, fetchCurrentUser, logout } from './operations';
+import {
+  register,
+  login,
+  fetchCurrentUser,
+  logout
+} from './operations';
 
 const initialState = {
   user: null,
@@ -50,7 +55,8 @@ const authSlice = createSlice({
             state.token = token;
             state.email = email;
             state.isLoggedIn = true;
-            state.error = null;
+             state.error = null;
+         console.log('Token saved in Redux state:', state.token);
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload || 'Login failed';
@@ -61,10 +67,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        state.user = {
-          name: action.payload.name,
-          email: action.payload.email
-        };
+        state.user = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.error = null;
