@@ -11,28 +11,17 @@ import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../../firebase/config";
 
 export const register = createAsyncThunk(
-    "auth/register",
-    async (formData, thunkAPI) => {
-        try {
-            const response = await registerUserAndSave(formData);
-            
-         if (response?.firebaseUser) {
-            const token = await response.firebaseUser.getIdToken();
-            setToken(token);
-            console.log("Token set:", token);
-
-        return {
-            name: response.firebaseUser.displayName || formData.name,
-            email: formData.email,
-            token: token
-        };
-    }
-            
-        return response;
+  "auth/register",
+  async (formData, thunkAPI) => {
+    try {
+      const response = await registerUserAndSave(formData);
+      return response;
     } catch (error) {
-            return thunkAPI.rejectWithValue(error.message);
-        }
-    });
+      console.error("Registration error:", error);
+      return thunkAPI.rejectWithValue(error.message || "Failed to register");
+    }
+  }
+);
 
 export const login = createAsyncThunk(
     "auth/login",
@@ -54,6 +43,8 @@ export const fetchCurrentUser = createAsyncThunk(
 
       const userDoc = await getDoc(doc(firestore, 'users', firebaseUser.uid));
       const firestoreUserData = userDoc.data();
+
+      setToken(token);
 
       if (!firestoreUserData) {
         throw new Error("User data not found in Firestore");

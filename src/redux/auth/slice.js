@@ -78,6 +78,7 @@ const authSlice = createSlice({
       })
       // Logout
       .addCase(logout.pending, (state) => {
+          console.log('Logout pending');
         state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
@@ -88,6 +89,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logout.rejected, (state, action) => {
+          console.error('Logout rejected:', action.payload);
         state.error = action.payload || 'Logout failed';
       });
   }

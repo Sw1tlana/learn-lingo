@@ -11,33 +11,26 @@ const UserMenu = () => {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
 
+    const userName = user ? user.name : '';
 
-    const onLogOut = async () => {
+
+    const onLogOut = () => {
     console.log('Logout button clicked');
-    try {
-        const resultAction = await dispatch(logout());
-        if (logout.fulfilled.match(resultAction)) {
-            console.log('Logout successful');
-        } else {
-            console.error('Logout failed:', resultAction.error.message);
-        }
-    } catch (error) {
-        console.error('Logout error:', error);
+    dispatch(logout());
     }
-    }
+    
 
     return (
-        <div className={css.userMenu}>
-            {isLoggedIn && user ? (
-                <div>
-                    <button className={css.buttonUser} type="button" onClick={onLogOut}>
-                        Logout
-                    </button>
-                </div>
-            ) : (
-                <p>Please log in</p>
-            )}
+     <div>
+      {isLoggedIn && user ? (
+        <div className={css.containerMenu}>
+          <p className={css.textMenu}>Welcome, {userName}!</p>
+          <button className={css.buttonUser} type="button" onClick={onLogOut}>
+            Logout
+          </button>
         </div>
+      ) : null}
+    </div>
     )
 };
 

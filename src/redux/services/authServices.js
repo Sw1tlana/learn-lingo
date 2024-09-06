@@ -15,18 +15,25 @@ const instance = axios.create({
 });
 
 export const setToken = (token) => {
-    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 
 export const clearToken = () => {
-    instance.defaults.headers.common.Authorization = '';
-   console.log('Token cleared', instance.defaults.headers.common.Authorization); 
+     instance.defaults.headers.common['Authorization'] = '';
+    console.log('Token cleared', instance.defaults.headers.common.Authorization); 
+
 }
 
 export const registerUserAndSave = async ({ email, password, name }) => {
+    
+  try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    const token = await user.getIdToken();
+    console.log('Token received:', token); 
+    setToken(token);
 
     const response = await instance.post(`/users/${user.uid}.json`, {
       email: email,
@@ -36,8 +43,13 @@ export const registerUserAndSave = async ({ email, password, name }) => {
 
     return {
       firebaseUser: user,
-      backendResponse: response.data
+      backendResponse: response.data,
+      token: token
     };
+  } catch (error) {
+    console.error('Error in registerUserAndSave:', error);
+    throw new Error(error.response?.data?.error || error.message || 'Failed to register user');
+  }
 };
 
 export const requestSignIn = async ({ email, password }) => {
