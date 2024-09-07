@@ -11,7 +11,7 @@ import { app } from '../../firebase/config';
 const auth = getAuth(app);
 
 const instance = axios.create({
-    baseURL: 'https://teachersapp-72029-default-rtdb.europe-west1.firebasedatabase.app/'
+    baseURL: 'https://teachersapp-f3d77-default-rtdb.firebaseio.com/'
 });
 
 export const setToken = (token) => {

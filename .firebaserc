@@ -1,10 +1,5 @@
 {
   "projects": {
-    "default": "teachersapp-72029"
-  },
-  "dataconnectEmulatorConfig": {
-    "postgres": {
-      "localConnectionString": "postgresql://localhost:5432?sslmode=disable"
-    }
+    "default": "teachersapp-f3d77"
   }
 }
