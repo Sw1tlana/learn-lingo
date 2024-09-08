@@ -7,14 +7,12 @@ import {
     setToken,
     clearToken
 } from "../services/authServices";
-import { doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../firebase/config";
 
 export const register = createAsyncThunk(
   "auth/register",
-  async (formData, thunkAPI) => {
+  async ({ userData }, thunkAPI) => {
     try {
-      const response = await registerUserAndSave(formData);
+      const response = await registerUserAndSave(userData);
       return response;
     } catch (error) {
       console.error("Registration error:", error);
@@ -41,18 +39,13 @@ export const fetchCurrentUser = createAsyncThunk(
     try {
       const firebaseUser = await requestGetCurrentUser();
 
-      const userDoc = await getDoc(doc(firestore, 'users', firebaseUser.uid));
-      const firestoreUserData = userDoc.data();
+      const token = await firebaseUser.getIdToken();
+      setToken(token); 
 
-      setToken(token);
-
-      if (!firestoreUserData) {
-        throw new Error("User data not found in Firestore");
-      }
       return {
-        name: firebaseUser.name,
+        name: firebaseUser.displayName,
         email: firebaseUser.email,
-        ...firestoreUserData 
+        uid: firebaseUser.uid,  
       };
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
