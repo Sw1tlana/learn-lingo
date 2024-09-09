@@ -1,17 +1,14 @@
+; import axios from 'axios';
 import {
-  createUserWithEmailAndPassword,
   getAuth,
-  signInWithEmailAndPassword,
-  signOut
+  signOut,
+  createUserWithEmailAndPassword 
 } from 'firebase/auth';
 
-import axios from 'axios';
-import { app } from '../../firebase';
-
-const auth = getAuth(app);
+import { auth } from '../../firebase';
 
 const instance = axios.create({
-  baseURL: 'https://teachersapp-f3d77-default-rtdb.firebaseio.com/',
+  baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app',
 
 });
 
@@ -31,30 +28,26 @@ export const registerUserAndSave = async ({ email, password, name }) => {
   }
 
   try {
-    const response = await instance.post('accounts:signUp', {
-      email,
-      password,
-      returnSecureToken: true
-    });
 
-    const { idToken, localId } = response.data;
-    console.log('Token received:', idToken);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    const idToken = await user.getIdToken();
 
-    // Set token in axios instance headers
-    instance.defaults.headers.common['Authorization'] = `Bearer ${idToken}`;
-
-    const userEndpoint = `/users/${localId}.json`;
+       console.log('User UID:', user.uid);
+    console.log('ID Token:', idToken);
+    
+    const userEndpoint = `/users/${user.uid}.json`;
+    console.log('User Endpoint:', userEndpoint);
+    
     const userResponse = await instance.post(userEndpoint, {
       email,
       name,
       token: idToken,
-      uid: localId
+      uid: user.uid
     });
 
-    console.log('User registered and saved:', userResponse.data);
-
     return {
-      firebaseUser: { uid: localId, email },
+      firebaseUser: { uid: user.uid, email },
       backendResponse: userResponse.data,
       token: idToken
     };
@@ -63,7 +56,6 @@ export const registerUserAndSave = async ({ email, password, name }) => {
     throw new Error(error.response?.data?.error || error.message || 'Failed to register user');
   }
 };
-
 
 export const requestSignIn = async ({ email, password }) => {
   try {

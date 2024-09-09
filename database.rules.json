@@ -1,9 +1,9 @@
 {
   "rules": {
     "users": {
-      "$userId": {
-        ".read": "$userId === auth.uid",
-        ".write": "$userId === auth.uid"
+      "$user_id": {
+        ".read": "$user_id === auth.uid", // Тільки авторизований користувач може читати свої дані
+        ".write": "$user_id === auth.uid" // Тільки авторизований користувач може записувати свої дані
       }
     }
   }

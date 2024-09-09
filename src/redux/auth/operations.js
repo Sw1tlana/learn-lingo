@@ -10,8 +10,9 @@ import {
 
 export const register = createAsyncThunk(
   "auth/register",
-  async ({ userData }, thunkAPI) => {
+  async (userData, thunkAPI) => {
     try {
+           console.log('Registering with data:', userData);
       const response = await registerUserAndSave(userData);
       return response;
     } catch (error) {

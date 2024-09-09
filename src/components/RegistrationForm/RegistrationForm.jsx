@@ -8,7 +8,6 @@ import { register as registerUser } from '../../redux/auth/operations';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
-  const token = useSelector(state => state.auth.token); 
 
     const { register, handleSubmit,  reset, formState: { errors } } = useForm({
         resolver: yupResolver(registrSchema),
@@ -16,12 +15,12 @@ const RegistrationForm = () => {
     });
     
 const onSubmit = async (data) => {
-  const { email, password, name } = data;
-
-  if (email && password && name) {
-    dispatch(registerUser({ userData: { email, password, name } }));
-  } else {
-    console.error('Missing required fields in form submission');
+  try {
+    console.log('Form data on submit:', data);
+    await dispatch(registerUser(data));
+    reset();
+  } catch (error) {
+    console.error('Error during registration:', error);
   }
 };
     
