@@ -1,14 +1,15 @@
 ; import axios from 'axios';
 import {
-  getAuth,
   signOut,
-  createUserWithEmailAndPassword 
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+
 } from 'firebase/auth';
 
 import { auth } from '../../firebase';
 
 const instance = axios.create({
-  baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app',
+  baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/',
 
 });
 
@@ -18,7 +19,7 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
-  delete instance.defaults.headers.common['Authorization'];
+ delete instance.defaults.headers.common['Authorization'];
   console.log('Token cleared');
 };
 
@@ -28,15 +29,14 @@ export const registerUserAndSave = async ({ email, password, name }) => {
   }
 
   try {
-
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const idToken = await user.getIdToken();
 
-       console.log('User UID:', user.uid);
+    console.log('User UID:', user.uid);
     console.log('ID Token:', idToken);
     
-    const userEndpoint = `/users/${user.uid}.json`;
+    const userEndpoint = `/users/${user.uid}.json?auth=${idToken}`;
     console.log('User Endpoint:', userEndpoint);
     
     const userResponse = await instance.post(userEndpoint, {
@@ -64,9 +64,11 @@ export const requestSignIn = async ({ email, password }) => {
     const token = await user.getIdToken();
     
     setToken(token);
+    console.log('Sign In Response:', { firebaseUser: user, uid: user.uid, token });
 
     return {
       firebaseUser: user,
+      uid: user.uid,
       token
     };
   } catch (error) {
@@ -75,24 +77,17 @@ export const requestSignIn = async ({ email, password }) => {
   }
 };
 
-
 export const requestGetCurrentUser = async () => {
-  const auth = getAuth();
   const user = auth.currentUser;
 
   if (user) {
-    return {
-      name: user.displayName,
-      email: user.email,
-      uid: user.uid
-    };
+    return user;
   } else {
     throw new Error('No user is currently logged in');
   }
 };
 
 export const requestLogOut = async () => {
-  const auth = getAuth();
   try {
     await signOut(auth);
     clearToken();

@@ -25,10 +25,11 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
     "auth/login",
     async (formData, thunkAPI) => {
-        try {
+      try {
           const response = await requestSignIn(formData);
-             console.log('Login response:', response); 
-            return response;
+          console.log('Login response:', response);
+           const { uid, token } = response; 
+            return { uid, token };
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
         }
@@ -38,17 +39,18 @@ export const fetchCurrentUser = createAsyncThunk(
   "auth/refreshCurrentUser",
   async (_, thunkAPI) => {
     try {
+       console.log('Fetching current user...');
       const firebaseUser = await requestGetCurrentUser();
 
-      const token = await firebaseUser.getIdToken();
-      setToken(token); 
+      console.log('Firebase user:', firebaseUser);
 
-      return {
-        name: firebaseUser.displayName,
-        email: firebaseUser.email,
-        uid: firebaseUser.uid,  
-      };
+      const token = await firebaseUser.getIdToken(true);
+      setToken(token); 
+       console.log('User fetched:', firebaseUser);
+
+      return { uid: user.uid, token };
     } catch (err) {
+      console.error('Error fetching current user:', err.message);
       return thunkAPI.rejectWithValue(err.message);
     }
   }

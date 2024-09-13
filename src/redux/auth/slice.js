@@ -11,6 +11,7 @@ const initialState = {
   name: '',
   email: '',
   token: null,
+  uid: null, 
   isLoggedIn: false,
   isRefreshing: false,
   error: null,
@@ -37,8 +38,8 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
          console.log('Register fulfilled', action.payload);
-            const { name, email, token } = action.payload;
-            state.user = { name, email, token };
+            const { name, email, token, uid } = action.payload;
+            state.user = { name, email, token, uid };
             state.isLoggedIn = true;
             state.error = null;
       })
@@ -50,12 +51,11 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-          console.log('Login fulfilled', action.payload);
-            const { token, email } = action.payload;
-            state.token = token;
-            state.email = email;
-            state.isLoggedIn = true;
-             state.error = null;
+        console.log('Login fulfilled', action.payload);
+          state.uid = action.payload.uid;
+          state.token = action.payload.token;
+          state.isLoggedIn = true;
+          state.error = null;
          console.log('Token saved in Redux state:', state.token);
       })
       .addCase(login.rejected, (state, action) => {
@@ -85,6 +85,7 @@ const authSlice = createSlice({
         console.log('Logout fulfilled');
         state.user = null; 
         state.token = null;
+        state.uid = null;
         state.isLoggedIn = false;
         state.error = null;
       })

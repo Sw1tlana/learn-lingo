@@ -14,11 +14,16 @@ const UserMenu = () => {
     const userName = user ? user.name : '';
 
 
-    const onLogOut = () => {
+  const onLogOut = () => {
     console.log('Logout button clicked');
     dispatch(logout());
-    }
+  };
     
+  useEffect(() => {
+  if (!isLoggedIn) {
+    console.log('User has been logged out successfully.');
+  }
+}, [isLoggedIn]);
 
     return (
      <div>
