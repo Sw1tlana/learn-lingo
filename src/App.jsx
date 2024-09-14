@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentUser } from "./redux/auth/operations";
+import { auth } from './firebase';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const TeachersPage = lazy(() => import('./pages/TeachersPage/TeachersPage'));
@@ -16,7 +17,9 @@ function App() {
   const dispatch = useDispatch();
 
     useEffect(() => {
+     if (auth.currentUser) {
     dispatch(fetchCurrentUser());
+  }
   }, [dispatch]);
 
   return (

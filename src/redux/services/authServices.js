@@ -1,4 +1,4 @@
-; import axios from 'axios';
+import axios from 'axios';
 import {
   signOut,
   createUserWithEmailAndPassword,
@@ -19,8 +19,12 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
- delete instance.defaults.headers.common['Authorization'];
-  console.log('Token cleared');
+  if (instance) {
+    delete instance.defaults.headers.common['Authorization'];
+    console.log('Token cleared');
+  } else {
+    console.error('Instance is not defined');
+  }
 };
 
 export const registerUserAndSave = async ({ email, password, name }) => {
@@ -99,4 +103,3 @@ export const requestLogOut = async () => {
   }
 };
 
-export default instance;
