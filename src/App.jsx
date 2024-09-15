@@ -16,9 +16,10 @@ function App() {
 
   const dispatch = useDispatch();
 
-    useEffect(() => {
-     if (auth.currentUser) {
-    dispatch(fetchCurrentUser());
+  useEffect(() => {
+    if (auth.currentUser) {
+         console.log("Current user detected, fetching current user data...");
+       dispatch(fetchCurrentUser());
   }
   }, [dispatch]);
 

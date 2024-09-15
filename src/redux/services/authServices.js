@@ -19,12 +19,8 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
-  if (instance) {
-    delete instance.defaults.headers.common['Authorization'];
-    console.log('Token cleared');
-  } else {
-    console.error('Instance is not defined');
-  }
+  delete instance.defaults.headers.common['Authorization']; 
+  console.log('Token cleared');
 };
 
 export const registerUserAndSave = async ({ email, password, name }) => {
@@ -94,8 +90,9 @@ export const requestGetCurrentUser = async () => {
 export const requestLogOut = async () => {
   try {
     await signOut(auth);
+    
     clearToken();
-    console.log('Successfully signed out');
+    console.log('Successfully signed out from Firebase');
     return { success: true };
   } catch (error) {
     console.error('Logout Error:', error.message);
@@ -103,3 +100,4 @@ export const requestLogOut = async () => {
   }
 };
 
+export default instance;

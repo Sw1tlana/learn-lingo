@@ -7,9 +7,10 @@ import {
 } from './operations';
 
 const initialState = {
-  user: null,
-  name: '',
-  email: '',
+  user: {
+    name: '',
+    email: '',
+  },
   token: null,
   uid: null, 
   isLoggedIn: false,
@@ -22,14 +23,7 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setName(state, action) {
-      state.name = action.payload;
-    },
-    setEmail(state, action) {
-      state.email = action.payload;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Register
@@ -78,14 +72,15 @@ const authSlice = createSlice({
       })
       // Logout
       .addCase(logout.pending, (state) => {
-          console.log('Logout pending');
+        console.log('Logout pending');
         state.error = null;
       })
       .addCase(logout.fulfilled, (state) => {
         console.log('Logout fulfilled');
+        console.log('State before clearing:', state);
         state.user = null; 
-        state.token = null;
-        state.uid = null;
+        // state.token = null;
+        // state.uid = null;
         state.isLoggedIn = false;
         state.error = null;
       })

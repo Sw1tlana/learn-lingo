@@ -5,8 +5,10 @@ import {
     requestGetCurrentUser,
     requestLogOut,
     setToken,
-    clearToken
+    clearToken,
 } from "../services/authServices";
+
+import instance from '../services/authServices';
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -67,8 +69,10 @@ export const logout = createAsyncThunk(
       console.log('instance:', instance);
       await requestLogOut();
       console.log('User signed out from Firebase.');
+      console.log('Token after logout:', instance.defaults.headers.common.Authorization);
+
       clearToken();
-       console.log('Token after logout:', instance.defaults.headers.common.Authorization);
+      
       return {};
     } catch (error) {
       console.error('Error during logout:', error);

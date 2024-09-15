@@ -13,6 +13,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkUser = async () => {
+    console.log('Is Logged In:', isLoggedIn);
+    console.log('User:', user);
       setLoading(false);
     };
 
