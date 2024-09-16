@@ -26,9 +26,10 @@ const teachersSlice = createSlice({
     builder
       .addCase(fetchTeachers.pending, handlePending)
       .addCase(fetchTeachers.fulfilled, (state, action) => {
+        console.log('Fetched teachers in reducer:', action.payload);
         state.loading = false;
         state.error = null;
-        state.items = action.payload;
+         state.items = Object.values(action.payload); 
       })
       .addCase(fetchTeachers.rejected, handleRejected)
       .addCase(addTeachers.pending, handlePending)
@@ -49,4 +50,5 @@ const teachersSlice = createSlice({
        .addCase(deleteTeachers.rejected, handleRejected)  
 },
 });
+
 export const teachersReducer = teachersSlice.reducer;

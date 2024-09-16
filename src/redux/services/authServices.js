@@ -7,6 +7,8 @@ import {
 } from 'firebase/auth';
 
 import { auth } from '../../firebase';
+import { ref, get, set, push } from "firebase/database";
+import { database } from "../../firebase";
 
 const instance = axios.create({
   baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/',
@@ -104,30 +106,41 @@ export const requestLogOut = async () => {
 
 export const requestGetTeachers = async () => {
   try {
-    const { data } = await instance.get('/teachers.json');
-    return data;
+    const teachersRef = ref(database, 'teachers');
+    const snapshot = await get(teachersRef);
+
+    if (snapshot.exists()) {
+      console.log('Fetched data:', snapshot.val());
+      return snapshot.val();
+    } else {
+      console.log("No data available");
+      return [];
+    }
   } catch (error) {
     console.error('Failed to get teachers:', error.message);
     throw new Error(error.message);
   }
 };
 
-// Додавання нового вчителя
-export const requestAddTeachers = async (formData) => {
+export const requestAddTeachers = async (teacherData) => {
   try {
-    const { data } = await instance.post('/teachers.json', formData);
-    return data;
+    const teachersRef = ref(database, 'teachers');
+    const newTeacherRef = push(teachersRef);
+    await set(newTeacherRef, teacherData);
+    
+    return { id: newTeacherRef.key, ...teacherData };
   } catch (error) {
     console.error('Failed to add teacher:', error.message);
     throw new Error(error.message);
   }
 };
 
-// Видалення вчителя за ID
 export const requestDeleteTeachers = async (teacherId) => {
   try {
-    const { data } = await instance.delete(`/teachers/${teacherId}.json`);
-    return data;
+    const teacherRef = ref(database, `teachers/${teacherId}`);
+    await remove(teacherRef);
+    
+    return teacherId;
   } catch (error) {
     console.error('Failed to delete teacher:', error.message);
     throw new Error(error.message);

@@ -19,9 +19,9 @@ export const fetchTeachers = createAsyncThunk(
    
     export const addTeachers = createAsyncThunk(
     "contacts/addTeachers",
-    async (addTeachers, thunkAPI) => {
+    async (teacherData, thunkAPI) => {
         try {
-            const response = await requestAddTeachers(addTeachers);
+            const response = await requestAddTeachers(teacherData);
             return response;
         } catch(error) {
             return thunkAPI.rejectWithValue(error.message);
