@@ -6,6 +6,7 @@ import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentUser } from "./redux/auth/operations";
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { auth } from './firebase';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
@@ -30,8 +31,10 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/teachers" element={<TeachersPage />} />
-            <Route path="/favorites" element={           
-              <FavoritesPage />
+            <Route path="/favorites" element={
+              <PrivateRoute>
+                  <FavoritesPage />
+              </PrivateRoute>
             } />
             <Route path="*" element={<Navigate to="/" />} />
 

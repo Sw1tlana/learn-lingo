@@ -58,6 +58,15 @@ export const fetchCurrentUser = createAsyncThunk(
       console.error('Error fetching current user:', err.message);
       return thunkAPI.rejectWithValue(err.message);
     }
+  },
+    {
+    condition: (_, thunkAPI) => {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+
+      if(!token) return false;
+      return true;
+    }
   }
 );
 

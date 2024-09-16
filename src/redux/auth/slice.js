@@ -79,8 +79,8 @@ const authSlice = createSlice({
         console.log('Logout fulfilled');
         console.log('State before clearing:', state);
         state.user = null; 
-        // state.token = null;
-        // state.uid = null;
+        state.token = null;
+        state.uid = null;
         state.isLoggedIn = false;
         state.error = null;
       })

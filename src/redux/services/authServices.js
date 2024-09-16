@@ -19,7 +19,7 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
-  delete instance.defaults.headers.common['Authorization']; 
+  instance.defaults.headers.common['Authorization'] = ''; 
   console.log('Token cleared');
 };
 
@@ -96,6 +96,40 @@ export const requestLogOut = async () => {
     return { success: true };
   } catch (error) {
     console.error('Logout Error:', error.message);
+    throw new Error(error.message);
+  }
+};
+
+// teachers
+
+export const requestGetTeachers = async () => {
+  try {
+    const { data } = await instance.get('/teachers.json');
+    return data;
+  } catch (error) {
+    console.error('Failed to get teachers:', error.message);
+    throw new Error(error.message);
+  }
+};
+
+// Додавання нового вчителя
+export const requestAddTeachers = async (formData) => {
+  try {
+    const { data } = await instance.post('/teachers.json', formData);
+    return data;
+  } catch (error) {
+    console.error('Failed to add teacher:', error.message);
+    throw new Error(error.message);
+  }
+};
+
+// Видалення вчителя за ID
+export const requestDeleteTeachers = async (teacherId) => {
+  try {
+    const { data } = await instance.delete(`/teachers/${teacherId}.json`);
+    return data;
+  } catch (error) {
+    console.error('Failed to delete teacher:', error.message);
     throw new Error(error.message);
   }
 };
