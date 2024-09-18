@@ -12,7 +12,7 @@ const handlePending = (state) => {
 
 const handleRejected = (state, action) => {
   state.loading = false;
-  state.error = action.payload;
+  state.error = action.error.message;;
 };
 
 const teachersSlice = createSlice({
@@ -25,21 +25,25 @@ const teachersSlice = createSlice({
     extraReducers: (builder) => {
     builder
       .addCase(fetchTeachers.pending, handlePending)
+
       .addCase(fetchTeachers.fulfilled, (state, action) => {
         console.log('Fetched teachers in reducer:', action.payload);
         state.loading = false;
         state.error = null;
-         state.items = action.payload; 
+         state.items = Array.isArray(action.payload) ? action.payload : state.items;
       })
-      .addCase(fetchTeachers.rejected, handleRejected)
       .addCase(addTeachers.pending, handlePending)
+
       .addCase(addTeachers.fulfilled, (state, action) => {
-            state.loading = false;
-            state.error = null;
-            state.items = [...state.items, action.payload];
+        console.log('Teacher added:', action.payload); 
+        state.loading = false;
+        state.error = null;
+        state.items.push(action.payload);
       })
-        .addCase(addTeachers.rejected, handleRejected) 
-        .addCase(deleteTeachers.pending, handlePending)
+      .addCase(addTeachers.rejected, handleRejected) 
+      
+      .addCase(deleteTeachers.pending, handlePending)
+      
         .addCase(deleteTeachers.fulfilled, (state, action) => {
             state.loading = false;
             state.error = null;

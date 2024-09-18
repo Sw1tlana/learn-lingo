@@ -5,7 +5,7 @@ const TeachersItem = ({teacher}) => {
    
   return (
     <li>
-        <img src={teacher.avatar_url} alt={`${teacher.name}'s avatar`} className={css.avatar} />
+       <img src={teacher.avatar_url} alt={`${teacher.avatar_url}'s avatar`} className={css.avatar} />
         <h2>{teacher.name}</h2>
         <p><strong>Conditions:</strong> {teacher.conditions.join(', ')}</p>
         <p><strong>Experience:</strong> {teacher.experience}</p>

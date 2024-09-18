@@ -1,10 +1,13 @@
-import { selectTeachers } from "../../redux/teachers/selectors";
+import { selectTeachers, selectLoading, selectError } from "../../redux/teachers/selectors";
 import TeachersItem from "../TeachersItem/TeachersItem";
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeachers } from "../../redux/teachers/operations";
 
 const TeachersList = () => {
-    const teachers = useSelector(selectTeachers);
+  const teachers = useSelector(selectTeachers);
+  const isLoading = useSelector(selectLoading);
+  const error = useSelector(selectError);
     const dispatch = useDispatch();
 
   if (!teachers || teachers.length === 0) {
@@ -12,33 +15,32 @@ const TeachersList = () => {
       return <p>No teachers found.</p>; 
     }
     
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      console.log('Dispatching fetchTeachers...');
-      await dispatch(fetchTeachers());
-    } catch (error) {
-      console.error('Failed to fetch teachers:', error);
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchTeachers());
+  }, [dispatch]);
+
+  console.log('Teachers:', teachers);
+  console.log('Loading:', isLoading);
+  console.log('Error:', error);
+
+    if (error) {
+    console.error('Error fetching teachers:', error);
+    return <p>Error fetching teachers. Please try again later.</p>;
+  }
   
-  fetchData();
-}, [dispatch]);
-    
-    console.log('Fetched teachers:', teachers);
+    if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  console.log('Teachers:', teachers);
+  console.log('Loading:', isLoading);
 
   return (
-    <div>
-      {teachers.length === 0 ? (
-        <p>No teachers found.</p>
-      ) : (
-        <ul>
-          {teachers.map((teacher) => (
-            <li key={teacher.id}>{teacher.name}</li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul>
+      {teachers.map((teacher) => (
+        <TeachersItem key={teacher.id} teacher={teacher}  />
+      ))}
+    </ul>
   )
 }
 

@@ -103,8 +103,10 @@ export const requestLogOut = async () => {
 // teachers
 
 export const requestGetTeachers = async () => {
+    console.log('Current Headers:', instance.defaults.headers.common['Authorization']);
   try {
-    const response = await instance.get('/teachers.json');
+  
+    const response = await instance.get('teachers.json');
     console.log('API Response:', response.data);
 
     if (response.data) {

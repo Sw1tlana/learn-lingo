@@ -9,10 +9,10 @@ const UserMenu = () => {
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
 
-    // const onLogOut = () => {
-    //     console.log('Logout button clicked');
-    //     dispatch(logout());
-    // };
+    const onLogOut = () => {
+        console.log('Logout button clicked');
+        dispatch(logout());
+    };
     
     useEffect(() => {
         console.log('User:', user);
@@ -23,7 +23,7 @@ const UserMenu = () => {
   <div>
     {isLoggedIn && user ? (
       <div className={css.containerMenu}>
-        <span className={css.userName}>{user.name}</span>
+          <button onClick={onLogOut} className={css.logoutButton}>Logout</button>
       </div>
     ) : null}
   </div>
