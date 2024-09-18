@@ -1,6 +1,7 @@
 
 
 const TeachersItem = ({teacher}) => {
+   console.log('Rendering teacher item:', teacher);
    
   return (
     <li>

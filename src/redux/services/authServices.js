@@ -7,8 +7,6 @@ import {
 } from 'firebase/auth';
 
 import { auth } from '../../firebase';
-import { ref, get, set, push } from "firebase/database";
-import { database } from "../../firebase";
 
 const instance = axios.create({
   baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/',
@@ -106,29 +104,30 @@ export const requestLogOut = async () => {
 
 export const requestGetTeachers = async () => {
   try {
-    const teachersRef = ref(database, 'teachers');
-    const snapshot = await get(teachersRef);
+    const response = await instance.get('/teachers.json');
+    console.log('API Response:', response.data);
 
-    if (snapshot.exists()) {
-      console.log('Fetched data:', snapshot.val());
-      return snapshot.val();
-    } else {
-      console.log("No data available");
-      return [];
+    if (response.data) {
+      const teachersArray = Object.keys(response.data).map(key => ({
+        id: key,
+        ...response.data[key]
+      }));
+      console.log('Formatted teachers array:', teachersArray);
+      return teachersArray;
     }
+
+    return [];
   } catch (error) {
-    console.error('Failed to get teachers:', error.message);
+    console.error('Failed to fetch teachers:', error.message);
     throw new Error(error.message);
   }
 };
 
 export const requestAddTeachers = async (teacherData) => {
   try {
-    const teachersRef = ref(database, 'teachers');
-    const newTeacherRef = push(teachersRef);
-    await set(newTeacherRef, teacherData);
+    const response = await instance.post('teachers.json', teacherData);
     
-    return { id: newTeacherRef.key, ...teacherData };
+    return { id: response.data.name, ...teacherData };
   } catch (error) {
     console.error('Failed to add teacher:', error.message);
     throw new Error(error.message);
@@ -137,9 +136,8 @@ export const requestAddTeachers = async (teacherData) => {
 
 export const requestDeleteTeachers = async (teacherId) => {
   try {
-    const teacherRef = ref(database, `teachers/${teacherId}`);
-    await remove(teacherRef);
-    
+    await instance.delete(`teachers/${teacherId}.json`);
+    console.log(`Teacher ${teacherId} deleted`);
     return teacherId;
   } catch (error) {
     console.error('Failed to delete teacher:', error.message);

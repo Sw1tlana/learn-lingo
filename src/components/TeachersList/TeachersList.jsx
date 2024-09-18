@@ -8,21 +8,37 @@ const TeachersList = () => {
     const dispatch = useDispatch();
 
   if (!teachers || teachers.length === 0) {
+       console.log('No teachers found:', teachers); 
       return <p>No teachers found.</p>; 
     }
     
-    useEffect(() => {
-        dispatch(fetchTeachers());
-    }, [dispatch]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      console.log('Dispatching fetchTeachers...');
+      await dispatch(fetchTeachers());
+    } catch (error) {
+      console.error('Failed to fetch teachers:', error);
+    }
+  };
+  
+  fetchData();
+}, [dispatch]);
     
     console.log('Fetched teachers:', teachers);
 
   return (
-    <ul>
-      {teachers.map(teacher => (
-        <TeachersItem key={teacher.id} teacher={teacher}  />
-      ))}
-    </ul>
+    <div>
+      {teachers.length === 0 ? (
+        <p>No teachers found.</p>
+      ) : (
+        <ul>
+          {teachers.map((teacher) => (
+            <li key={teacher.id}>{teacher.name}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
 

@@ -10,7 +10,9 @@ export const fetchTeachers = createAsyncThunk(
     "contacts/fetchTeachers",
     async (_, thunkAPI) => {
         try {
+            console.log('Fetching teachers...');
             const response = await requestGetTeachers();
+             console.log('Response from requestGetTeachers:', response);
             return response;
         } catch(error) {
             return thunkAPI.rejectWithValue(error.message);
