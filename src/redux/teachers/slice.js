@@ -4,9 +4,10 @@ import {
     fetchTeachers,
     addTeachers,
     deleteTeachers
-} from "./operations"; 
+} from "./operations.js"; 
  
 const handlePending = (state) => {
+    console.log('Fetch teachers pending');
   state.loading = true;
 };
 
@@ -30,7 +31,7 @@ const teachersSlice = createSlice({
         console.log('Fetched teachers in reducer:', action.payload);
         state.loading = false;
         state.error = null;
-         state.items = Array.isArray(action.payload) ? action.payload : state.items;
+         state.items = action.payload;
       })
       .addCase(addTeachers.pending, handlePending)
 

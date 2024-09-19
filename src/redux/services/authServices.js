@@ -105,8 +105,9 @@ export const requestLogOut = async () => {
 export const requestGetTeachers = async () => {
     console.log('Current Headers:', instance.defaults.headers.common['Authorization']);
   try {
-  
-    const response = await instance.get('teachers.json');
+    console.log('Starting request to fetch teachers');
+  const response = await instance.get('teachers.json');
+  console.log('Direct API Response:', response.data);
     console.log('API Response:', response.data);
 
     if (response.data) {
