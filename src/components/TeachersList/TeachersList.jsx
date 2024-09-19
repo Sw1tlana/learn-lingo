@@ -6,6 +6,7 @@ import { fetchTeachers } from "../../redux/teachers/operations";
 
 const TeachersList = () => {
   const teachers = useSelector(selectTeachers);
+   console.log(teachers);
   const isLoading = useSelector(selectLoading);
   const error = useSelector(selectError);
     const dispatch = useDispatch();

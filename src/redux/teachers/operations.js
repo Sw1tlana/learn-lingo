@@ -12,8 +12,8 @@ export const fetchTeachers = createAsyncThunk(
         try {
             console.log('Fetching teachers...');
             const response = await requestGetTeachers();
-             console.log('Response from requestGetTeachers:', response.date);
-            return response.date;
+             console.log('Response from requestGetTeachers:', response);
+            return response;
         } catch(error) {
             return thunkAPI.rejectWithValue(error.message);
         }
