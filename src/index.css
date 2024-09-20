@@ -24,6 +24,8 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    color: var(--primery-color);
+    font-size: 16px;
 }
 
 button {

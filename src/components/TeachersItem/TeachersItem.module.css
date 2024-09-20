@@ -1,0 +1,140 @@
+.teacherCard {
+   display: flex;
+   gap: 32px;
+   flex-wrap: wrap;
+   max-width: 1184px;
+   width: 100%;
+   background-color: var(--white-bg-color);
+   padding: 24px;
+   border-radius: 24px;
+}
+
+.teacherInfoContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.avatarContainer {
+    padding: 12px;
+    position: relative;
+    box-sizing: border-box;
+    border: 3px solid var(--secondary-btn-accent);
+    border-radius: 100px;
+    margin-right: 48px;
+}
+
+.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarContainer::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--green-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 21px;
+    left: 87px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.textLessonInfo {
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0%;
+}
+
+.textLesson {
+    color: var(--secondary-bg-color);
+}
+
+.withMargin {
+    margin-left: 194px;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 6px;
+    fill: transparent;
+    stroke: var(--black-color);
+}
+
+.ratingItem {
+    display: flex;
+    align-items: center;
+}
+
+.iconRating {
+    margin-right: 6px;
+    fill: var(--yellow-bg-color);
+}
+
+.price {
+    color: var(--green-color);
+}
+
+.listInfoLessons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.listInfoLessons li {
+    margin-bottom: 8px;
+}
+
+.additionalInfo {
+    margin-top: 20px;
+}
+
+.additionalInfo li {
+    margin-bottom: 10px;
+}
+
+.nameTeachers {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0%;
+    margin-bottom: 32px;
+}
+
+.subTextLessonInfo {
+    color: var(--secondary-bg-color);
+}
+
+.strongTextLesson {
+    margin-bottom: 32px;
+}
+
+.levelsInfo {
+    display: flex;
+    gap: 8px;
+}
+
+.levels {
+    border: 1px solid var(--secondary-color);
+    border-radius: 35px;
+    padding: 8px;
+}
+
+.heartItem {
+    display: flex;
+    align-items: center;
+    margin-left: 64px;
+}
+
+.iconHeart {
+    fill: transparent;
+    stroke: var(--black-color);
+}
