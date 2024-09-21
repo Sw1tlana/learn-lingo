@@ -86,11 +86,29 @@
 .listInfoLessons {
     display: flex;
     align-items: center;
-    gap: 15px;
 }
 
 .listInfoLessons li {
+    position: relative;
     margin-bottom: 8px;
+    padding: 8px;
+}
+
+.listInfoLessons li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 50%;
+    background-color: var(--secondary-color);
+}
+
+.listInfoLessons li:last-child::after,
+.listInfoLessons li:nth-last-child(2)::after,
+.listInfoLessons li:first-child::after {
+    display: none;
 }
 
 .additionalInfo {
@@ -113,8 +131,15 @@
     color: var(--secondary-bg-color);
 }
 
-.strongTextLesson {
+.btnTextLesson {
+    border: none;
     margin-bottom: 32px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0%;
+    text-align: left;
+    text-decoration-line: underline;
+    background: transparent;
 }
 
 .levelsInfo {

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { fetchTeachers } from '../../redux/teachers/operations';
 import { selectTeachers } from '../../redux/teachers/selectors';
 import TeachersItem from '../../components/TeachersItem/TeachersItem';
+import TeacherFilter from '../TeacherFilter/TeacherFilter';
+import Loader from '../../shared/components/Loader/Loader';
 import css from './TeachersList.module.css';
 
 
@@ -16,13 +18,14 @@ const TeachersList = () => {
 
   return (
     <section className={css.sectionTeacher}>
+      <TeacherFilter/>
     <ul className={css.teacherList}>
       {Array.isArray(teachers) && teachers.length > 0 ? (
         teachers.map((teacher) => (
           <TeachersItem key={teacher.id} teacher={teacher} />
         ))
       ) : (
-        <li>No teachers found</li>
+        <Loader/>
       )}
     </ul>
     </section>

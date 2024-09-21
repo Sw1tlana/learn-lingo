@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import css from './TeachersItem.module.css';
-import { icons as sprite } from '../../shared/icons';
 import RedMore from '../RedMore/RedMore';
+import css from './TeacherCard.module.css';
 
-
-const TeachersItem = ({teacher}) => {
-  console.log('Rendering teacher item:', teacher);
-
-   
-return (
-<li key={teacher.id} className={css.teacherCard}>
+export const TeacherCard = ({teacher}) => {
+      const [isExpanded, setIsExpanded] = useState(false);
+  
+    const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  }
+  return (
+        <li key={teacher.id} className={css.teacherCard}>
   <div className={css.teacherInfoContainer}>
         <div className={css.avatarContainer}>
           <span className={css.statusCircle}></span>
@@ -82,18 +81,8 @@ return (
             </div>
         </div>
   </div>
-</li>  
+</li>    
   )
-        {/* <p><strong>Experience:</strong> {teacher.experience}</p>} 
-          {/* <p><strong>Reviews:</strong></p> */}
-      {/* <ul>
-        {teacher.reviews?.map((review, index) => (
-          <li key={index}>
-            <p>{review.reviewer_name}</p>
-            <p>{review.comment}</p>
-          </li>
-        ))}
-      </ul> */}  
 }
 
-export default TeachersItem
+export default TeacherCard;
