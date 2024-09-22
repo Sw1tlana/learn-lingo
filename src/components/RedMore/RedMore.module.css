@@ -1,0 +1,62 @@
+.containerExperience {
+    margin-bottom: 32px;
+}
+
+.textExperience {
+    line-height: 1.5;
+    letter-spacing: 0%;
+    max-width: 968px;
+    width: 100%;
+}
+
+.containerReviev {
+   margin-bottom: 32px;
+}
+
+.containerIconRating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.iconRating {
+    fill: var(--yellow-bg-color);
+}
+
+.nameReview {
+   color: var(--secondary-bg-color);
+   margin-bottom: 2px;
+}
+
+.textReview {
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0%; 
+}
+
+.btnTextLesson {
+    border: none;
+    margin-bottom: 32px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0%;
+    text-align: left;
+    text-decoration-line: underline;
+    background: transparent;
+}
+
+.btnBookLesson {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 16px 48px 16px 48px;
+    border-radius: 12px;
+    background-color: var(--primery-btn-color);
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.btnBookLesson:hover {
+    background-color: var(--secondary-btn-accent);
+    transform: scale(1.02);
+}

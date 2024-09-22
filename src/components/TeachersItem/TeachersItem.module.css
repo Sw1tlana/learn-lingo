@@ -19,14 +19,14 @@
     padding: 12px;
     position: relative;
     box-sizing: border-box;
-    border: 3px solid var(--secondary-btn-accent);
+    border: 3px solid var(--color-avatar);
     border-radius: 100px;
     margin-right: 48px;
 }
 
 .avatar {
-    width: 96px;
-    height: 96px;
+    max-width: 96px;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
 }
