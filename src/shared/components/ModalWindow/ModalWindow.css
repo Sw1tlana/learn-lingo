@@ -7,9 +7,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.7) !important;
+    background-color: rgba(0, 0, 0, 0.7);
     overflow: hidden;
-    padding: 18px;
+    padding: 0;
     z-index: 100;
     opacity: 1;
     transition: opacity 0.3s;
@@ -17,7 +17,6 @@
 
 .modal-content {
     width: 100%;
-    max-width: 480px;
     height: 80vh;
     padding: 40px 16px;
     background-color: var(--white-bg-color);
@@ -26,12 +25,13 @@
     flex-direction: column;
     overflow-y: auto;
     position: relative;
-}
+} 
 
 .modal-content * {
     background-color: transparent;
+    overflow: hidden;
     border: none;
-}
+} 
 
 .modalClose {
     position: absolute;
@@ -53,19 +53,6 @@
 
 .iconClose:active,
 .iconClose:hover {
-    stroke: var(--status-color);
+    stroke: var(--primery-btn-color);
 }
 
-body.no-scroll {
-    overflow: hidden;
-}
-
-@media (min-width: 769px) {
-    .modal-overlay {
-        padding: 0;
-    }
-
-    .modal-content {
-        max-width: 982px;
-    }
-}

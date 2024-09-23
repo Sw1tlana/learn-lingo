@@ -35,9 +35,9 @@ const RedMore = ({ teacherDetails, isExpanded, toggleExpanded }) => {
       </>
   )}
   {!isExpanded && (
-    <div className={css.btnTextLesson} onClick={toggleExpanded}>
+    <button className={css.btnTextLesson} onClick={toggleExpanded}>
       Read More
-    </div>
+    </button>
   )}
 </div>
   );

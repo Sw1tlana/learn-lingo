@@ -3,7 +3,7 @@ import { icons as sprite } from "../../../shared/icons/index";
 import Modal from 'react-modal';
 import { useEffect } from 'react';
 
-const ModalWindow = ({ children, isOpen, onClose }) => {
+const ModalWindow = ({ children, isOpen, onClose, size, className }) => {
   Modal.setAppElement('#root');
   
   useEffect(() => {
@@ -13,25 +13,22 @@ const ModalWindow = ({ children, isOpen, onClose }) => {
       }
     };
 
-    if (isOpen) {
-      document.body.classList.add('no-scroll');
-    } else {
-      document.body.classList.remove('no-scroll');
-    }
-
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown); 
       document.body.classList.remove('no-scroll');
     }
   }, [onClose, isOpen]); 
-  
+
+  const sizeClass = size === 'small' ? 'modal-content-small' :
+                    size === 'medium' ? 'modal-content-medium' :
+                    size === 'large' ? 'modal-content-large' : '';
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
       overlayClassName="modal-overlay"
-      className="modal-content"
+      className={`modal-content ${sizeClass} ${className}`} 
     >
       <button onClick={onClose} className="modalClose">
         <svg className="iconClose">

@@ -3,20 +3,32 @@ import ModalWindow from '../../shared/components/ModalWindow/ModlWindow';
 import BookLessonForm from '../BookLessonForm/BookLessonForm';
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
 
-const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen  }) => {
+const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
 
   return (
       <div>
-      <ModalWindow isOpen={isOpen} onClose={onClose}>
-        <h2>Book trial lesson</h2>
-        <img src={teacherPhoto} alt={teacherName} className={css.teacherPhoto} />
-        <p>
+      <ModalWindow isOpen={isOpen}
+        onClose={onClose}
+        className={css.modaLesson}
+      >
+        <h2 className={css.titleModalLesson}>Book trial lesson</h2>
+        <p className={css.textModalLesson}>
           Our experienced tutor will assess your current language level,
           discuss your learning goals, and tailor the lesson to your specific needs.
         </p>
-        <h3>What is your main reason for learning English?</h3>
+        <div className={css.containerModalTeacher}> 
+        <img src={teacherPhoto}
+          alt={teacherName}
+          className={css.teacherPhoto}
+        />
+        <div>
+        <p className={css.nameModalLesson}>Your teacher</p>
+        <p className={css.nameModal}>{teacherName}</p>
+        </div>
+        </div>
+        <h3 className={css.radioInfoModalLesson}>What is your main reason for learning English?</h3>
         <RadioButtonGroup/>
-     <BookLessonForm/>
+        <BookLessonForm/>
     </ModalWindow>  
     </div>
   )
