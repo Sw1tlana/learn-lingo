@@ -7,13 +7,13 @@ const RedMore = ({ teacherDetails, isExpanded, toggleExpanded }) => {
 <div className={isExpanded ? css.expanded : ''} onClick={toggleExpanded}>
   {isExpanded && (
       <>
-          <li className={css.containerExperience}>
+          <div className={css.containerExperience}>
             <p className={css.textExperience}>
               {teacherDetails.experience}
             </p>
-          </li>
+          </div>
         {teacherDetails.reviews?.map((review, index) => (
-          <li key={index}
+          <div key={index}
           className={css.containerReviev}
           >
             <div className={css.containerReview}>
@@ -30,12 +30,9 @@ const RedMore = ({ teacherDetails, isExpanded, toggleExpanded }) => {
             <p className={css.textReview}>
               {review.comment}
             </p>
-          </li>
+          </div>
         ))}
-          {/* <button type='button'
-            className={css.btnBookLesson}
-          >Book trial lesson</button>  */}
-        </>
+      </>
   )}
   {!isExpanded && (
     <div className={css.btnTextLesson} onClick={toggleExpanded}>

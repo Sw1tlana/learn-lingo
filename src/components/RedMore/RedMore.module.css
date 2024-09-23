@@ -45,18 +45,3 @@
     background: transparent;
 }
 
-.btnBookLesson {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    padding: 16px 48px 16px 48px;
-    border-radius: 12px;
-    background-color: var(--primery-btn-color);
-    transition: background-color 0.1s ease, transform 0.1s ease;
-}
-
-.btnBookLesson:hover {
-    background-color: var(--secondary-btn-accent);
-    transform: scale(1.02);
-}

@@ -2,15 +2,25 @@ import { useState } from 'react';
 import css from './TeachersItem.module.css';
 import { icons as sprite } from '../../shared/icons';
 import RedMore from '../RedMore/RedMore';
+import BookTrialLesson from '../BookTrialLesson/BookTrialLesson';
 
 
 const TeachersItem = ({teacher}) => {
   console.log('Rendering teacher item:', teacher);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
-  }
+  };
+
+    const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   
 return (
     <li key={teacher.id} className={css.teacherCard}>
@@ -83,13 +93,28 @@ return (
             {teacher.levels?.map((level, index) => (
               <p key={index} className={css.levels}>{level}</p>
             ))}
-              <button type='button' className={css.btnBookLesson}>
-                Book trial lesson
-              </button>
-          </div>
         </div>
+            {isExpanded && (
+              <div className={css.buttonContainer}>
+              <button type='button'
+              className={css.btnBookLesson}
+              onClick={openModal}
+              >
+              Book trial lesson
+              </button>
+            </div>
+    )}
       </div>
-    </li>
+    </div>
+        {isModalOpen && (
+        <BookTrialLesson
+          teacherName={`${teacher.name} ${teacher.surname}`}
+          teacherPhoto={teacher.avatar_url}
+          onClose={closeModal}
+          isOpen={isModalOpen}
+        />
+      )}
+   </li>
   ); 
 }
 
