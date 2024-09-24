@@ -16,31 +16,48 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
     };
     
   return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}>
+      
       <div>
-        <label>Full Name</label>
-            <input type="text"
-            placeholder="Full Name"
-            {...register('name')} />
-        {errors.name && <p>{errors.name.message}</p>}
+        <input 
+          id="text"
+          placeholder="Full Name"
+          className={css.formInput}
+          {...register('name')}
+          aria-required="true"/>
+        {errors.name &&
+          <p className={css.errorMsg}>
+            {errors.name.message}</p>}
       </div>
+
       <div>
-        <label>Email</label>
-            <input type="email"
-            placeholder="Email"
-            {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
+        <input
+            id="email"
+          placeholder="Email"
+          className={css.formInput}
+          {...register('email')}
+          aria-required="true"/>
+        {errors.email &&
+          <p className={css.errorMsg}>
+            {errors.email.message}</p>}
       </div>
+
       <div>
-        <label>Phone number</label>
     <input
-      type="text"
-      placeholder="Phone number"
-      {...register('phone')}
-    />
-    {errors.phone && <p>{errors.phone.message}</p>}
+          id="text"
+          placeholder="Phone number"
+          className={css.formInput}
+          {...register('phone')}
+          aria-required="true"/>
+          {errors.phone &&
+          <p className={css.errorMsg}>
+          {errors.phone.message}</p>}  
       </div>
-      <button type="submit">Book</button>
+      <button
+        type="submit"
+        className={css.btnBookLesson}
+        >Book</button>
     </form>
   )
 }

@@ -1,7 +1,7 @@
 import 'simplebar-react/dist/simplebar.min.css';
 import SimpleBar from 'simplebar-react';
 import { useRef } from 'react';
-import "./CustomScrollWrapper.css";
+import "./CustomScrollWrapper.module.css";
 
 const CustomScrollWrapper = ({ children }) => {
   const scrollbarRef = useRef(null);

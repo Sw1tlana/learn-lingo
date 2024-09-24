@@ -3,10 +3,10 @@
 }
 
 .customScrollWrapper .simplebar-scrollbar::before {
-    background-color: var(--secondary-color);
+    background-color: #000;
 }
 
 .customScrollWrapper .simplebar-track {
-    background-color: var(--scroll-color);
+    background-color: #000;
     border-radius: 7px;
 }

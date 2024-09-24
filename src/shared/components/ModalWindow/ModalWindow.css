@@ -16,20 +16,19 @@
 }
 
 .modal-content {
-    width: 100%;
-    height: 80vh;
-    padding: 40px 16px;
+    height: 90vh;
+    max-height: 90vh;
+    overflow-y: auto;
     background-color: var(--white-bg-color);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     position: relative;
 } 
 
+
 .modal-content * {
     background-color: transparent;
-    overflow: hidden;
     border: none;
 } 
 

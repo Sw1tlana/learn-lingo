@@ -1,0 +1,33 @@
+.formInput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 16px 18px;
+    width: 100%;
+    border: 1px solid rgba(18, 20, 23, 0.1);
+    border-radius: 12px;
+    background-color: var(--bg-primery-color);
+    margin-bottom: 14px;
+}
+
+.errorMsg {
+    color: var(--peach-pink);
+}
+
+.btnBookLesson {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primery-btn-color);
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0%;
+    border-radius: 12px;
+    text-align: left;
+    color: var(--white);
+    margin-top: 40px;
+}

@@ -1,5 +1,5 @@
 import css from './RadioButtonGroup.module.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const RadioButtonGroup = () => {
     const [selectedOption, setSelectedOption] = useState('');
@@ -10,7 +10,7 @@ const RadioButtonGroup = () => {
     
   return (
       <div>
-        <label>
+        <label className={css.label}>
             <input
             type="radio"
             value="career"
@@ -19,7 +19,7 @@ const RadioButtonGroup = () => {
             />
             Career and business
           </label>
-          <label>
+          <label className={css.label}>
               <input
                   type="radio"
                   value="kids"
@@ -28,7 +28,7 @@ const RadioButtonGroup = () => {
               />
                 Lesson for kids
           </label>
-          <label>
+          <label className={css.label}>
               <input
                   type="radio"
                   value="exsams"
@@ -37,7 +37,7 @@ const RadioButtonGroup = () => {
               />
                Exams and coursework
           </label>
-            <label>
+            <label className={css.label}>
               <input
                   type="radio"
                   value="culture"
