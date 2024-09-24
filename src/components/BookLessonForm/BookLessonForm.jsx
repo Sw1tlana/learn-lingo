@@ -33,7 +33,7 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
 
       <div>
         <input
-            id="email"
+          id="email"
           placeholder="Email"
           className={css.formInput}
           {...register('email')}

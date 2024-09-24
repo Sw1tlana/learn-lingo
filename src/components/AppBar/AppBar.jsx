@@ -59,11 +59,17 @@ const AppBar = () => {
       </div>
       </header>
       
-    <ModalWindow isOpen={isLoginModalOpen} onClose={closeLogin}>
+        <ModalWindow
+          isOpen={isLoginModalOpen}
+          onClose={closeLogin}
+          >
         <LoginForm />
     </ModalWindow>
 
-    <ModalWindow isOpen={isRegisterModalOpen} onClose={closeRegister}>
+        <ModalWindow
+          isOpen={isRegisterModalOpen}
+          onClose={closeRegister}
+          className={css.modalRegister}>
         <RegistrationForm />
     </ModalWindow>
     </>

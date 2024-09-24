@@ -2,7 +2,6 @@ import css from './BookTrialLesson.module.css';
 import ModalWindow from '../../shared/components/ModalWindow/ModlWindow';
 import BookLessonForm from '../BookLessonForm/BookLessonForm';
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
-import CustomScrollWrapper from '../../shared/components/CustomScrollWrapper/CustomScrollWrapper';
 
 const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
 
@@ -11,8 +10,7 @@ const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
       <ModalWindow isOpen={isOpen}
         onClose={onClose}
         className={css.modalLesson}
-        >
-        <CustomScrollWrapper>
+        >      
         <h2 className={css.titleModalLesson}>Book trial lesson</h2>
         <p className={css.textModalLesson}>
           Our experienced tutor will assess your current language level,
@@ -33,8 +31,7 @@ const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
           What is your main reason for learning English?
         </h3>
         <RadioButtonGroup/>
-          <BookLessonForm />
-        </CustomScrollWrapper> 
+          <BookLessonForm />       
       </ModalWindow>  
     </div>
   )

@@ -1,5 +1,6 @@
 .customScrollWrapper {
     height: 75%;
+    overflow-y: auto;
 }
 
 .customScrollWrapper .simplebar-scrollbar::before {

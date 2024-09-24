@@ -1,7 +1,9 @@
 import css from './RegistrationForm.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { icons as sprite } from '../../shared/icons';
 import { registrSchema } from '../schemas/registrSchemas';
 import { INITIAL_FORM_DATA } from '../schemas/registrSchemas';
 import { register as registerUser } from '../../redux/auth/operations';
@@ -13,6 +15,11 @@ const RegistrationForm = () => {
         resolver: yupResolver(registrSchema),
          defaultValues: INITIAL_FORM_DATA
     });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
     
 const onSubmit = async (data) => {
   try {
@@ -22,38 +29,61 @@ const onSubmit = async (data) => {
   } catch (error) {
     console.error('Error during registration:', error);
   }
-};
-    
+};  
     return (
         <section>
-            <h2>Registration</h2>
-            <p>Thank you for your interest in our platform! In order to register,
-                we need some information. Please provide us with the following
-                information
+        <h2 className={css.titleRegister}>
+          Registration</h2>
+        <p className={css.textRegister}>
+            Thank you for your interest in our platform! In order to register,
+            we need some information. Please provide us with the following
+            information
             </p>
         <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <label>Name</label>
-            <input type="text"
+            <input
+            id="text"
             placeholder="Name"
+            className={css.formInput}
             {...register('name')} />
-        {errors.name && <p>{errors.name.message}</p>}
+            {errors.name &&
+              <p className={css.errorMsg}>
+                {errors.name.message}</p>}
       </div>
       <div>
-        <label>Email</label>
-            <input type="email"
+            <input
+            id="email"
+            className={css.formInput}
             placeholder="Email"
             {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-      </div>
-      <div>
-        <label>Password</label>
-            <input type="password"
+            {errors.email &&
+              <p className={css.errorMsg}>
+                {errors.email.message}</p>}
+          </div>
+          
+      <div className={css.inputPassword}>
+            <input
+            id="password"
+            type={isPasswordVisible ? "text" : "password"}
+            className={css.formInput}
             placeholder="Password"
             {...register('password')} />
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
-      <button type="submit">Sign in</button>
+            {errors.password &&
+              <p className={css.errorMsg}>
+                {errors.password.message}</p>}
+            <svg
+              width={18}
+              height={18}
+              className={css.iconEye}
+              onClick={togglePasswordVisibility}>
+              <use xlinkHref={`${sprite}#icon-eye-${isPasswordVisible ? 'on' : 'off'}`} />
+            </svg>
+          </div>
+
+          <button
+            type="submit"
+            className={css.btnRegistr}
+          >Signin Up</button>
     </form>   
     </section>
     )

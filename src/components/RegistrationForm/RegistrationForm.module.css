@@ -1,0 +1,67 @@
+.titleRegister {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -2%;
+    margin-bottom: 20px;
+}
+
+.textRegister {
+    width: 438px;
+    line-height: 1.3;
+    letter-spacing: 0%;
+    margin-bottom: 40px;
+}
+
+.formInput {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 16px 18px;
+    width: 100%;
+    border: 1px solid rgba(18, 20, 23, 0.1);
+    border-radius: 12px;
+    background-color: var(--bg-primery-color);
+    margin-bottom: 14px;
+}
+.inputPassword {
+    position: relative;
+    width: 100%;
+}
+
+.iconEye {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    fill: transparent;
+    stroke: var(--primery-color);
+    cursor: pointer;
+}
+
+.errorMsg {
+    color: var(--peach-pink);
+}
+
+.btnRegistr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primery-btn-color);
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0%;
+    border-radius: 12px;
+    text-align: left;
+    color: var(--white);
+    margin-top: 40px;
+}
+
+.btnRegistr:active,
+.btnRegistr:hover {
+   background-color: var(--secondary-btn-accent);
+}
