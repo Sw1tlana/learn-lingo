@@ -54,12 +54,31 @@
     background-color: var(--secondary-btn-accent);
 }
 
-.containerInfoHome {
-    padding: 40px 122px;
-    border: 1px dotted var(--primery-btn-color);
-}
-
 .listInfoHome {
     display: flex;
+    justify-content: center;
+    max-width: 1312px;
+    width: 100%;
     gap: 100px;
+    padding: 40px;
+    border: 1.5px dashed var(--soft-blue);
+    border-radius: 30px;
+}
+
+.textMini {
+    display: flex;
+}
+
+.number {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -2%;
+}
+
+.span {
+    margin-left: 12px;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: -2%;
 }

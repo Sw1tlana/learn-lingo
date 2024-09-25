@@ -8,7 +8,7 @@ const Logo = () => {
                 <use
             xlinkHref={`${sprite}#icon-ukraine`} />
             </svg>
-            <h2>LearnLingo</h2>
+            <h2 className={css.hederTitle}>LearnLingo</h2>
         </div>
     )
 };

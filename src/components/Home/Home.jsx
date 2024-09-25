@@ -35,26 +35,32 @@ const Home = () => {
                     </picture>
                 </div>
             </section>
-            <div className={css.containerInfoHome}>
                     <ul className={css.listInfoHome}>
                         <li>
-                            <span>32,000 +</span>
-                            <span>Experienced tutors</span>
+                    <div className={css.textMini}>
+                        <p className={css.number}>32,000 + </p>
+                    <span className={css.span}>Experienced <br /> tutors</span>
+                    </div>
                         </li>
                         <li>
-                            <span>300,000 +</span>
-                            <span>5-star tutor reviews</span>
+                    <div className={css.textMini}>
+                        <p className={css.number}>300,000 + </p>
+                    <span className={css.span}>5-star tutor<br />reviews</span>
+                    </div>
                         </li>
                         <li>
-                            <span>120 +</span>
-                            <span>Subjects taught</span>
+                    <div className={css.textMini}>
+                        <p className={css.number}>120 + </p> 
+                    <span className={css.span}>Subjects<br/> taught</span>
+                    </div>
                         </li>
                         <li>
-                            <span>200 +</span>
-                            <span>Tutor nationalities</span>
-                        </li>
+                    <div className={css.textMini}>
+                        <p className={css.number}>200 + </p> 
+                    <span className={css.span}>Tutor<br/> nationalities</span>
+                    </div>
+                </li>
             </ul>
-                </div>
         </Container>
     )
 };

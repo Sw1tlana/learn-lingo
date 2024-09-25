@@ -1,4 +1,5 @@
 import css from './AppBar.module.css';
+import Container from '../../shared/components/Container/Container';
 import clsx from 'clsx'; 
 import { useContext, useState  } from 'react'; 
 import Logo from '../../shared/components/Logo/Logo';
@@ -30,7 +31,7 @@ const AppBar = () => {
   const closeRegister = () => setRegisterModalOpen(false);
     
     return (
-    <>
+    <Container>
     <header className={css.header}>
           <NavLink to="/">
               <Logo/>
@@ -72,7 +73,7 @@ const AppBar = () => {
           className={css.modalRegister}>
         <RegistrationForm />
     </ModalWindow>
-    </>
+   </Container>
   )
 }
 
