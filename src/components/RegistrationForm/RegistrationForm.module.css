@@ -24,6 +24,7 @@
     background-color: var(--bg-primery-color);
     margin-bottom: 14px;
 }
+
 .inputPassword {
     position: relative;
     width: 100%;
@@ -34,9 +35,12 @@
     top: 50%;
     right: 16px;
     transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.eyeClosed {
     fill: transparent;
     stroke: var(--primery-color);
-    cursor: pointer;
 }
 
 .errorMsg {
@@ -56,7 +60,6 @@
     line-height: 1.5;
     letter-spacing: 0%;
     border-radius: 12px;
-    text-align: left;
     color: var(--white);
     margin-top: 40px;
 }

@@ -62,7 +62,7 @@ const AppBar = () => {
         <ModalWindow
           isOpen={isLoginModalOpen}
           onClose={closeLogin}
-          >
+          className={css.modalLogin}>
         <LoginForm />
     </ModalWindow>
 

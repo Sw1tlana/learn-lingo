@@ -71,13 +71,14 @@ const onSubmit = async (data) => {
             {errors.password &&
               <p className={css.errorMsg}>
                 {errors.password.message}</p>}
-            <svg
-              width={18}
-              height={18}
-              className={css.iconEye}
-              onClick={togglePasswordVisibility}>
-              <use xlinkHref={`${sprite}#icon-eye-${isPasswordVisible ? 'on' : 'off'}`} />
-            </svg>
+                    <svg
+                        width={18}
+                        height={18}
+                        className={`${css.iconEye} ${isPasswordVisible ? css.eyeOpen : css.eyeClosed}`}
+                        onClick={togglePasswordVisibility}
+                        aria-label="Toggle password visibility">
+                        <use xlinkHref={`${sprite}#icon-eye-${isPasswordVisible ? 'on' : 'off'}`} />
+                   </svg>
           </div>
 
           <button

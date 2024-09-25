@@ -17,8 +17,8 @@ const TeachersList = () => {
   }, [dispatch]);
 
   return (
-    <section className={css.sectionTeacher}>
-      <TeacherFilter/>
+      <section className={css.sectionTeacher}>
+        <TeacherFilter />
     <ul className={css.teacherList}>
       {Array.isArray(teachers) && teachers.length > 0 ? (
         teachers.map((teacher) => (
@@ -27,7 +27,7 @@ const TeachersList = () => {
       ) : (
         <Loader/>
       )}
-    </ul>
+        </ul>
     </section>
   );
 };

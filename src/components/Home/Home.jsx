@@ -9,15 +9,23 @@ import {
 
 const Home = () => {
     return (
-        <section>
-            <Container>
-            <div>
-            <h1>Unlock your potential with the best <span>language</span> tutors</h1>
-            <p>Embark on an Exciting Language Journey with Expert Language Tutors:
+        <Container>
+        <section className={css.sectionHome}>
+        <div className={css.containerHome}>
+                    <h1 className={css.titleHome}>
+                        Unlock your potential with the best
+                        <span className={css.spanTitleHome}> language</span> tutors
+                    </h1>
+            <p className={css.textHome}>
+                Embark on an Exciting Language Journey with Expert Language Tutors:
                 Elevate your language proficiency to new heights by connecting with highly
                 qualified and experienced tutors.
-                </p>
-                <button type='button'>Get started</button>
+            </p>
+                <button
+                    type='button'
+                    className={css.btnHome}
+                    >Get started
+                </button>
                 </div>
                 <div>
                     <picture>
@@ -26,8 +34,9 @@ const Home = () => {
                         <img src={boyPng1x} alt="Language learning" />
                     </picture>
                 </div>
-                <div>
-                    <ul>
+            </section>
+            <div className={css.containerInfoHome}>
+                    <ul className={css.listInfoHome}>
                         <li>
                             <span>32,000 +</span>
                             <span>Experienced tutors</span>
@@ -44,10 +53,9 @@ const Home = () => {
                             <span>200 +</span>
                             <span>Tutor nationalities</span>
                         </li>
-                    </ul>
+            </ul>
                 </div>
-            </Container>
-        </section>
+        </Container>
     )
 };
 
