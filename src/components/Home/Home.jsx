@@ -5,10 +5,12 @@ import {
     boyPng2x,
     boyWebp2x
 } from '../../shared/images/index';
+import Container from '../../shared/components/Container/Container';
 
 const Home = () => {
     return (
-    <>
+  <Container>
+    <div className={css.containerWrapper}>
         <section className={css.sectionHome}>
         <div className={css.containerHome}>
                     <h1 className={css.titleHome}>
@@ -60,7 +62,8 @@ const Home = () => {
                     </div>
                 </li>
             </ul>
-        </>
+        </div>
+        </Container>
     )
 };
 

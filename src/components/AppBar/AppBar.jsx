@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import ModalWindow from '../../shared/components/ModalWindow/ModlWindow';
 import LoginForm from '../LoginForm/LoginForm';
 import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import Container from '../../shared/components/Container/Container';
 
 const AppBar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -30,6 +31,7 @@ const AppBar = () => {
   const closeRegister = () => setRegisterModalOpen(false);
     
   return (
+    <Container>
    <div className={css.containerHeader}>
       <header className={css.header}>
         <NavLink to="/">
@@ -78,6 +80,7 @@ const AppBar = () => {
         <RegistrationForm />
       </ModalWindow>
     </div>
+    </Container>
   )
 };
 

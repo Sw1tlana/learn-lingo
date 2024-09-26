@@ -1,12 +1,25 @@
 .containerHeader { 
-   width: 1184px;
-   padding: 32px 0;
+   margin: 0 auto;
+   padding: 32px 64px 32px 0;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.navLink {
+    margin-right: 28px;
+    line-height: 1.2;
+    letter-spacing: 0%;
+    color: var(--primery-color);
+}
+
+.navLink:active,
+.navLink:hover {
+    color: var(--primery-btn-color);
+    text-decoration: underline;
 }
 
 .authButtons {
@@ -24,6 +37,11 @@
     padding-left: 73px;
 }
 
+.loginButton:active,
+.loginButton:hover {
+    color: var(--primery-btn-color);
+}
+
 .iconArrow {
     position: absolute;
     left: 14px;
@@ -31,6 +49,12 @@
     transform: translateY(-50%);
     fill: transparent;
     stroke: var(--pale-green);
+    transition: stroke 0.3s ease;
+}
+
+.loginButton:hover .iconArrow,
+.loginButton:hover .iconArrow {
+    stroke: var(--primery-btn-color);
 }
 
 .registerButton {

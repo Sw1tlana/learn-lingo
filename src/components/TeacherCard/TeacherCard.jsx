@@ -20,7 +20,6 @@ const TeacherCard = ({teacher}) => {
         </div>
         <div className={css.infoContainer}>
           <ul className={css.listInfoLessons}>
-            {/* Інші деталі про викладача */}
             <li>
               <span className={css.textLessonInfo}>Lessons Done:</span> {teacher.lessons_done}
             </li>
