@@ -1,5 +1,4 @@
 import css from './Home.module.css';
-import Container from '../../shared/components/Container/Container';
 import {
     boyPng1x,
     boyWebp1x,
@@ -9,7 +8,7 @@ import {
 
 const Home = () => {
     return (
-        <Container>
+    <>
         <section className={css.sectionHome}>
         <div className={css.containerHome}>
                     <h1 className={css.titleHome}>
@@ -61,7 +60,7 @@ const Home = () => {
                     </div>
                 </li>
             </ul>
-        </Container>
+        </>
     )
 };
 

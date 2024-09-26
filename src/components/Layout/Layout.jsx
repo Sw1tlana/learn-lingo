@@ -1,11 +1,12 @@
 import AppBar from "../AppBar/AppBar";
+import Container from "../../shared/components/Container/Container";
 
 const Layout = ({ children }) => {
     return (
-        <div>
+        <Container>
             <AppBar/>
             <main>{children}</main>
-        </div>
+        </Container>
     )
 };
 

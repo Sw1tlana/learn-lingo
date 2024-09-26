@@ -1,27 +1,50 @@
+.containerHeader { 
+   width: 1184px;
+   padding: 32px 0;
+}
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0;
 }
 
-/* .hederTitle {
+.authButtons {
+    display: flex;
+    gap: 14px;
+}
 
-} */
-
-.navLink {
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
+.loginButton {
+    display: inline-block;
     position: relative;
+    border: none;
+    background-color: transparent;
+    font-size: 14px;
+    color: var(--primery-color);
+    padding-left: 73px;
 }
 
-.navLink.active {
-    border-bottom: 2px solid var(--secondary-btn-accent);
+.iconArrow {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: transparent;
+    stroke: var(--pale-green);
 }
 
-.navLink:hover {
-    color: #ddd;
+.registerButton {
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 14px 39px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0%;
+    color: var(--white-bg-color);
+    background-color: var(--primery-color);
 }
 
 /* Modal */

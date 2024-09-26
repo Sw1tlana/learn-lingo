@@ -3,12 +3,14 @@ import { icons as sprite } from '../../../shared/icons';
 
 const Logo = () => {
     return (
-        <div>
-            <svg width={20} height={20}>
-                <use
-            xlinkHref={`${sprite}#icon-ukraine`} />
-            </svg>
-            <h2 className={css.hederTitle}>LearnLingo</h2>
+        <div className={css.containerLogo}>
+            <svg width={20}
+                height={20}
+                className={css.svgLogo}>
+              <use
+                 xlinkHref={`${sprite}#icon-ukraine`} />
+              </svg>
+            <h2 className={css.titleHeader}>LearnLingo</h2>
         </div>
     )
 };
