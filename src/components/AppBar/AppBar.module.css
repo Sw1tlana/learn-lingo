@@ -59,6 +59,7 @@
 
 .registerButton {
     margin-left: auto;
+    margin-right: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -69,6 +70,31 @@
     letter-spacing: 0%;
     color: var(--white-bg-color);
     background-color: var(--primery-color);
+}
+
+.registerButton:active,
+.registerButton:hover {
+    background-color: var(--secondary-bg-color);
+}
+
+.logoutButton {
+    margin-left: auto;
+    margin-right: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 14px 39px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0%;
+    color: var(--white-bg-color);
+    background-color: var(--primery-color);
+}
+
+.logoutButton:active,
+.logoutButton:hover {
+    background-color: var(--secondary-bg-color);
 }
 
 /* Modal */

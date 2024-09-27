@@ -9,8 +9,8 @@ import Container from '../../shared/components/Container/Container';
 
 const Home = () => {
     return (
-  <Container>
-    <div className={css.containerWrapper}>
+        <Container>
+        <div className={css.wrapperHome}>
         <section className={css.sectionHome}>
         <div className={css.containerHome}>
                     <h1 className={css.titleHome}>
@@ -28,13 +28,13 @@ const Home = () => {
                     >Get started
                 </button>
                 </div>
-                <div>
-                    <picture>
-                        <source srcSet={`${boyWebp1x} 1x, ${boyWebp2x} 2x`} type="image/webp" />
+              
+                    <picture className={css.containerImg}>
+                        <source srcSet={`${boyWebp1x} 1x, ${boyWebp2x} 2x`}type="image/webp"/>
                         <source srcSet={`${boyPng1x} 1x, ${boyPng2x} 2x`} type="image/png" />
-                        <img src={boyPng1x} alt="Language learning" />
+                        <img className={css.imgHome} src={boyPng1x} alt="Language learning" />
                     </picture>
-                </div>
+             
             </section>
                     <ul className={css.listInfoHome}>
                         <li>
@@ -61,8 +61,8 @@ const Home = () => {
                     <span className={css.span}>Tutor<br/> nationalities</span>
                     </div>
                 </li>
-            </ul>
-        </div>
+                </ul> 
+            </div>    
         </Container>
     )
 };

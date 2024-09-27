@@ -2,10 +2,11 @@
     display: flex;
     align-items: center;
     gap: 4px;
+    margin-left: 64px;
 }
 
 .svgLogo {
-    margin-left: 64px;
+   margin-left: 64px;
 }
 
 .titleHeader {

@@ -31,7 +31,7 @@ const AppBar = () => {
   const closeRegister = () => setRegisterModalOpen(false);
     
   return (
-    <Container>
+  <Container>
    <div className={css.containerHeader}>
       <header className={css.header}>
         <NavLink to="/">
@@ -79,7 +79,7 @@ const AppBar = () => {
         className={css.modalRegister}>
         <RegistrationForm />
       </ModalWindow>
-    </div>
+      </div>
     </Container>
   )
 };

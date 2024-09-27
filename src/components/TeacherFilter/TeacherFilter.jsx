@@ -1,7 +1,7 @@
 import css from './TeacherFilter.module.css';
 import { useState } from 'react';
 import Select from 'react-select';
-import { icons as sprite } from '../../shared/icons';
+// import { icons as sprite } from '../../shared/icons';
 
 const TeacherFilter = () => {
     const [selectedPrice, setSelectedPrice] = useState(null);
@@ -65,11 +65,9 @@ const handleLevelChange = (event) => {
                     onChange={handleLanguageChange}
                     options={languageOptions}
                     placeholder="Select a language"
-                    classNamePrefix="select"
+                    className={`${css.select__control} ${css.select__option}`} 
                 />
-                <svg width={10} height={5} className={css.iconSelect}>
-                    <use xlinkHref={`${sprite}#icon-select`} />
-                </svg>
+
             </div>
 
             <div className={css.containerSelect}>
@@ -81,9 +79,7 @@ const handleLevelChange = (event) => {
                     options={levelOptions}
                     classNamePrefix="select"
                 />
-                <svg width={10} height={5} className={css.iconSelect}>
-                    <use xlinkHref={`${sprite}#icon-select`} />
-                </svg>      
+     
             </div>
 
             <div className={css.containerSelect}>
@@ -95,9 +91,7 @@ const handleLevelChange = (event) => {
                     options={priceOptions}
                     classNamePrefix="select"
                 />
-                <svg width={10} height={5} className={css.iconSelect}>
-                    <use xlinkHref={`${sprite}#icon-select`} />
-                </svg>
+
             </div>
         </section>
   );
