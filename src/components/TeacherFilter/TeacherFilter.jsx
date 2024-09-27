@@ -43,17 +43,63 @@ const TeacherFilter = () => {
       label: level
     }));
 
-const handlePriceChange = (event) => {
-    setSelectedPrice(event.target.value);
+const handlePriceChange = (priceOptions) => {
+    setSelectedPrice(priceOptions);
     };
     
-const handleLanguageChange = (event) => {
-    setSelectedLanguage(event.target.value);
+const handleLanguageChange = (languageOptions) => {
+    setSelectedLanguage(languageOptions);
     }
 
-const handleLevelChange = (event) => {
-    setSelectedLevel(event.target.value);
-    }
+const handleLevelChange = (levelOptions) => {
+    setSelectedLevel(levelOptions);
+  }
+  
+const customStyles = {
+        control: (provided) => ({
+            ...provided,
+            outline: 'none !important',
+            border: 'none !important',
+            backgroundColor: 'transparent !important',
+            padding: '8px !important',
+            cursor: 'pointer !important',
+            color: 'var(--primery-color) !important',
+            boxShadow: 'none !important',
+            '&:hover': {
+                border: 'none !important',
+            },
+        }),
+    option: (provided, state) => ({
+        ...provided,
+        color: state.isFocused ? 'var(--secondary-bg-color)' : 'var(--secondary-bg-color)',
+        backgroundColor: state.isFocused ? 'rgba(255, 255, 255, 0.1)' : 'transparent', 
+        padding: '8px 12px',
+        cursor: 'pointer',
+        fontSize: '18px',
+        fontWeight: '500',
+    }),
+    placeholder: (provided) => ({
+        ...provided,
+        color: 'var(--secondary-bg-color)',
+    }),
+    menu: (provided) => ({
+        ...provided,
+        margin: 0,
+        padding: 0,
+        border: 'none',
+        boxShadow: 'none',
+      backgroundColor: 'transparent',
+
+    }),
+    menuPortal: (provided) => ({
+        ...provided,
+        zIndex: 9999,
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        color: 'var(--primery-color)',
+    }),
+};
 
   return (
         <section className={css.filterContainer}>
@@ -65,7 +111,7 @@ const handleLevelChange = (event) => {
                     onChange={handleLanguageChange}
                     options={languageOptions}
                     placeholder="Select a language"
-                    className={`${css.select__control} ${css.select__option}`} 
+                    className={customStyles} 
                 />
 
             </div>
