@@ -58,7 +58,7 @@
 }
 
 .withMargin {
-    margin-left: 194px;
+    margin-left: auto;
     display: flex;
     align-items: center;
 }

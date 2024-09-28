@@ -1,6 +1,9 @@
+.listWraper {
+    background-color: var(--bg-color-section);
+}
+
 .sectionTeacher {
     padding: 96px 128px;
-    background-color: var(--bg-color-section);
 }
 
 .teacherList {

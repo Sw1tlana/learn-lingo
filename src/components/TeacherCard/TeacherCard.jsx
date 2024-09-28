@@ -2,11 +2,12 @@ import RedMore from '../RedMore/RedMore';
 import css from './TeacherCard.module.css';
 
 const TeacherCard = ({teacher}) => {
-      const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
   
-    const toggleExpanded = () => {
+  const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
-  }
+  };
+
   return  (
     <li key={teacher.id} className={css.teacherCard}>
       <div className={css.teacherInfoContainer}>
@@ -28,7 +29,10 @@ const TeacherCard = ({teacher}) => {
             </li>
             <li>
               <span className={css.textLessonInfo}>Price 1/hour:</span> 
-              <span className={`${css.price} ${css.textLessonInfo}`}>{teacher.price_per_hour}$</span>
+              <span
+                className={`${css.price} ${css.textLessonInfo}`}>
+                {teacher.price_per_hour}$
+              </span>
             </li>
           </ul>
 

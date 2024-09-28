@@ -4,8 +4,28 @@
 
 .sectionHome {
     display: flex;
+    justify-content: center;
     gap: 24px;
     margin-bottom: 20px;
+    opacity: 0;
+    animation: slideIn 1s forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .containerHome {
@@ -16,6 +36,31 @@
     padding: 98px 64px;
     border-radius: 30px;
     background-color: var(--bg-color-section);
+    animation: slideLeft 0.5s forwards;
+}
+
+.containerHome:nth-child(2) {
+    animation: slideRight 0.5s forwards;
+}
+
+@keyframes slideLeft {
+    from {
+        transform: translateX(-30%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    from {
+        transform: translateX(30%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
 }
 
 .titleHome {
@@ -99,4 +144,5 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 30px;
 }
