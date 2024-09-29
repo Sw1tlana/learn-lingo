@@ -59,11 +59,14 @@ return (
                 {teacher.price_per_hour}$
               </span>
             </li>
-            <li className={css.heartItem}>
+          <li className={css.heartItem}>
+            <button type="button"
+              className={css.btnHeart}>
               <svg width={23} height={20} className={css.iconHeart}>
                 <use xlinkHref={`${sprite}#icon-heart`} />
               </svg>
-            </li>
+            </button>
+          </li>
           </ul>
 
           <ul className={css.additionalInfo}>

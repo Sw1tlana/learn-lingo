@@ -37,14 +37,10 @@ function App() {
               </PrivateRoute>
             } />
             <Route path="*" element={<Navigate to="/" />} />
-
           </Routes>
-          
-
         </Suspense>
       </Layout>
-      
-
+    
     </>
   )
 }

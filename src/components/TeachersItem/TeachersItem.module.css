@@ -12,7 +12,6 @@
 .teacherInfoContainer {
     display: flex;
     align-items: flex-start;
-    gap: 20px;
 }
 
 .avatarContainer {
@@ -58,9 +57,7 @@
 }
 
 .withMargin {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
+    margin-left: 100px; 
 }
 
 .icon {
@@ -86,12 +83,15 @@
 .listInfoLessons {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .listInfoLessons li {
     position: relative;
     margin-bottom: 8px;
     padding: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .listInfoLessons li:not(:last-child)::after {
@@ -157,6 +157,14 @@
     display: flex;
     align-items: center;
     margin-left: 64px;
+}
+
+.btnHeart {
+    border: none;
+    background: none;
+    padding: 0;
+    color: inherit;
+    outline: none;
 }
 
 .iconHeart {

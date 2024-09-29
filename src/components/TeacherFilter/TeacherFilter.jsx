@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from "../../redux/filters/slice";
 import Select from 'react-select';
+import toast from 'react-hot-toast'; 
 
 const TeacherFilter = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const TeacherFilter = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
   
-  const prices = [10, 20, 30, 40, 50];
+  const prices = [10, 20, 30, 40];
   const languages = [
     'English',
     'Spanish',
@@ -30,7 +31,7 @@ const TeacherFilter = () => {
     "C1 Advanced",
     "C2 Proficient"];
   
-  const priceOptions = prices.map(price => (
+  const priceOption = prices.map(price => (
     {
       value: price,
       label: `${price}$`
@@ -46,9 +47,20 @@ const TeacherFilter = () => {
       label: level
     }));
 
-  const handlePriceChange = (priceOptions) => {
-    setSelectedPrice(priceOptions);
-     dispatch(changeFilter({ price: priceOptions ? priceOptions.value : null }));
+  const handlePriceChange = (priceOption) => {
+    setSelectedPrice(priceOption);
+
+    if (priceOption && priceOption.value >= 10 && priceOption.value < 20) {
+      toast.success("Price range from 10 to 20$");
+    } else if (priceOption && priceOption.value >= 20 && priceOption.value < 30) {
+      toast.success("Price range from 20 to 30$");
+    } else if (priceOption && priceOption.value >= 30 && priceOption.value <= 40) {
+      toast.success("Price range from 30 to 40$");
+    } else {
+      toast.error("Price is outside the allowed range");
+    }
+
+    dispatch(changeFilter({ price: priceOption ? priceOption.value : null }));
   };
     
   const handleLanguageChange = (languageOptions) => {
@@ -170,7 +182,7 @@ const TeacherFilter = () => {
           id="priceFilter"
           value={selectedPrice}
           onChange={handlePriceChange}
-          options={priceOptions}
+          options={priceOption}
           styles={customStyles}
           menuPosition="fixed"
         />

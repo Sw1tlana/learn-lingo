@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './redux/stores.js';
 import { AuthProvider } from './context/AuthContext.jsx';
+import { Toaster } from 'react-hot-toast';
 import App from './App.jsx';
 import './index.css';
 
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <PersistGate persistor={persistor} loading={null}>
         <BrowserRouter>
           <AuthProvider>
+            <Toaster position="top-center" reverseOrder={false} /> 
             <App />
           </AuthProvider>
         </BrowserRouter>
