@@ -48,18 +48,18 @@ const TeacherFilter = () => {
 
   const handlePriceChange = (priceOptions) => {
     setSelectedPrice(priceOptions);
-     dispatch(changeFilter({ type: 'price', value: priceOptions }));
+     dispatch(changeFilter({ price: priceOptions ? priceOptions.value : null }));
   };
     
   const handleLanguageChange = (languageOptions) => {
     setSelectedLanguage(languageOptions);
     console.log('Selected Language:', languageOptions);
-    dispatch(changeFilter({ type: 'language', value: languageOptions }));
+    dispatch(changeFilter({ language: languageOptions ? languageOptions.value : null }));
   };
 
   const handleLevelChange = (levelOptions) => {
     setSelectedLevel(levelOptions);
-    dispatch(changeFilter({ type: 'level', value: levelOptions }));
+    dispatch(changeFilter({ level: levelOptions ? levelOptions.value : null }));
   };
   
   const customStyles = {

@@ -1,30 +1,24 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { selectTeachers } from '../teachers/selectors';
 
+// export const selectNameFilter = (state) => state.filters.name;
+// export const selectPriceFilter = (state) => state.filters.price;
+// export const selectLevelFilter = (state) => state.filters.level;
+
 export const selectNameFilter = (state) => state.filters.name;
-export const selectPriceFilter = (state) => state.filters.price; 
-export const selectLevelFilter = (state) => state.filters.level; я
 
+// Вибір фільтрованих контактів
 export const selectFilteredTeachers = createSelector(
-    [selectTeachers, selectNameFilter, selectPriceFilter, selectLevelFilter],
-    (teachers, nameFilter, priceFilter, levelFilter) => {
-        return teachers.filter((teacher) => {
-            const matchesLanguage = nameFilter ? 
-                (teacher.languages && teacher.languages.some(lang => lang.includes(nameFilter.toLowerCase()))) : true;
+    [selectTeachers, selectNameFilter],
+    (teachers, nameFilter) => {
+        return teachers.filter(teacher => {
+            const matchesName = nameFilter ? teacher.name.includes(nameFilter) : true;
+            const matchesPrice = teacher.price_per_hour <= (price || Infinity); 
+            const matchesLanguage = teacher.languages.includes(language) || !language;
+            const matchesLevel = teacher.levels.includes(level) || !level;
 
-            const matchesPrice = priceFilter !== undefined ? 
-                (teacher.price_per_hour && teacher.price_per_hour.toString().includes(priceFilter.toString())) : true;
-
-            const matchesLevel = levelFilter !== undefined ? 
-                (teacher.levels && teacher.levels.includes(levelFilter)) : true;
-
-            console.log('Відповідає:', {
-                matchesLanguage,
-                matchesPrice,
-                matchesLevel
-            });
-
-            return matchesLanguage && matchesPrice && matchesLevel;
+            console.log('Вчитель:', teacher, 'Відповідає фільтрам:', matchesLanguage, matchesPrice, matchesLevel);
+            return matchesName && matchesLanguage && matchesPrice && matchesLevel;
         });
     }
 );

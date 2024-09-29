@@ -11,6 +11,7 @@ import css from './TeachersList.module.css';
 const TeachersList = () => {
   const dispatch = useDispatch();
   const teachers = useSelector(selectFilteredTeachers);
+  console.log('Teachers:', teachers);
 
   useEffect(() => {
     dispatch(fetchTeachers());
