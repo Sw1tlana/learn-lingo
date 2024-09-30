@@ -1,5 +1,5 @@
 import css from './TeacherFilter.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { changeFilter } from "../../redux/filters/slice";
 import Select from 'react-select';
@@ -10,10 +10,10 @@ const TeacherFilter = () => {
 
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [filteredLevels, setFilteredLevels] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(null);
-  const [levelOptions, setLevelOptions] = useState([]);
   
-  const prices = [10, 20, 30, 40];
+  const prices = [10, 20, 30, 40, 50];
   const languages = [
     'English',
     'Spanish',
@@ -22,161 +22,77 @@ const TeacherFilter = () => {
     'Italian',
     'Mandarin Chinese',
     'Vietnamese',
-    'Korean'];
+    'Korean'
+  ];
     
-  const levels = [
-  {
-    language: 'English',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'Spanish',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'French',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'German',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'Italian',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'Mandarin Chinese',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'Vietnamese',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  },
-  {
-    language: 'Korean',
-    levels: [
-      "A1 Beginner",
-      "A2 Elementary",
-      "B1 Intermediate",
-      "B2 Upper-Intermediate",
-      "C1 Advanced",
-      "C2 Proficient",
-    ]
-  }
-];
-
+const levelsByLanguage = {
+  'English': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate", "C1 Advanced", "C2 Proficient"],
+  'Spanish': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate", "C1 Advanced", "C2 Proficient"],
+  'French': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate"],
+  'German': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "C1 Advanced"],
+  'Italian': ["A1 Beginner", "A2 Elementary", "B1 Intermediate"],
+  'Mandarin Chinese': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Intermediate"],
+  'Vietnamese': ["A1 Beginner", "A2 Elementary"],
+  'Korean': ["A1 Beginner", "A2 Elementary", "B1 Intermediate", "C1 Advanced"]
+};
   
-  const priceOption = prices.map(price => (
-    {
-      value: price,
-      label: `${price}$`
-    }));
-  const languageOptions = languages.map(language => (
-    {
-      value: language,
-      label: language
-    }));
+  const priceOption = prices.map(price => ({
+    value: price,
+    label: `${price}$`,
+  }));
+
+  const languageOptions = languages.map(language => ({
+    value: language,
+    label: language,
+  }));
+
+  const levelOption = filteredLevels.map(level => ({
+    value: level,
+    label: level,
+  }));
+
+  useEffect(() => {
+  if (selectedLanguage) {
+
+    setSelectedLevel(null);
+
+    setFilteredLevels(levelsByLanguage[selectedLanguage.value] || []);
+  } else {
+    setFilteredLevels([]); 
+  }
+}, [selectedLanguage]);
 
   const handlePriceChange = (priceOption) => {
     setSelectedPrice(priceOption);
-
-    if (priceOption && priceOption.value >= 10 && priceOption.value < 20) {
-      toast.error("Price is outside the allowed range");;
-    } else if (priceOption && priceOption.value >= 20 && priceOption.value < 30) {
-      toast.success("Price range from 20 to 30$");
-    } else if (priceOption && priceOption.value >= 30 && priceOption.value <= 40) {
-      toast.success("Price range from 30 to 40$");
-    } else {
-      toast.error("Price is outside the allowed range");
+    
+    if (priceOption) {
+      if (priceOption.value >= 10 && priceOption.value < 20) {
+        toast.error("Price is outside the allowed range");
+      } else if (priceOption.value >= 20 && priceOption.value < 30) {
+        toast.success("Price range from 20 to 30$");
+      } else if (priceOption.value >= 30 && priceOption.value <= 40) {
+        toast.success("Price range from 30 to 40$");
+      } else {
+        toast.error("Price is outside the allowed range");
+      }
     }
   };
-    
+
   const handleLanguageChange = (languageOption) => {
     setSelectedLanguage(languageOption);
-    console.log('Selected Language:', languageOption);
-    
-    const selectedLanguageData = levels.find(lang => lang.language === languageOption.value);
-    const levelOptions = selectedLanguageData ? selectedLanguageData.levels.map(level => ({
-      value: level,
-      label: level
-    })) : [];
-    
-    setLevelOptions(levelOptions);
     dispatch(changeFilter({ language: languageOption ? languageOption.value : null }));
   };
 
-
-  const handleLevelChange = (levelOptions) => {
-    setSelectedLevel(levelOptions);
-    console.log('Selected level:', levelOptions);
-
-    if (!selectedLanguage) {
-        toast.error("Please select a language first.");
-      
-        return; 
-    } else if (!levelOptions) {
-        toast.error("No level selected.");
-      
-        return; 
-    } else if (!levelOptions.value) {
-        toast.error("No such level exists.");
-       
-        return; 
-    } else {
-        toast.success(`Selected level: ${levelOptions.label}`);
- 
-    }
-};
+const handleLevelChange = (levelOption) => {
+  setSelectedLevel(levelOption);
+  if (levelOption) {
+    setSelectedLevel(levelOption);
+    toast.success(`${levelOption.label}`); 
+    dispatch(changeFilter({ level: levelOption.value })); 
+  } else {
+    setSelectedLevel(null); 
+  }
+}
   
   const customStyles = {
     control: (provided) => ({
@@ -222,7 +138,6 @@ const TeacherFilter = () => {
       backgroundColor: 'var(--white-bg-color)',
       maxHeight: 'none',
       overflow: 'hidden',
-
     }),
     menuList: (provided) => ({
       ...provided,
@@ -247,9 +162,8 @@ const TeacherFilter = () => {
   return (
     <section className={css.filterContainer}>
       <div className={css.containerSelect}>
-        <label
-          htmlFor="languageFilter"
-          className={css.label}>Languages
+        <label htmlFor="languageFilter" className={css.label}>
+          Languages
         </label>
         <Select
           id="languageFilter"
@@ -263,24 +177,23 @@ const TeacherFilter = () => {
       </div>
 
       <div className={css.containerSelect}>
-        <label
-          htmlFor="levelFilter"
-          className={css.label}>Level of knowledge
+        <label htmlFor="levelFilter" className={css.label}>
+          Level of knowledge
         </label>
         <Select
           id="levelFilter"
           value={selectedLevel}
           onChange={handleLevelChange}
-          options={levelOptions}
+          options={levelOption} 
           styles={customStyles}
           menuPosition="fixed"
+          isDisabled={!filteredLevels.length}
         />
       </div>
 
       <div className={css.containerSelectPrice}>
-        <label
-          htmlFor="priceFilter"
-          className={css.label}>Price
+        <label htmlFor="priceFilter" className={css.label}>
+          Price
         </label>
         <Select
           id="priceFilter"
