@@ -11,6 +11,7 @@ const TeacherFilter = () => {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
+  const [levelOptions, setLevelOptions] = useState([]);
   
   const prices = [10, 20, 30, 40];
   const languages = [
@@ -24,12 +25,96 @@ const TeacherFilter = () => {
     'Korean'];
     
   const levels = [
-    "A1 Beginner",
-    "A2 Elementary",
-    "B1 Intermediate",
-    "B2 Upper-Intermediate",
-    "C1 Advanced",
-    "C2 Proficient"];
+  {
+    language: 'English',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'Spanish',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'French',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'German',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'Italian',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'Mandarin Chinese',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'Vietnamese',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  },
+  {
+    language: 'Korean',
+    levels: [
+      "A1 Beginner",
+      "A2 Elementary",
+      "B1 Intermediate",
+      "B2 Upper-Intermediate",
+      "C1 Advanced",
+      "C2 Proficient",
+    ]
+  }
+];
+
   
   const priceOption = prices.map(price => (
     {
@@ -41,17 +126,12 @@ const TeacherFilter = () => {
       value: language,
       label: language
     }));
-  const levelOptions = levels.map(level => (
-    {
-      value: level,
-      label: level
-    }));
 
   const handlePriceChange = (priceOption) => {
     setSelectedPrice(priceOption);
 
     if (priceOption && priceOption.value >= 10 && priceOption.value < 20) {
-      toast.success("Price range from 10 to 20$");
+      toast.error("Price is outside the allowed range");;
     } else if (priceOption && priceOption.value >= 20 && priceOption.value < 30) {
       toast.success("Price range from 20 to 30$");
     } else if (priceOption && priceOption.value >= 30 && priceOption.value <= 40) {
@@ -59,20 +139,44 @@ const TeacherFilter = () => {
     } else {
       toast.error("Price is outside the allowed range");
     }
-
-    dispatch(changeFilter({ price: priceOption ? priceOption.value : null }));
   };
     
-  const handleLanguageChange = (languageOptions) => {
-    setSelectedLanguage(languageOptions);
-    console.log('Selected Language:', languageOptions);
-    dispatch(changeFilter({ language: languageOptions ? languageOptions.value : null }));
+  const handleLanguageChange = (languageOption) => {
+    setSelectedLanguage(languageOption);
+    console.log('Selected Language:', languageOption);
+    
+    const selectedLanguageData = levels.find(lang => lang.language === languageOption.value);
+    const levelOptions = selectedLanguageData ? selectedLanguageData.levels.map(level => ({
+      value: level,
+      label: level
+    })) : [];
+    
+    setLevelOptions(levelOptions);
+    dispatch(changeFilter({ language: languageOption ? languageOption.value : null }));
   };
+
 
   const handleLevelChange = (levelOptions) => {
     setSelectedLevel(levelOptions);
-    dispatch(changeFilter({ level: levelOptions ? levelOptions.value : null }));
-  };
+    console.log('Selected level:', levelOptions);
+
+    if (!selectedLanguage) {
+        toast.error("Please select a language first.");
+      
+        return; 
+    } else if (!levelOptions) {
+        toast.error("No level selected.");
+      
+        return; 
+    } else if (!levelOptions.value) {
+        toast.error("No such level exists.");
+       
+        return; 
+    } else {
+        toast.success(`Selected level: ${levelOptions.label}`);
+ 
+    }
+};
   
   const customStyles = {
     control: (provided) => ({
