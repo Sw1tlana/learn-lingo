@@ -1,0 +1,4 @@
+.iconHeart.favorite {
+    fill: var(----primery-btn-color);
+    stroke: none;
+}
