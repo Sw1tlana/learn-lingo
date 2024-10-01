@@ -34,7 +34,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     filters: filterReducer,
     teachers: teachersReducer,
-    favorite: persistReducer(favoritePersistConfig, favoritesReducer),
+    favorites: persistReducer(favoritePersistConfig, favoritesReducer),
   },
   
    middleware: (getDefaultMiddleware) =>

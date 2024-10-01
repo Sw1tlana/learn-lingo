@@ -1,8 +1,4 @@
-import { createSelector } from 'reselect';
-
-const selectFavoritesState = (state) => state.favorites;
-
-export const selectFavoriteTeachers = createSelector(
-  [selectFavoritesState], 
-  (favorites) => favorites.selected 
-);
+export const selectFavoriteTeachers = (state) => {
+  console.log(state); 
+  return state.favorites.favoriteTeachers; 
+};
