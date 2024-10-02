@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../redux/teachers/slice';
 import { selectFavoriteTeachers } from '../../redux/teachers/selectors';
 import { useEffect } from 'react';
-// import { useState } from 'react';
 
 const FavoritesPage = () => {
   const dispatch = useDispatch();
@@ -23,6 +22,14 @@ const FavoritesPage = () => {
         dispatch(deleteFavorite(teacher.id));
     } else {
         dispatch(addFavorite(teacher)); 
+    }
+  };
+
+    const toggleExpanded = (teacherId) => {
+    if (expandedTeacher === teacherId) {
+      setExpandedTeacher(null);
+    } else {
+      setExpandedTeacher(teacherId);
     }
   };
 
