@@ -2,12 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import {
     fetchTeachers,
-    addTeachers,
-    deleteTeachers
 } from "./operations.js"; 
  
 const handlePending = (state) => {
-    console.log('Fetch teachers pending');
+  console.log('Fetch teachers pending');
   state.loading = true;
 };
 
@@ -20,40 +18,36 @@ const teachersSlice = createSlice({
   name: "teachers",
   initialState: {
     items: [],
+    favorites: [],
     loading: false,
     error: null,
     },
-    extraReducers: (builder) => {
+  reducers: {
+    addFavorite: (state, action) => {
+      const teacher = action.payload;
+      if (!state.favorites.some(favTeacher => favTeacher.id === teacher.id)) {
+        state.favorites.push(teacher);
+        console.log('Favorite added:', teacher);
+      }
+    },
+    deleteFavorite: (state, action) => {
+      const teacherId = action.payload;
+      state.favorites = state.favorites.filter(teacher => teacher.id !== teacherId);
+      console.log('Favorite removed:', teacherId);
+    },
+  },
+  extraReducers: (builder) => {
     builder
       .addCase(fetchTeachers.pending, handlePending)
-
       .addCase(fetchTeachers.fulfilled, (state, action) => {
-        console.log('Fetched teachers in reducer:', action.payload);
         state.loading = false;
+        state.items = action.payload;
         state.error = null;
-         state.items = action.payload;
       })
-      .addCase(addTeachers.pending, handlePending)
-
-      .addCase(addTeachers.fulfilled, (state, action) => {
-        console.log('Teacher added:', action.payload); 
-        state.loading = false;
-        state.error = null;
-        state.items.push(action.payload);
-      })
-      .addCase(addTeachers.rejected, handleRejected) 
-      
-      .addCase(deleteTeachers.pending, handlePending)
-      
-        .addCase(deleteTeachers.fulfilled, (state, action) => {
-            state.loading = false;
-            state.error = null;
-            state.items = state.items.filter(
-          (teacher) => teacher.id !== action.payload.id
-        );
-        }) 
-       .addCase(deleteTeachers.rejected, handleRejected)  
-},
+      .addCase(fetchTeachers.rejected, handleRejected);
+  },
 });
+
+export const { addFavorite, deleteFavorite } = teachersSlice.actions;
 
 export const teachersReducer = teachersSlice.reducer;

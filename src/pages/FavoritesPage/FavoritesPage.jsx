@@ -2,32 +2,37 @@ import css from './FavoritesPage.module.css';
 import { icons as sprite } from '../../shared/icons';
 import RedMore from '../../components/RedMore/RedMore';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavorite, deleteFavorite } from '../../redux/favorites/slice';
-import { selectFavoriteTeachers } from '../../redux/favorites/selectors';
+import { addFavorite, deleteFavorite } from '../../redux/teachers/slice';
+import { selectFavoriteTeachers } from '../../redux/teachers/selectors';
+import { useEffect } from 'react';
 // import { useState } from 'react';
 
-const FavoritesPage = (teacher) => {
+const FavoritesPage = () => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavoriteTeachers);
   
   console.log('Favorite Teachers:', favoriteTeachers);
 
-const handleFavoriteClick = (teacherId) => {
-    const isFavorite = favoriteTeachers.some(teacher => teacher.id === teacherId);
-    console.log('Is Favorite:', isFavorite);
+  const handleFavoriteClick = (teacher) => {
+    const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
+
+   console.log('Teacher clicked:', teacher); 
+    console.log('Is favorite:', isFavorite);  
     
     if (isFavorite) {
-        dispatch(deleteFavorite(teacherId));
-        console.log('Clicked Teacher ID:', teacherId);
+        dispatch(deleteFavorite(teacher.id));
     } else {
-        const selectedTeacher = 
-        dispatch(addFavorite({ teacher: selectedTeacher })); 
+        dispatch(addFavorite(teacher)); 
     }
-};
+  };
+
+  useEffect(() => {
+    console.log('Updated Favorite Teachers:', favoriteTeachers);
+  }, [favoriteTeachers]);
 
   return (
     <ul>
-      {favoriteTeachers && favoriteTeachers.length > 0 ? (
+      {Array.isArray(favoriteTeachers) && favoriteTeachers.length > 0 ? (
         favoriteTeachers.map((teacher) => (
           <li key={teacher.id} className={css.teacherCard}>
             <div className={css.teacherInfoContainer}>
