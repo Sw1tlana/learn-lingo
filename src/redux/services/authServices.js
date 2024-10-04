@@ -126,26 +126,26 @@ export const requestGetTeachers = async () => {
   }
 };
 
-export const requestAddTeachers = async (teacherData) => {
-  try {
-    const response = await instance.post('teachers.json', teacherData);
-    
-    return { id: response.data.name, ...teacherData };
-  } catch (error) {
-    console.error('Failed to add teacher:', error.message);
-    throw new Error(error.message);
-  }
-};
+// export const addFavoriteTeacher = async (teacherId) => {
+//   try {
+//     const teacherData = { isFavorite: true }; // Дані для оновлення
+//     const response = await instance.patch(`teachers/${teacherId}.json`, teacherData); // Використовуємо PATCH для оновлення
+//     return { id: teacherId, ...response.data }; // Повертаємо ID та дані
+//   } catch (error) {
+//     console.error('Failed to add favorite teacher:', error.message);
+//     throw new Error(error.message); // Обробка помилки
+//   }
+// };
 
-export const requestDeleteTeachers = async (teacherId) => {
-  try {
-    await instance.delete(`teachers/${teacherId}.json`);
-    console.log(`Teacher ${teacherId} deleted`);
-    return teacherId;
-  } catch (error) {
-    console.error('Failed to delete teacher:', error.message);
-    throw new Error(error.message);
-  }
-};
+// export const requestDeleteTeachers = async (teacherId) => {
+//   try {
+//     await instance.delete(`teachers/${teacherId}.json`);
+//     console.log(`Teacher ${teacherId} deleted`);
+//     return teacherId;
+//   } catch (error) {
+//     console.error('Failed to delete teacher:', error.message);
+//     throw new Error(error.message);
+//   }
+// };
 
 export default instance;

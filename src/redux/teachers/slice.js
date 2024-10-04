@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-    fetchTeachers,
+  fetchTeachers
 } from "./operations.js"; 
  
 const handlePending = (state) => {
@@ -18,31 +18,30 @@ const teachersSlice = createSlice({
   name: "teachers",
   initialState: {
     items: [],
-    favorites: [],
+    favorites: JSON.stringify([]),
     loading: false,
     error: null,
     },
-addFavorite: {
-    reducer(state, action) {
-        const teacher = action.payload;
-        const exists = state.favorites.some(fav => fav.id === teacher.id);
-        if (!exists) {
-            state.favorites.push(teacher);
-        }
-    },
-    prepare(values) {
+  reducers: {
+    addFavorite: {
+      reducer(state, action) {
+          const updatedFavorites = [...state.favorites, action.payload];
+          state.favorites = JSON.stringify(updatedFavorites);
+      },
+      prepare(values) {
         return {
-            payload: {
-                ...values,
-            }
+          payload: {
+            ...values,
+          },
         };
-    }
-},
+      },
+    },
     deleteFavorite: (state, action) => {
       const teacherId = action.payload;
       console.log("Deleting favorite teacher with ID:", teacherId);
       state.favorites = state.favorites.filter(fav => fav.id !== teacherId);
     },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTeachers.pending, handlePending)

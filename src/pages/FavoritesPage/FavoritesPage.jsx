@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../redux/teachers/slice';
 import { selectFavoriteTeachers } from '../../redux/teachers/selectors';
 import { useEffect } from 'react';
-
+у
 const FavoritesPage = () => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavoriteTeachers);
@@ -13,17 +13,22 @@ const FavoritesPage = () => {
   console.log('Favorite Teachers:', favoriteTeachers);
 
   const handleFavoriteClick = (teacher) => {
+    console.log('Teacher clicked:', teacher);
     const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
-
-   console.log('Teacher clicked:', teacher); 
     console.log('Is favorite:', isFavorite);  
-    
-    if (isFavorite) {
-        dispatch(deleteFavorite(teacher.id));
-    } else {
-        dispatch(addFavorite(teacher)); 
-    }
-  };
+
+  console.log('Teacher clicked:', teacher); 
+  console.log('Is favorite:', isFavorite);  
+  console.log('Current favorite teachers:', favoriteTeachers);
+
+  if (isFavorite) {
+    console.log('Dispatching deleteFavorite');
+    dispatch(deleteFavorite(teacher.id));
+  } else {
+    console.log('Dispatching addFavorite');
+    dispatch(addFavorite(teacher));
+  }
+};
 
     const toggleExpanded = (teacherId) => {
     if (expandedTeacher === teacherId) {
