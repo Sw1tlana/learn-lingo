@@ -4,22 +4,19 @@ import RedMore from '../../components/RedMore/RedMore';
 import { useSelector, useDispatch } from 'react-redux';
 import { addFavorite, deleteFavorite } from '../../redux/teachers/slice';
 import { selectFavoriteTeachers } from '../../redux/teachers/selectors';
-import { useEffect } from 'react';
-у
+import { useEffect, useState } from 'react';
+
 const FavoritesPage = () => {
   const dispatch = useDispatch();
   const favoriteTeachers = useSelector(selectFavoriteTeachers);
+  const [expandedTeacher, setExpandedTeacher] = useState(null);
   
   console.log('Favorite Teachers:', favoriteTeachers);
 
-  const handleFavoriteClick = (teacher) => {
-    console.log('Teacher clicked:', teacher);
-    const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
-    console.log('Is favorite:', isFavorite);  
-
-  console.log('Teacher clicked:', teacher); 
-  console.log('Is favorite:', isFavorite);  
-  console.log('Current favorite teachers:', favoriteTeachers);
+const handleFavoriteClick = (teacher) => {
+  console.log('Teacher clicked:', teacher);
+  const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
+  console.log('Is favorite:', isFavorite);
 
   if (isFavorite) {
     console.log('Dispatching deleteFavorite');
@@ -38,9 +35,12 @@ const FavoritesPage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log('Updated Favorite Teachers:', favoriteTeachers);
-  }, [favoriteTeachers]);
+useEffect(() => {
+  console.log('Updated Favorite Teachers:', favoriteTeachers);
+  if (favoriteTeachers.length === 0) {
+    console.log('No favorite teachers found in the state.');
+  }
+}, [favoriteTeachers]);
 
   return (
     <ul>
@@ -89,13 +89,10 @@ const FavoritesPage = () => {
                       className={css.btnHeart}
                       onClick={() => handleFavoriteClick(teacher)}
                     >
-                      <svg
-                        width={23}
-                        height={20}
-                         className={`${css.iconHeart} ${favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id) ? css.favorite : ''}`}
-                      >
+                      <svg className={favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id) ? css.favorite : ''}>
                         <use xlinkHref={`${sprite}#icon-heart`} />
                       </svg>
+                       {favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id) ? 'Remove from favorites' : 'Add to favorites'}
                     </button>
                   </li>
                 </ul>

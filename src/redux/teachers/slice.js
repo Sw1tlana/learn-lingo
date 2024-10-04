@@ -18,29 +18,26 @@ const teachersSlice = createSlice({
   name: "teachers",
   initialState: {
     items: [],
-    favorites: JSON.stringify([]),
+    favorites: [],
     loading: false,
     error: null,
     },
   reducers: {
-    addFavorite: {
-      reducer(state, action) {
-          const updatedFavorites = [...state.favorites, action.payload];
-          state.favorites = JSON.stringify(updatedFavorites);
-      },
-      prepare(values) {
+  addFavorite: {
+    reducer(state, action) {
+        const isFavorite = state.favorites.some(fav => fav.id === action.payload.id);
+        if (!isFavorite) {
+            state.favorites.push(action.payload);
+        }
+    },
+    prepare(values) {
         return {
-          payload: {
-            ...values,
-          },
+            payload: {
+                ...values,
+            }
         };
-      },
-    },
-    deleteFavorite: (state, action) => {
-      const teacherId = action.payload;
-      console.log("Deleting favorite teacher with ID:", teacherId);
-      state.favorites = state.favorites.filter(fav => fav.id !== teacherId);
-    },
+    }
+},  
   },
   extraReducers: (builder) => {
     builder
