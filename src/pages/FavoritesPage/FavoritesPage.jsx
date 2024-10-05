@@ -2,8 +2,8 @@ import css from './FavoritesPage.module.css';
 import { icons as sprite } from '../../shared/icons';
 import RedMore from '../../components/RedMore/RedMore';
 import { useSelector, useDispatch } from 'react-redux';
-import { addFavorite, deleteFavorite } from '../../redux/teachers/slice';
-import { selectFavoriteTeachers } from '../../redux/teachers/selectors';
+import { addFavorite, deleteFavorite } from '../../redux/favorites/slice';
+import { selectFavoriteTeachers } from '../../redux/favorites/selectors';
 import { useEffect, useState } from 'react';
 
 const FavoritesPage = () => {
@@ -13,7 +13,7 @@ const FavoritesPage = () => {
   
   console.log('Favorite Teachers:', favoriteTeachers);
 
-const handleFavoriteClick = (teacher) => {
+const handleFavoriteClick = () => {
   console.log('Teacher clicked:', teacher);
   const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
   console.log('Is favorite:', isFavorite);
@@ -35,12 +35,14 @@ const handleFavoriteClick = (teacher) => {
     }
   };
 
-useEffect(() => {
-  console.log('Updated Favorite Teachers:', favoriteTeachers);
-  if (favoriteTeachers.length === 0) {
-    console.log('No favorite teachers found in the state.');
-  }
-}, [favoriteTeachers]);
+  useEffect(() => {
+    console.log('Favorite Teachers from Redux state:', favoriteTeachers);
+    if (favoriteTeachers.length === 0) {
+      console.log('No favorite teachers found in the state.');
+    } else {
+      console.log('Updated Favorite Teachers:', favoriteTeachers);
+    }
+  }, [favoriteTeachers]);
 
   return (
     <ul>
@@ -92,7 +94,6 @@ useEffect(() => {
                       <svg className={favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id) ? css.favorite : ''}>
                         <use xlinkHref={`${sprite}#icon-heart`} />
                       </svg>
-                       {favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id) ? 'Remove from favorites' : 'Add to favorites'}
                     </button>
                   </li>
                 </ul>

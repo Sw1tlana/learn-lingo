@@ -1,0 +1,1 @@
+export const selectFavoriteTeachers = (state) => state.favorites.favorites;

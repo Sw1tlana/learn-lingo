@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from "./auth/slice";
 import { teachersReducer } from "./teachers/slice";
 import { filterReducer } from "./filters/slice";
+import { favoritesReducer } from './favorites/slice';
 
 import {
   persistStore,
@@ -22,20 +23,21 @@ const authConfig = {
 };
 
 const favoritesConfig = {
-  key: "teachers",
+  key: "favorites",
   storage,
-  whitelist: ["favorites"],
+  whitelist: ['favorites'],
 };
 
 const persistedAuthReducer = persistReducer(authConfig, authReducer);
 
-const persistedTeachersReducer = persistReducer(favoritesConfig, teachersReducer);
+const persistedFavoritesReducer = persistReducer(favoritesConfig, favoritesReducer);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     filters: filterReducer,
-    teachers: persistedTeachersReducer,
+    teachers: teachersReducer,
+    favorites: persistedFavoritesReducer
   },
   
    middleware: (getDefaultMiddleware) =>

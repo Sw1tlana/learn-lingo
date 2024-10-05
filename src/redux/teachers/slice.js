@@ -18,26 +18,10 @@ const teachersSlice = createSlice({
   name: "teachers",
   initialState: {
     items: [],
-    favorites: [],
     loading: false,
     error: null,
     },
-  reducers: {
-  addFavorite: {
-    reducer(state, action) {
-        const isFavorite = state.favorites.some(fav => fav.id === action.payload.id);
-        if (!isFavorite) {
-            state.favorites.push(action.payload);
-        }
-    },
-    prepare(values) {
-        return {
-            payload: {
-                ...values,
-            }
-        };
-    }
-},  
+  reducers: {  
   },
   extraReducers: (builder) => {
     builder
