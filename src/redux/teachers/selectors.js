@@ -1,7 +1,10 @@
 export const selectTeachers = (state) => state.teachers.items;
-console.log(selectTeachers);
 
 export const selectLoading = (state) => state.teachers.loading;
 
 export const selectError = (state) => state.teachers.error;
+
+export const selectLimit = (state) => state.teachers.limit;
+
+export const selectPage = (state) => state.teachers.page;
 

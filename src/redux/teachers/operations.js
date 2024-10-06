@@ -6,10 +6,10 @@ import {
  
 export const fetchTeachers = createAsyncThunk(
     "contacts/fetchTeachers",
-    async (_, thunkAPI) => {
+    async ({ page, limit }, thunkAPI) => {
         try {
             console.log('Fetching teachers...');
-            const response = await requestGetTeachers();
+            const response = await requestGetTeachers(page, limit);
              console.log('Response from requestGetTeachers:', response);
             return response;
         } catch(error) {
@@ -17,24 +17,3 @@ export const fetchTeachers = createAsyncThunk(
         }
     });
    
-    // export const addTeachers = createAsyncThunk(
-    // "contacts/addTeachers",
-    // async (teacherData, thunkAPI) => {
-    //     try {
-    //         const response = await addFavoriteTeacher(teacherData);
-    //         return response;
-    //     } catch(error) {
-    //         return thunkAPI.rejectWithValue(error.message);
-    //     }
-    //     });
-    
-    //     export const deleteTeachers = createAsyncThunk( 
-    //     "contacts/deleteTeachers",
-    //     async (teachersId, thunkAPI) => {
-    //         try {
-    //             const response = await requestDeleteTeachers(teachersId);
-    //             return response;
-    //         }catch(error) {
-    //             return thunkAPI.rejectWithValue(error.message); 
-    //         }
-    // });

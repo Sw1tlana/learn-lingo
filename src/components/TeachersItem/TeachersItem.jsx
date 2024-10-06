@@ -3,12 +3,19 @@ import css from './TeachersItem.module.css';
 import { icons as sprite } from '../../shared/icons';
 import RedMore from '../RedMore/RedMore';
 import BookTrialLesson from '../BookTrialLesson/BookTrialLesson';
+import { useSelector, useDispatch } from 'react-redux';
+import { addFavorite, deleteFavorite } from "../../redux/favorites/slice";
+import { selectFavoriteTeachers } from '../../redux/favorites/selectors';
 
 
 const TeachersItem = ({teacher}) => {
-  console.log('Rendering teacher item:', teacher);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const favoriteTeacher = useSelector(selectFavoriteTeachers);
+  
+  const isFavorite = favoriteTeacher.some(favTechear => favTechear.id === teacher.id)
 
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
@@ -21,9 +28,18 @@ const TeachersItem = ({teacher}) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const handleFavoriteClick = () => {
+    if (isFavorite) {
+      dispatch(deleteFavorite(teacher.id));
+    } else {
+      dispatch(addFavorite(teacher));
+    }
+  };
   
 return (
-    <li key={teacher.id} className={css.teacherCard}>
+  <li key={teacher.id}
+    className={css.teacherCard}>  
       <div className={css.teacherInfoContainer}>
         <div className={css.avatarContainer}>
           <span className={css.statusCircle}></span>
@@ -61,11 +77,13 @@ return (
             </li>
           <li className={css.heartItem}>
             <button type="button"
-              className={css.btnHeart}>
-              <svg width={23} height={20} className={css.iconHeart}>
-                <use xlinkHref={`${sprite}#icon-heart`} />
-              </svg>
-            </button>
+              className={css.btnHeart}
+              onClick={handleFavoriteClick}>
+                <svg width={23} height={20}
+                  className={`${css.iconHeart} ${isFavorite ? css.favorite : ''}`}>
+                    <use xlinkHref={`${sprite}#icon-heart`} />
+                </svg>
+              </button>
           </li>
           </ul>
 

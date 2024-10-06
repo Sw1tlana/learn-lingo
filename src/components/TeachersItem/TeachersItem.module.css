@@ -66,6 +66,29 @@
     stroke: var(--black-color);
 }
 
+.iconHeart {
+    fill: transparent;
+    stroke: var(--primery-btn-color);
+    cursor: pointer;
+}
+
+.iconHeart.favorite {
+    fill: var(--primery-btn-color);
+    stroke: none;
+}
+
+.iconHeart:hover,
+.iconHeart:active {
+    stroke: var(--primery-btn-color);
+    transform: scale(1.3);
+    transition: transform 0.2s ease;
+}
+
+.ratingItem {
+    display: flex;
+    align-items: center;
+}
+
 .ratingItem {
     display: flex;
     align-items: center;

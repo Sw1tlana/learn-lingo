@@ -20,9 +20,22 @@ const teachersSlice = createSlice({
     items: [],
     loading: false,
     error: null,
-    },
-  reducers: {  
+    page: 1,
+    limit: 4,
+    totalPages: 0
   },
+  reducers: { 
+    setPage: (state, active) => {
+      state.page = active.payload;
+    },
+    setLimit: (state, active) => {
+      state.limit = active.payload;
+    },
+    setTotalPage: (state, active) => {
+      state.totalPages = active.payload;
+    }
+},
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchTeachers.pending, handlePending)
@@ -35,6 +48,10 @@ const teachersSlice = createSlice({
   },
 });
 
-export const { addFavorite, deleteFavorite } = teachersSlice.actions;
+export const {
+  setPage,
+  setLimit,
+  setTotalPage
+} = teachersSlice.actions;
 
 export const teachersReducer = teachersSlice.reducer;

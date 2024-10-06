@@ -1,0 +1,25 @@
+.containerLoadMore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.loadMoreBtn {
+    display: block;
+    margin: 0 auto;
+    padding: 16px 48px;
+    border: none;
+    background-color: var(--primery-btn-color);
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--text-color);
+}
+
+.loadMoreBtn:hover,
+.loadMoreBtn:active {
+    background-color: var(--secondary-btn-accent);
+}

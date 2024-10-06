@@ -15,12 +15,10 @@ const instance = axios.create({
 
 export const setToken = (token) => {
   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  console.log('Token set:', instance.defaults.headers.common['Authorization']);
 };
 
 export const clearToken = () => {
   instance.defaults.headers.common['Authorization'] = ''; 
-  console.log('Token cleared');
 };
 
 export const registerUserAndSave = async ({ email, password, name }) => {
@@ -32,12 +30,8 @@ export const registerUserAndSave = async ({ email, password, name }) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const idToken = await user.getIdToken();
-
-    console.log('User UID:', user.uid);
-    console.log('ID Token:', idToken);
     
     const userEndpoint = `/users/${user.uid}.json?auth=${idToken}`;
-    console.log('User Endpoint:', userEndpoint);
     
     const userResponse = await instance.post(userEndpoint, {
       email,
@@ -52,7 +46,6 @@ export const registerUserAndSave = async ({ email, password, name }) => {
       token: idToken
     };
   } catch (error) {
-    console.error('Registration Error:', error.response ? error.response.data : error.message);
     throw new Error(error.response?.data?.error || error.message || 'Failed to register user');
   }
 };
@@ -64,7 +57,6 @@ export const requestSignIn = async ({ email, password }) => {
     const token = await user.getIdToken();
     
     setToken(token);
-    console.log('Sign In Response:', { firebaseUser: user, uid: user.uid, token });
 
     return {
       firebaseUser: user,
@@ -72,7 +64,6 @@ export const requestSignIn = async ({ email, password }) => {
       token
     };
   } catch (error) {
-    console.error('Sign In Error:', error.message);
     throw new Error(error.message);
   }
 };
@@ -92,60 +83,37 @@ export const requestLogOut = async () => {
     await signOut(auth);
     
     clearToken();
-    console.log('Successfully signed out from Firebase');
     return { success: true };
   } catch (error) {
-    console.error('Logout Error:', error.message);
     throw new Error(error.message);
   }
 };
 
 // teachers
 
-export const requestGetTeachers = async () => {
-    console.log('Current Headers:', instance.defaults.headers.common['Authorization']);
+export const requestGetTeachers = async (page, limit) => {
+
   try {
-    console.log('Starting request to fetch teachers');
-  const response = await instance.get('teachers.json');
-  console.log('Direct API Response:', response.data);
-    console.log('API Response:', response.data);
+
+  const response = await instance.get('teachers.json?page=${page}&limit=${limit}');
 
     if (response.data) {
       const teachersArray = Object.keys(response.data).map(key => ({
         id: key,
         ...response.data[key]
       }));
-      console.log('Formatted teachers array:', teachersArray);
-      return teachersArray;
+
+      const totalPages = Math.ceil(response.data.total / limit); 
+      return {
+        teachers: teachersArray,
+        totalPages: totalPages
+      };
     }
 
-    return [];
+    return { teachers: [], totalPages: 0 };
   } catch (error) {
-    console.error('Failed to fetch teachers:', error.message);
     throw new Error(error.message);
   }
 };
-
-// export const addFavoriteTeacher = async (teacherId) => {
-//   try {
-//     const teacherData = { isFavorite: true }; // Дані для оновлення
-//     const response = await instance.patch(`teachers/${teacherId}.json`, teacherData); // Використовуємо PATCH для оновлення
-//     return { id: teacherId, ...response.data }; // Повертаємо ID та дані
-//   } catch (error) {
-//     console.error('Failed to add favorite teacher:', error.message);
-//     throw new Error(error.message); // Обробка помилки
-//   }
-// };
-
-// export const requestDeleteTeachers = async (teacherId) => {
-//   try {
-//     await instance.delete(`teachers/${teacherId}.json`);
-//     console.log(`Teacher ${teacherId} deleted`);
-//     return teacherId;
-//   } catch (error) {
-//     console.error('Failed to delete teacher:', error.message);
-//     throw new Error(error.message);
-//   }
-// };
 
 export default instance;

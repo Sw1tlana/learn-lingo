@@ -6,12 +6,11 @@ const favoritesSlice = createSlice({
     favorites: [],
   },
   reducers: {
-addFavorite: {
+  addFavorite: {
   reducer(state, action) {
     const isFavorite = state.favorites.find(fav => fav.id === action.payload.id);
     if (!isFavorite) {
       state.favorites.push(action.payload);
-      c
     }
   },
   prepare(values) {
