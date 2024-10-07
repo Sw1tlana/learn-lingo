@@ -5,8 +5,11 @@ import { selectFilteredTeachers } from '../../redux/filters/selectors';
 import {
   selectPage,
   selectLimit,
-  selectLoading,
+  selectTotalPages,
+ selectLoading,
+ selectTeachers
 } from '../../redux/teachers/selectors';
+import { setPage } from '../../redux/teachers/slice';
 import TeachersItem from '../../components/TeachersItem/TeachersItem';
 import TeacherFilter from '../TeacherFilter/TeacherFilter';
 import Loader from '../../shared/components/Loader/Loader';
@@ -17,19 +20,35 @@ import LoadMore from '../LoadMore/LoadMore';
 const TeachersList = () => {
 
   const dispatch = useDispatch();
-  const teachers = useSelector(selectFilteredTeachers);
+  const filteredTeachers = useSelector(selectFilteredTeachers);
+  const teachers = useSelector(selectTeachers)
   const limit = useSelector(selectLimit);
   const page = useSelector(selectPage);
- 
-  useEffect(() => {
-    dispatch(fetchTeachers({ page, limit }));
-  }, [dispatch, limit, page]);
+  const totalPages = useSelector(selectTotalPages);
+  const loading = useSelector(selectLoading);
 
-    const handleLoadMore = () => {
+useEffect(() => {
+  if (limit && page) {
+      console.log("Fetching teachers for page:", page);
+      dispatch(fetchTeachers({ page, limit}));
+    }
+}, [dispatch, limit, page]);
+  
+
+  const handleLoadMore = () => {
+      console.log("Current Page before load more:", page);
     if (!loading && page < totalPages) {
       dispatch(setPage(page + 1));
+
+      console.log("Loading more teachers...");
     }
   };
+
+  console.log("Teachers:", teachers);
+  console.log("Limit:", limit);
+  console.log("Page:", page);
+  console.log("Total Pages:", totalPages);
+  console.log("Loading:", loading);
 
   return (
     <div className={css.listWraper}>
@@ -37,22 +56,21 @@ const TeachersList = () => {
       <section className={css.sectionTeacher}>
         <TeacherFilter />
     <ul className={css.teacherList}>
-      {Array.isArray(teachers) && teachers.length > 0 ? (
-        teachers.map((teacher) => (
+        {Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
+          filteredTeachers.map((teacher, index) => (
           <TeachersItem
-            key={teacher.id}
+            key={index}
             teacher={teacher} />
         ))
       ) : (
         <Loader/>
-      )}
+            )}
+            {!loading && teachers.length >= limit && page < totalPages && ( 
+            <div className={css.loadMoreContainer}>
+              <LoadMore onClick={handleLoadMore} />
+            </div>
+          )}
           </ul>
-        {!loading && page < totalPages && (
-        <div className={css.loadMoreContainer}>
-          <LoadMore onClick={handleLoadMore} />
-        </div>
-      )}
-          {/* <LoadMore/> */}
     </section >
     </Container>
     </div>

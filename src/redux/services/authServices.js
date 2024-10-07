@@ -95,7 +95,7 @@ export const requestGetTeachers = async (page, limit) => {
 
   try {
 
-  const response = await instance.get('teachers.json?page=${page}&limit=${limit}');
+  const response = await instance.get(`teachers.json?page=${page}&limit=${limit}`);
 
     if (response.data) {
       const teachersArray = Object.keys(response.data).map(key => ({
@@ -103,9 +103,12 @@ export const requestGetTeachers = async (page, limit) => {
         ...response.data[key]
       }));
 
-      const totalPages = Math.ceil(response.data.total / limit); 
+      const totalItems = teachersArray.length;
+      const totalPages = Math.ceil(totalItems / limit); 
+
+      const paginatedTeachers = teachersArray.slice((page - 1) * limit, page * limit);
       return {
-        teachers: teachersArray,
+        teachers: paginatedTeachers,
         totalPages: totalPages
       };
     }

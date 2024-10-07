@@ -1,7 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { selectTeachers } from '../teachers/selectors';
 
-
 export const selectFilteredTeachers = createSelector(
     [selectTeachers, (state) => state.filters],
     (teachers, filters) => {

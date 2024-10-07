@@ -5,8 +5,8 @@ import {
 } from "./operations.js"; 
  
 const handlePending = (state) => {
-  console.log('Fetch teachers pending');
   state.loading = true;
+  state.error = null;
 };
 
 const handleRejected = (state, action) => {
@@ -41,7 +41,12 @@ const teachersSlice = createSlice({
       .addCase(fetchTeachers.pending, handlePending)
       .addCase(fetchTeachers.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload;
+      if (state.page === 1) {
+        state.items = action.payload.teachers; 
+      } else {
+        state.items = [...state.items, ...action.payload.teachers];
+      }
+        state.totalPages = action.payload.totalPages;
         state.error = null;
       })
       .addCase(fetchTeachers.rejected, handleRejected)
