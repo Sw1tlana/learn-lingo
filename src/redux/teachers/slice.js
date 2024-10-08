@@ -40,14 +40,14 @@ const teachersSlice = createSlice({
     builder
       .addCase(fetchTeachers.pending, handlePending)
       .addCase(fetchTeachers.fulfilled, (state, action) => {
-        state.loading = false;
-      if (state.page === 1) {
+    state.loading = false;
+    if (state.page === 1) {
         state.items = action.payload.teachers; 
-      } else {
+    } else {
         state.items = [...state.items, ...action.payload.teachers];
-      }
-        state.totalPages = action.payload.totalPages;
-        state.error = null;
+    }
+    state.totalPages = action.payload.totalPages;
+    state.error = null;
       })
       .addCase(fetchTeachers.rejected, handleRejected)
   },

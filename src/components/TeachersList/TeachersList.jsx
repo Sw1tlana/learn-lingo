@@ -16,6 +16,7 @@ import Loader from '../../shared/components/Loader/Loader';
 import Container from '../../shared/components/Container/Container';
 import css from './TeachersList.module.css';
 import LoadMore from '../LoadMore/LoadMore';
+import { changeFilter } from '../../redux/filters/slice';
 
 const TeachersList = () => {
 
@@ -27,12 +28,17 @@ const TeachersList = () => {
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
 
-useEffect(() => {
-  if (limit && page) {
-      console.log("Fetching teachers for page:", page);
-      dispatch(fetchTeachers({ page, limit}));
+  useEffect(() => {
+    if (limit && page) {
+      dispatch(fetchTeachers({ page, limit }));
     }
-}, [dispatch, limit, page]);
+  }, [dispatch, limit, page]);
+
+const handleFilterChange = (filteredTeachers) => {
+  dispatch(changeFilter(filteredTeachers));
+  dispatch(setPage(1)); 
+  dispatch(fetchTeachers({ page: 1, limit, filteredTeachers })); 
+};
   
 
   const handleLoadMore = () => {
@@ -54,14 +60,12 @@ useEffect(() => {
     <div className={css.listWraper}>
     <Container>
       <section className={css.sectionTeacher}>
-        <TeacherFilter />
+        <TeacherFilter  onFilterChange={handleFilterChange} />
     <ul className={css.teacherList}>
-        {Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
-          filteredTeachers.map((teacher, index) => (
-          <TeachersItem
-            key={index}
-            teacher={teacher} />
-        ))
+    {filteredTeachers.length > 0 ? (
+      filteredTeachers.map((teacher, index) => (
+        <TeachersItem key={index} teacher={teacher} />
+      ))
       ) : (
         <Loader/>
             )}

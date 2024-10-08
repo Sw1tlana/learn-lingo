@@ -91,11 +91,11 @@ export const requestLogOut = async () => {
 
 // teachers
 
-export const requestGetTeachers = async (page, limit) => {
+export const requestGetTeachers = async (page, limit, filteredTeachers ) => {
 
   try {
 
-  const response = await instance.get(`teachers.json?page=${page}&limit=${limit}`);
+  const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);
 
     if (response.data) {
       const teachersArray = Object.keys(response.data).map(key => ({
