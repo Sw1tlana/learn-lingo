@@ -28,16 +28,15 @@ const TeachersList = () => {
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
 
-  useEffect(() => {
-    if (limit && page) {
-      dispatch(fetchTeachers({ page, limit }));
-    }
-  }, [dispatch, limit, page]);
+useEffect(() => {
+  if (limit && page) {
+    dispatch(fetchTeachers({ page, limit })); 
+  }
+}, [dispatch, limit, page ]);
 
 const handleFilterChange = (filteredTeachers) => {
-  dispatch(changeFilter(filteredTeachers));
+  dispatch(changeFilter(filteredTeachers)); 
   dispatch(setPage(1)); 
-  dispatch(fetchTeachers({ page: 1, limit, filteredTeachers })); 
 };
   
 

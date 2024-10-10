@@ -1,12 +1,9 @@
 import css from './TeacherFilter.module.css';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { changeFilter } from "../../redux/filters/slice";
 import Select from 'react-select';
-import toast from 'react-hot-toast'; 
+import toast from 'react-hot-toast';
 
 const TeacherFilter = ({ onFilterChange }) => {
-  const dispatch = useDispatch();
 
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -62,7 +59,18 @@ const levelsByLanguage = {
 
   const handlePriceChange = (priceOption) => {
     setSelectedPrice(priceOption);
-    onFilterChange({ price: priceOption ? priceOption.value : null });
+ 
+    if (priceOption) {
+      if (priceOption.value >= 10 && priceOption.value < 20) {
+        toast.error("Price is outside the allowed range");
+      } else if (priceOption.value >= 20 && priceOption.value < 30) {
+        toast.success("Price range from 20 to 30$");
+      } else if (priceOption.value >= 30 && priceOption.value <= 40) {
+        toast.success("Price range from 30 to 40$");
+      } else {
+        toast.error("Price is outside the allowed range");
+      }
+    }
   };
 
   const handleLanguageChange = (languageOption) => {
@@ -75,7 +83,6 @@ const levelsByLanguage = {
     onFilterChange({ level: levelOption ? levelOption.value : null });
   };
 
-  
   const customStyles = {
     control: (provided) => ({
       ...provided,
