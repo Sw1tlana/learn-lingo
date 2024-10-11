@@ -6,8 +6,8 @@ import {
   selectPage,
   selectLimit,
   selectTotalPages,
- selectLoading,
- selectTeachers
+  selectLoading,
+  selectTeachers
 } from '../../redux/teachers/selectors';
 import { setPage } from '../../redux/teachers/slice';
 import TeachersItem from '../../components/TeachersItem/TeachersItem';
@@ -39,7 +39,6 @@ const handleFilterChange = (filteredTeachers) => {
   dispatch(setPage(1)); 
 };
   
-
   const handleLoadMore = () => {
       console.log("Current Page before load more:", page);
     if (!loading && page < totalPages) {
@@ -49,34 +48,31 @@ const handleFilterChange = (filteredTeachers) => {
     }
   };
 
-  console.log("Teachers:", teachers);
-  console.log("Limit:", limit);
-  console.log("Page:", page);
-  console.log("Total Pages:", totalPages);
-  console.log("Loading:", loading);
 
   return (
-    <div className={css.listWraper}>
+  <div className={css.listWraper}>
     <Container>
       <section className={css.sectionTeacher}>
-        <TeacherFilter  onFilterChange={handleFilterChange} />
-    <ul className={css.teacherList}>
-    {filteredTeachers.length > 0 ? (
-      filteredTeachers.map((teacher, index) => (
-        <TeachersItem key={index} teacher={teacher} />
-      ))
-      ) : (
-        <Loader/>
-            )}
-            {!loading && teachers.length >= limit && page < totalPages && ( 
-            <div className={css.loadMoreContainer}>
-              <LoadMore onClick={handleLoadMore} />
-            </div>
+        <TeacherFilter onFilterChange={handleFilterChange} />
+
+        <ul className={css.teacherList}>
+          {filteredTeachers.length > 0 ? (
+            filteredTeachers.map((teacher, index) => (
+              <TeachersItem key={index} teacher={teacher} />
+            ))
+          ) : (
+                loading ? <Loader /> : <p>Press the button</p>
           )}
-          </ul>
-    </section >
+        </ul>
+
+        {!loading && teachers.length >= limit && page < totalPages && (
+          <div className={css.loadMoreContainer}>
+            <LoadMore onClick={handleLoadMore} />
+          </div>
+        )}
+      </section>
     </Container>
-    </div>
+  </div>
   );
 };
 

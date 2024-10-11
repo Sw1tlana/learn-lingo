@@ -57,32 +57,20 @@ const levelsByLanguage = {
     }
   }, [selectedLanguage]);
 
-  const handlePriceChange = (priceOption) => {
-    setSelectedPrice(priceOption);
- 
-    if (priceOption) {
-      if (priceOption.value >= 10 && priceOption.value < 20) {
-        toast.error("Price is outside the allowed range");
-      } else if (priceOption.value >= 20 && priceOption.value < 30) {
-        toast.success("Price range from 20 to 30$");
-      } else if (priceOption.value >= 30 && priceOption.value <= 40) {
-        toast.success("Price range from 30 to 40$");
-      } else {
-        toast.error("Price is outside the allowed range");
-      }
-    }
-  };
+const handlePriceChange = (priceOption) => {
+  setSelectedPrice(priceOption);
+  onFilterChange({ price: Number(priceOption?.value) });
+};
 
-  const handleLanguageChange = (languageOption) => {
-    setSelectedLanguage(languageOption);
-    onFilterChange({ language: languageOption ? languageOption.value : null });
-  };
+const handleLanguageChange = (languageOption) => {
+  setSelectedLanguage(languageOption);
+  onFilterChange({ language: languageOption ? languageOption.value : null });
+};
 
-  const handleLevelChange = (levelOption) => {
-    setSelectedLevel(levelOption);
-    onFilterChange({ level: levelOption ? levelOption.value : null });
-  };
-
+const handleLevelChange = (levelOption) => {
+  setSelectedLevel(levelOption);
+  onFilterChange({ level: levelOption ? levelOption.value : null });
+};
   const customStyles = {
     control: (provided) => ({
       ...provided,
