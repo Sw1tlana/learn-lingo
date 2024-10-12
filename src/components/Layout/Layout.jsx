@@ -4,7 +4,9 @@ const Layout = ({ children }) => {
     return (
         <div>
             <AppBar/>
-            <main>{children}</main>
+            <main>
+                {children}
+            </main>
         </div>
     )
 };

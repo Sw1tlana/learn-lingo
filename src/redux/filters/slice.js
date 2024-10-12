@@ -5,7 +5,8 @@ const filtersSlice = createSlice({
     initialState: {
         price: null,
         language: null,
-        level: null
+        level: null,
+        page: 1,
     },
     reducers: {
         changeFilter: (state, action) => {

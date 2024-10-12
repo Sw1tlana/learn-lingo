@@ -56,16 +56,26 @@ const AppBar = () => {
         </nav>
         <div className={css.authButtons}>
           {currentUser ? (
-            <button onClick={handleLogout} className={css.logoutButton}>Logout</button>
+              <button
+                onClick={handleLogout}
+                className={css.logoutButton}>
+                Logout
+              </button>
           ) : (
             <>
-                <button onClick={openLogin} className={css.loginButton}>
+                  <button
+                    onClick={openLogin}
+                    className={css.loginButton}>
                   <svg width={73} height={20} className={css.iconArrow}>
                     <use xlinkHref={`${sprite}#icon-arrow`} />
                   </svg>
                   Login
                 </button>
-              <button onClick={openRegister} className={css.registerButton}>Register</button>
+                  <button
+                    onClick={openRegister}
+                    className={css.registerButton}>
+                    Register
+                  </button>
             </>
           )}
         </div>

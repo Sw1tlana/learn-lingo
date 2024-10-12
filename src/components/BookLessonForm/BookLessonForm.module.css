@@ -31,3 +31,8 @@
     color: var(--white);
     margin-top: 40px;
 }
+
+.btnBookLesson:active,
+.btnBookLesson:hover {
+    background-color: var(--secondary-btn-accent);
+}

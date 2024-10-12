@@ -4,16 +4,21 @@ import { icons as sprite } from '../../shared/icons';
 import RedMore from '../RedMore/RedMore';
 import BookTrialLesson from '../BookTrialLesson/BookTrialLesson';
 import { useSelector, useDispatch } from 'react-redux';
+import Notification from '../Notification/Notification';
 import { addFavorite, deleteFavorite } from "../../redux/favorites/slice";
 import { selectFavoriteTeachers } from '../../redux/favorites/selectors';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
 
 const TeachersItem = ({teacher}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNotificationOpen, setNotificationOpen] = useState(false);
 
   const dispatch = useDispatch();
   const favoriteTeacher = useSelector(selectFavoriteTeachers);
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   
   const isFavorite = favoriteTeacher.some(favTechear => favTechear.id === teacher.id)
 
@@ -30,12 +35,18 @@ const TeachersItem = ({teacher}) => {
   };
 
   const handleFavoriteClick = () => {
+    if (!isLoggedIn) {
+      setNotificationOpen(true); 
+      return;
+    }
+
     if (isFavorite) {
       dispatch(deleteFavorite(teacher.id));
     } else {
       dispatch(addFavorite(teacher));
     }
   };
+
   
 return (
   <li key={teacher.id}
@@ -85,6 +96,10 @@ return (
                 </svg>
               </button>
           </li>
+          {isNotificationOpen && (
+            <Notification onClose={() => setNotificationOpen(false)}
+              message="This feature is only available to authorized users." />
+        )}
           </ul>
 
           <ul className={css.additionalInfo}>

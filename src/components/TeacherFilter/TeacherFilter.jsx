@@ -58,8 +58,28 @@ const levelsByLanguage = {
   }, [selectedLanguage]);
 
 const handlePriceChange = (priceOption) => {
-  setSelectedPrice(priceOption);
-  onFilterChange({ price: Number(priceOption?.value) });
+  if (!priceOption) {
+    toast.error("Price not selected!");
+  } else {
+    const selectedPriceValue = priceOption.value;
+
+    if (selectedPriceValue >= 10 && selectedPriceValue <= 20) {
+      toast.error("Price from 10 to 20 is not available!");
+    } else if (selectedPriceValue >= 20 && selectedPriceValue < 30) {
+    
+      setSelectedPrice(priceOption);
+      onFilterChange({ price: Number(priceOption.value) });
+    } else if (selectedPriceValue >= 30 && selectedPriceValue < 40) {
+ 
+      setSelectedPrice(priceOption);
+      onFilterChange({ price: Number(priceOption.value) });
+    } else if (selectedPriceValue >= 40 && selectedPriceValue <= 50) {
+      toast.error("Price from 40 to 50 is not available!");
+    } else {
+  
+      toast.error("Price is not available!");
+    }
+  }
 };
 
 const handleLanguageChange = (languageOption) => {
