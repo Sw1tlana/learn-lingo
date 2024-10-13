@@ -7,7 +7,7 @@ import {
     setToken,
     clearToken,
 } from "../services/authServices";
-
+import toast from 'react-hot-toast';
 import instance from '../services/authServices';
 
 export const register = createAsyncThunk(
@@ -16,9 +16,10 @@ export const register = createAsyncThunk(
     try {
            console.log('Registering with data:', userData);
       const response = await registerUserAndSave(userData);
+      toast.success("Registration successful!");
       return response;
     } catch (error) {
-      console.error("Registration error:", error);
+      toast.error(error.message || "Failed to register.");
       return thunkAPI.rejectWithValue(error.message || "Failed to register");
     }
   }
@@ -32,9 +33,10 @@ export const login = createAsyncThunk(
       const { uid, token } = response;
       
       setToken(token);
-      
+      toast.success("Login successful!");
       return { uid, token };
     } catch (error) {
+      toast.error(error.message || "Failed to log in.");
       return thunkAPI.rejectWithValue(error.message);
     }
   }

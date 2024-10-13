@@ -1,5 +1,5 @@
 import css from './BookTrialLesson.module.css';
-import ModalWindow from '../../shared/components/ModalWindow/ModlWindow';
+import ModalWindow from '../../shared/components/ModalWindow/ModalWindow';
 import BookLessonForm from '../BookLessonForm/BookLessonForm';
 import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
 

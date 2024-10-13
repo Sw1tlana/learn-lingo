@@ -91,31 +91,31 @@ export const requestLogOut = async () => {
 
 // teachers
 
-export const requestGetTeachers = async (page, limit, filteredTeachers ) => {
-
+export const requestGetTeachers = async (page, limit, filteredTeachers) => {
   try {
-
-  const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);
-
-    if (response.data) {
-      const teachersArray = Object.keys(response.data).map(key => ({
-        id: key,
-        ...response.data[key]
-      }));
-
-      const totalItems = teachersArray.length;
-      const totalPages = Math.ceil(totalItems / limit); 
-
-      const paginatedTeachers = teachersArray.slice((page - 1) * limit, page * limit);
-      return {
-        teachers: paginatedTeachers,
-        totalPages: totalPages
-      };
+     console.log("Current Authorization Header:", instance.defaults.headers.common['Authorization']); // Перевірка заголовка
+    const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);
+    
+    if (!response.data) {
+      return { teachers: [], totalPages: 0 };
     }
 
-    return { teachers: [], totalPages: 0 };
+    const teachersArray = Object.keys(response.data).map(key => ({
+      id: key,
+      ...response.data[key]
+    }));
+
+    const totalItems = teachersArray.length;
+    const totalPages = Math.ceil(totalItems / limit);
+    const paginatedTeachers = teachersArray.slice((page - 1) * limit, page * limit);
+    
+    return {
+      teachers: paginatedTeachers,
+      totalPages: totalPages
+    };
   } catch (error) {
-    throw new Error(error.message);
+    console.error("Error fetching teachers:", error);
+    throw new Error(error.message || "Failed to fetch teachers");
   }
 };
 

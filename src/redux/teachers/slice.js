@@ -56,8 +56,7 @@ const teachersSlice = createSlice({
 export const {
   setPage,
   setLimit,
-  setTotalPage,
-  resetTeachers
+  setTotalPage
 } = teachersSlice.actions;
 
 export const teachersReducer = teachersSlice.reducer;

@@ -1,5 +1,5 @@
 import './ModalWindow.css';
-import { icons as sprite } from "../../../shared/icons/index";
+import { icons as sprite } from "../../icons/index";
 import Modal from 'react-modal';
 import { useEffect } from 'react';
 

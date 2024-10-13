@@ -14,13 +14,21 @@ const TeachersPage = lazy(() => import('./pages/TeachersPage/TeachersPage'));
 const FavoritesPage = lazy(() => import('./pages/FavoritesPage/FavoritesPage'));
 
 function App() {
-
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
-    if (auth.currentUser) {
-       dispatch(fetchCurrentUser());
-  }
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Користувач автентифікований
+        dispatch(fetchCurrentUser());
+      } else {
+        // Користувач не автентифікований
+        console.log("Користувач не автентифікований");
+      }
+    });
+
+    // Очищення підписки
+    return () => unsubscribe();
   }, [dispatch]);
 
   return (

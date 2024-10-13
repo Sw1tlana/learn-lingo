@@ -28,13 +28,14 @@ const TeachersList = () => {
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
 
-useEffect(() => {
-  if (limit && page) {
-    dispatch(fetchTeachers({ page, limit })); 
-  }
-}, [dispatch, limit, page ]);
+  useEffect(() => {
+    if (Number.isFinite(limit) && Number.isFinite(page)) {
+      dispatch(fetchTeachers({ page, limit }));
+    }
+  }, [dispatch, limit, page]);
 
-const handleFilterChange = (filteredTeachers) => {
+  const handleFilterChange = (filteredTeachers) => {
+  console.log("New filters applied:", filteredTeachers);
   dispatch(changeFilter(filteredTeachers)); 
   dispatch(setPage(1)); 
 };
@@ -56,9 +57,9 @@ const handleFilterChange = (filteredTeachers) => {
         <TeacherFilter onFilterChange={handleFilterChange} />
 
         <ul className={css.teacherList}>
-          {filteredTeachers.length > 0 ? (
-            filteredTeachers.map((teacher, index) => (
-              <TeachersItem key={index} teacher={teacher} />
+          {Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
+            filteredTeachers.map((teacher) => (
+              <TeachersItem key={teacher.id} teacher={teacher} />
             ))
           ) : (
                 loading ? <Loader /> : <p>Press the button</p>

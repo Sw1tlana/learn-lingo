@@ -78,7 +78,7 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         console.log('Logout fulfilled');
         console.log('State before clearing:', state);
-        state.user = null; 
+        state.user = initialState.user; 
         state.token = null;
         state.uid = null;
         state.isLoggedIn = false;
