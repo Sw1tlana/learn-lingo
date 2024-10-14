@@ -30,13 +30,14 @@ const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.error = null;
       })
-      .addCase(register.fulfilled, (state, action) => {
-         console.log('Register fulfilled', action.payload);
-            const { name, email, token, uid } = action.payload;
-            state.user = { name, email, token, uid };
-            state.isLoggedIn = true;
-            state.error = null;
-      })
+        .addCase(register.fulfilled, (state, action) => {
+          const { name, email, token, uid } = action.payload;
+          state.user = { name, email };
+          state.token = token;
+          state.uid = uid;
+          state.isLoggedIn = true;
+          state.error = null;
+        })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload || 'Registration failed';
       })
@@ -45,12 +46,16 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log('Login fulfilled', action.payload);
-          state.uid = action.payload.uid;
-          state.token = action.payload.token;
+        console.log('Login fulfilled payload:', action.payload);
+
+        const { token, uid } = action.payload || {};  
+        if (token && uid) {
+          state.user.uid = uid;
+          state.token = token;
           state.isLoggedIn = true;
-          state.error = null;
-         console.log('Token saved in Redux state:', state.token);
+        } else {
+          state.error = 'Missing token or uid in response';
+        }
       })
       .addCase(login.rejected, (state, action) => {
         state.error = action.payload || 'Login failed';
@@ -61,7 +66,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+        const { name, email, uid } = action.payload;
+        state.user = { name, email };
+        state.uid = uid; // Додається uid, якщо потрібно
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.error = null;

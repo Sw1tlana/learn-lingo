@@ -93,9 +93,9 @@ export const requestLogOut = async () => {
 
 export const requestGetTeachers = async (page, limit, filteredTeachers) => {
   try {
-     console.log("Current Authorization Header:", instance.defaults.headers.common['Authorization']); // Перевірка заголовка
+    console.log(`Fetching teachers with page: ${page}, limit: ${limit}, filter: ${filteredTeachers}`);
     const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);
-    
+     console.log("Response data:", response.data); 
     if (!response.data) {
       return { teachers: [], totalPages: 0 };
     }

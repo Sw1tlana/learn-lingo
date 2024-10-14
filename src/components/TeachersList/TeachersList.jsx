@@ -16,7 +16,9 @@ import Loader from '../../shared/components/Loader/Loader';
 import Container from '../../shared/components/Container/Container';
 import css from './TeachersList.module.css';
 import LoadMore from '../LoadMore/LoadMore';
+
 import { changeFilter } from '../../redux/filters/slice';
+import { selectUser } from '../../redux/auth/selectors';
 
 const TeachersList = () => {
 
@@ -27,6 +29,12 @@ const TeachersList = () => {
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
+  const user = useSelector(selectUser);
+
+console.log('Filtered Teachers:', filteredTeachers);
+console.log('All Teachers:', teachers);
+console.log('Page:', page, 'Total Pages:', totalPages);
+console.log('Loading:', loading);
 
   useEffect(() => {
     if (Number.isFinite(limit) && Number.isFinite(page)) {
@@ -37,7 +45,8 @@ const TeachersList = () => {
   const handleFilterChange = (filteredTeachers) => {
   console.log("New filters applied:", filteredTeachers);
   dispatch(changeFilter(filteredTeachers)); 
-  dispatch(setPage(1)); 
+    dispatch(setPage(1)); 
+    dispatch(fetchTeachers({ page: 1, limit }));
 };
   
   const handleLoadMore = () => {
@@ -48,7 +57,6 @@ const TeachersList = () => {
       console.log("Loading more teachers...");
     }
   };
-
 
   return (
   <div className={css.listWraper}>

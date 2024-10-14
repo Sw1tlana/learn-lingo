@@ -2,33 +2,42 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAction } from '../redux/auth/operations'; 
 import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
+import { createUserProfile } from '../redux/services/userServices';
+import { auth } from '../firebase';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const loading = useSelector(selectIsLoggedIn);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkUser = async () => {
-    console.log('Is Logged In:', isLoggedIn);
-    console.log('User:', user);
-      setLoading(false);
-    };
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(async (user) => {
+          if (user) {
+              try {
+                  await createUserProfile({
+                      uid: user.uid,
+                      email: user.email,
+                      displayName: user.displayName,
+                  });
+              } catch (error) {
+                  console.error("Error creating user profile:", error);
+              }
+          }
+      });
+        
+        return () => unsubscribe();
+    }, []);
 
-    checkUser();
-  }, []);
 
-  const logout = async () => {
-    setLoading(true); 
-    try {
-      await dispatch(logoutAction());
-    } finally {
-      setLoading(false); 
-    }
-  };
+const logout = async () => {
+  try {
+    await dispatch(logoutAction());
+  } catch (error) {
+    console.error('Logout error:', error);
+  } 
+};
 
   return (
     <AuthContext.Provider value={{ currentUser: user, logout, loading }}>
