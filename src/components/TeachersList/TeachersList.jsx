@@ -16,25 +16,18 @@ import Loader from '../../shared/components/Loader/Loader';
 import Container from '../../shared/components/Container/Container';
 import css from './TeachersList.module.css';
 import LoadMore from '../LoadMore/LoadMore';
-
 import { changeFilter } from '../../redux/filters/slice';
 import { selectUser } from '../../redux/auth/selectors';
 
 const TeachersList = () => {
-
   const dispatch = useDispatch();
   const filteredTeachers = useSelector(selectFilteredTeachers);
-  const teachers = useSelector(selectTeachers)
+  const teachers = useSelector(selectTeachers);
   const limit = useSelector(selectLimit);
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
   const user = useSelector(selectUser);
-
-console.log('Filtered Teachers:', filteredTeachers);
-console.log('All Teachers:', teachers);
-console.log('Page:', page, 'Total Pages:', totalPages);
-console.log('Loading:', loading);
 
   useEffect(() => {
     if (Number.isFinite(limit) && Number.isFinite(page)) {
@@ -43,45 +36,50 @@ console.log('Loading:', loading);
   }, [dispatch, limit, page]);
 
   const handleFilterChange = (filteredTeachers) => {
-  console.log("New filters applied:", filteredTeachers);
-  dispatch(changeFilter(filteredTeachers)); 
+    dispatch(changeFilter(filteredTeachers)); 
     dispatch(setPage(1)); 
     dispatch(fetchTeachers({ page: 1, limit }));
-};
+  };
   
   const handleLoadMore = () => {
-      console.log("Current Page before load more:", page);
     if (!loading && page < totalPages) {
       dispatch(setPage(page + 1));
-
-      console.log("Loading more teachers...");
     }
   };
 
   return (
-  <div className={css.listWraper}>
-    <Container>
-      <section className={css.sectionTeacher}>
-        <TeacherFilter onFilterChange={handleFilterChange} />
-
-        <ul className={css.teacherList}>
-          {Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
-            filteredTeachers.map((teacher) => (
-              <TeachersItem key={teacher.id} teacher={teacher} />
-            ))
+    <div className={css.listWraper}>
+      <Container>
+        <section className={css.sectionTeacher}>
+          {user ? (
+            <p>Привіт, {user.displayName}!</p>
           ) : (
-                loading ? <Loader /> : <p>Press the button</p>
+            <p>Користувач не автентифікований.</p>
           )}
-        </ul>
+          <TeacherFilter onFilterChange={handleFilterChange} />
 
-        {!loading && teachers.length >= limit && page < totalPages && (
-          <div className={css.loadMoreContainer}>
-            <LoadMore onClick={handleLoadMore} />
-          </div>
-        )}
-      </section>
-    </Container>
-  </div>
+          <ul className={css.teacherList}>
+            {loading ? (
+              <Loader />
+            ) : (
+              Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
+                filteredTeachers.map((teacher) => (
+                  <TeachersItem key={teacher.id} teacher={teacher} />
+                ))
+              ) : (
+                <p>Немає вчителів для відображення.</p>
+              )
+            )}
+          </ul>
+
+          {!loading && teachers.length >= limit && page < totalPages && (
+            <div className={css.loadMoreContainer}>
+              <LoadMore onClick={handleLoadMore} />
+            </div>
+          )}
+        </section>
+      </Container>
+    </div>
   );
 };
 

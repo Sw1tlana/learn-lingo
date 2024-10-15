@@ -16,6 +16,7 @@ export const register = createAsyncThunk(
     try {
            console.log('Registering with data:', userData);
       const response = await registerUserAndSave(userData);
+      console.log('Response from registration:', response);
       toast.success("Registration successful!");
       return response;
     } catch (error) {

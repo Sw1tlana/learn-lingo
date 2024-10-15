@@ -18,8 +18,9 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
-  instance.defaults.headers.common['Authorization'] = ''; 
+  instance.defaults.headers.common['Authorization'] = '';
 };
+
 
 export const registerUserAndSave = async ({ email, password, name }) => {
   if (!email || !password || !name) {

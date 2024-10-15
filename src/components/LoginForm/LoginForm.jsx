@@ -24,15 +24,11 @@ const LoginForm = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-    const onSubmit = async (formData) => {
-        try {
+    const onSubmit = (formData) => {
             console.log('Form submitted:', formData);
             const { email, password } = formData;
-            await dispatch(login({ email, password }));
+            dispatch(login({ email, password }));
             reset();
-        } catch (error) {
-            console.error('Login error:', error);
-        }
     };
     
     return (

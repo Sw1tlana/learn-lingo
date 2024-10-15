@@ -46,18 +46,27 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log('Login fulfilled payload:', action.payload);
+        console.log('Login action payload:', action.payload);
+        const { name, email, token, uid } = action.payload;
 
-        const { token, uid } = action.payload || {};  
-        if (token && uid) {
-          state.user.uid = uid;
-          state.token = token;
+        // Логування токена перед очищенням
+        console.log('Raw token:', token);
+
+       const cleanToken = token ? token.replace(/(^"|"$)/g, '') : null; 
+
+        console.log('Clean token:', cleanToken);
+
+        if (cleanToken && uid) {
+          state.user = { name, email };
+          state.token = cleanToken; 
+          state.uid = uid;
           state.isLoggedIn = true;
         } else {
-          state.error = 'Missing token or uid in response';
+          state.error = 'Token or UID missing from response';
         }
       })
       .addCase(login.rejected, (state, action) => {
+        console.error('Login failed:', action.payload); 
         state.error = action.payload || 'Login failed';
       })
       // Fetch Current User
@@ -78,19 +87,17 @@ const authSlice = createSlice({
         state.error = action.payload || 'Failed to fetch user';
       })
       // Logout
-      .addCase(logout.pending, (state) => {
-        console.log('Logout pending');
-        state.error = null;
-      })
-      .addCase(logout.fulfilled, (state) => {
-        console.log('Logout fulfilled');
-        console.log('State before clearing:', state);
-        state.user = initialState.user; 
-        state.token = null;
-        state.uid = null;
-        state.isLoggedIn = false;
-        state.error = null;
-      })
+     .addCase(logout.pending, (state) => {
+      console.log('Logout process started. Current state:', state);
+      state.error = null;
+    })
+        .addCase(logout.fulfilled, (state) => {
+          state.user = initialState.user; 
+          state.token = null;
+          state.uid = null;
+          state.isLoggedIn = false;
+          state.error = null;
+        })
       .addCase(logout.rejected, (state, action) => {
     console.error('Logout rejected:', action.error.message); 
     state.error = action.payload || 'Logout failed';
