@@ -29,8 +29,15 @@ const TeachersList = () => {
   const loading = useSelector(selectLoading);
   const user = useSelector(selectUser);
 
+  console.log('Loading state:', loading);
+  console.log('User info:', user);
+  console.log('Filtered teachers:', filteredTeachers);
+  console.log('Current page:', page);
+  console.log('Total pages:', totalPages);
+
   useEffect(() => {
     if (Number.isFinite(limit) && Number.isFinite(page)) {
+      console.log('Fetching teachers with:', { page, limit });
       dispatch(fetchTeachers({ page, limit }));
     }
   }, [dispatch, limit, page]);

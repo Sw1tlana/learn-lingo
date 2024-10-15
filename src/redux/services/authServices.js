@@ -59,12 +59,20 @@ export const requestSignIn = async ({ email, password }) => {
     
     setToken(token);
 
-    return {
+    console.log('Sign in response:', {
       firebaseUser: user,
       uid: user.uid,
       token
+    });
+
+    return {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName || "Default Name", 
+        token: await user.getIdToken(),
     };
   } catch (error) {
+    console.error('Sign in error:', error);
     throw new Error(error.message);
   }
 };
@@ -93,6 +101,7 @@ export const requestLogOut = async () => {
 // teachers
 
 export const requestGetTeachers = async (page, limit, filteredTeachers) => {
+
   try {
     console.log(`Fetching teachers with page: ${page}, limit: ${limit}, filter: ${filteredTeachers}`);
     const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);

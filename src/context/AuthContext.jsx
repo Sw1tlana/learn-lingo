@@ -12,24 +12,25 @@ export const AuthProvider = ({ children }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-    useEffect(() => {
-      const unsubscribe = auth.onAuthStateChanged(async (user) => {
-          if (user) {
-              try {
-                  await createUserProfile({
-                      uid: user.uid,
-                      email: user.email,
-                      displayName: user.displayName,
-                  });
-              } catch (error) {
-                  console.error("Error creating user profile:", error);
-              }
-          }
-      });
-        
-        return () => unsubscribe();
-    }, []);
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      try {
+        await createUserProfile({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        });
+      } catch (error) {
+        console.error("Error creating user profile:", error);
+      }
+    }
+  });
 
+  return () => {
+    unsubscribe(); 
+  };
+}, []);
 
 const logout = async () => {
   try {

@@ -6,18 +6,15 @@ import {
   logout
 } from './operations';
 
+const rawToken = localStorage.getItem('token');
+const token = rawToken ? rawToken.replace(/(^"|"$)/g, '') : null;
+
 const initialState = {
-  user: {
-    name: '',
-    email: '',
-  },
+  user: null,
   token: null,
-  uid: null, 
+  uid: null,
   isLoggedIn: false,
-  isRefreshing: false,
   error: null,
-  version: -1,
-  rehydrated: false
 };
 
 const authSlice = createSlice({
@@ -45,26 +42,10 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
-        console.log('Login action payload:', action.payload);
-        const { name, email, token, uid } = action.payload;
-
-        // Логування токена перед очищенням
-        console.log('Raw token:', token);
-
-       const cleanToken = token ? token.replace(/(^"|"$)/g, '') : null; 
-
-        console.log('Clean token:', cleanToken);
-
-        if (cleanToken && uid) {
-          state.user = { name, email };
-          state.token = cleanToken; 
-          state.uid = uid;
-          state.isLoggedIn = true;
-        } else {
-          state.error = 'Token or UID missing from response';
-        }
-      })
+        .addCase(login.fulfilled, (state, action) => {
+            const { uid, email, name } = action.payload;
+            state.user = { uid, email, name };
+        })
       .addCase(login.rejected, (state, action) => {
         console.error('Login failed:', action.payload); 
         state.error = action.payload || 'Login failed';
@@ -77,7 +58,7 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.fulfilled, (state, action) => {
         const { name, email, uid } = action.payload;
         state.user = { name, email };
-        state.uid = uid; // Додається uid, якщо потрібно
+        state.uid = uid; 
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.error = null;
@@ -91,13 +72,14 @@ const authSlice = createSlice({
       console.log('Logout process started. Current state:', state);
       state.error = null;
     })
-        .addCase(logout.fulfilled, (state) => {
+      .addCase(logout.fulfilled, (state) => {
+          localStorage.removeItem('token'); 
           state.user = initialState.user; 
           state.token = null;
           state.uid = null;
           state.isLoggedIn = false;
           state.error = null;
-        })
+      })
       .addCase(logout.rejected, (state, action) => {
     console.error('Logout rejected:', action.error.message); 
     state.error = action.payload || 'Logout failed';

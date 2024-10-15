@@ -17,18 +17,13 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // Користувач автентифікований
-        dispatch(fetchCurrentUser());
-      } else {
-        // Користувач не автентифікований
-        console.log("Користувач не автентифікований");
-      }
-    });
+    const rawToken = localStorage.getItem('token');
+    const token = rawToken ? rawToken.replace(/(^"|"$)/g, '') : null;
 
-    // Очищення підписки
-    return () => unsubscribe();
+    if (token) {
+      // Якщо токен є в localStorage, встановлюємо його та завантажуємо поточного користувача
+      dispatch(fetchCurrentUser());
+    }
   }, [dispatch]);
 
   return (
