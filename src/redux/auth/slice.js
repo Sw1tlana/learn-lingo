@@ -20,7 +20,15 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+      setCurrentUser: (state, action) => {
+      const { uid, email, name } = action.payload;
+      state.user = { uid, email, name };
+      state.uid = uid; 
+      state.isLoggedIn = true; 
+      state.error = null; 
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Register
@@ -87,5 +95,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { setName, setEmail } = authSlice.actions;
+export const { setCurrentUser} = authSlice.actions;
 export const authReducer = authSlice.reducer;

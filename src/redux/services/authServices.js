@@ -101,11 +101,21 @@ export const requestLogOut = async () => {
 // teachers
 
 export const requestGetTeachers = async (page, limit, filteredTeachers) => {
-
   try {
-    console.log(`Fetching teachers with page: ${page}, limit: ${limit}, filter: ${filteredTeachers}`);
-    const response = await instance.get(`teachers.json?page=${page}&limit=${limit}&filter=${filteredTeachers}`);
-     console.log("Response data:", response.data); 
+    const filterQuery = filteredTeachers ? `&filter=${filteredTeachers}` : '';
+    const user = auth.currentUser;
+
+    if (!user) {
+      throw new Error('User is not authenticated');
+    }
+
+    const token = await user.getIdToken();
+    const response = await instance.get(`teachers.json?page=${page}&limit=${limit}${filterQuery}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     if (!response.data) {
       return { teachers: [], totalPages: 0 };
     }
@@ -124,7 +134,6 @@ export const requestGetTeachers = async (page, limit, filteredTeachers) => {
       totalPages: totalPages
     };
   } catch (error) {
-    console.error("Error fetching teachers:", error);
     throw new Error(error.message || "Failed to fetch teachers");
   }
 };

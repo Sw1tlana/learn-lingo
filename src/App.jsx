@@ -17,13 +17,7 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    const rawToken = localStorage.getItem('token');
-    const token = rawToken ? rawToken.replace(/(^"|"$)/g, '') : null;
-
-    if (token) {
-      // Якщо токен є в localStorage, встановлюємо його та завантажуємо поточного користувача
       dispatch(fetchCurrentUser());
-    }
   }, [dispatch]);
 
   return (

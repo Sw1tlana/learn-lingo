@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAction } from '../redux/auth/operations'; 
 import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
-import { createUserProfile } from '../redux/services/userServices';
+import { setCurrentUser } from '../redux/auth/slice'; 
 import { auth } from '../firebase';
 
 export const AuthContext = createContext();
@@ -12,32 +12,34 @@ export const AuthProvider = ({ children }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-useEffect(() => {
-  const unsubscribe = auth.onAuthStateChanged(async (user) => {
-    if (user) {
-      try {
-        await createUserProfile({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-        });
-      } catch (error) {
-        console.error("Error creating user profile:", error);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        try {
+          await createUserProfile({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+          });
+
+          dispatch(setCurrentUser({
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName,
+          }));
+        } catch (error) {
+          console.error("Error creating user profile:", error);
+        }
+      } else {
+        dispatch(setCurrentUser({ uid: null, email: null, name: null }));
       }
-    }
-  });
+    });
 
-  return () => {
-    unsubscribe(); 
-  };
-}, []);
+    return () => unsubscribe();
+  }, [dispatch]); 
 
-const logout = async () => {
-  try {
-    await dispatch(logoutAction());
-  } catch (error) {
-    console.error('Logout error:', error);
-  } 
+const logout = () => {
+  dispatch(logoutAction());
 };
 
   return (
