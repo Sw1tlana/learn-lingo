@@ -5,9 +5,9 @@ import { lazy } from 'react';
 import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 import { useDispatch } from 'react-redux';
-import { fetchCurrentUser } from "./redux/auth/operations";
+import { fetchTeachers } from "./redux/teachers/operations";
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import { auth } from './firebase';
+// import { auth } from './firebase';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const TeachersPage = lazy(() => import('./pages/TeachersPage/TeachersPage'));
@@ -17,7 +17,7 @@ function App() {
   const dispatch = useDispatch();
   
   useEffect(() => {
-      dispatch(fetchCurrentUser());
+      dispatch(fetchTeachers());
   }, [dispatch]);
 
   return (

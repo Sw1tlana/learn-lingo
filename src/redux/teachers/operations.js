@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import {
-    requestGetTeachers
-} from "../services/authServices";
+import { requestGetTeachers } from "../services/teacherService.js";
  
 export const fetchTeachers = createAsyncThunk(
   "contacts/fetchTeachers",

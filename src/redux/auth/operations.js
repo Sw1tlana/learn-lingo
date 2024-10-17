@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    registerUserAndSave,
     requestSignIn,
-    requestGetCurrentUser,
-    requestLogOut,
+    logOutUser,
     setToken,
     clearToken,
-} from "../services/authServices";
+} from "../services/authServices.js";
+import { requestGetTeachers } from '../services/teacherService';
+import { registerUserAndSave } from '../services/userService.js';
 import toast from 'react-hot-toast';
-import instance from '../services/authServices';
+import { instance } from '../services/authServices';
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -48,7 +48,7 @@ export const fetchCurrentUser = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
        console.log('Fetching current user...');
-      const firebaseUser = await requestGetCurrentUser();
+      const firebaseUser = await requestGetTeachers();
 
       console.log('Firebase user:', firebaseUser);
 
@@ -79,7 +79,7 @@ export const logout = createAsyncThunk(
     try {
       console.log('Logout thunk started.');
       console.log('instance:', instance);
-      await requestLogOut();
+      await logOutUser();
       console.log('User signed out from Firebase.');
       console.log('Token after logout:', instance.defaults.headers.common.Authorization);
 

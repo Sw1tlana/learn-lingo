@@ -10,11 +10,14 @@ const rawToken = localStorage.getItem('token');
 const token = rawToken ? rawToken.replace(/(^"|"$)/g, '') : null;
 
 const initialState = {
-  user: null,
-  token: null,
-  uid: null,
-  isLoggedIn: false,
-  error: null,
+  user: {
+    name: null,
+    email: null,
+    },
+    token: null,
+    uid: null,
+    isLoggedIn: !!token, 
+    error: null,
 };
 
 const authSlice = createSlice({
@@ -51,8 +54,10 @@ const authSlice = createSlice({
         state.error = null;
       })
         .addCase(login.fulfilled, (state, action) => {
-            const { uid, email, name } = action.payload;
+            const { uid, email, name, token } = action.payload; 
             state.user = { uid, email, name };
+            state.token = token;
+            state.isLoggedIn = true;
         })
       .addCase(login.rejected, (state, action) => {
         console.error('Login failed:', action.payload); 

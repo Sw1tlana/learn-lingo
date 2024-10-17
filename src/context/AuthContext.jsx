@@ -4,6 +4,7 @@ import { logout as logoutAction } from '../redux/auth/operations';
 import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
 import { setCurrentUser } from '../redux/auth/slice'; 
 import { auth } from '../firebase';
+import { saveUser } from '../redux/services/userService';
 
 export const AuthContext = createContext();
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         try {
-          await createUserProfile({
+          await saveUser({
             uid: user.uid,
             email: user.email,
             displayName: user.displayName,

@@ -18,6 +18,7 @@ import css from './TeachersList.module.css';
 import LoadMore from '../LoadMore/LoadMore';
 import { changeFilter } from '../../redux/filters/slice';
 import { selectUser } from '../../redux/auth/selectors';
+import { setToken } from '../../redux/services/authServices';
 
 const TeachersList = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,12 @@ const TeachersList = () => {
   console.log('Filtered teachers:', filteredTeachers);
   console.log('Current page:', page);
   console.log('Total pages:', totalPages);
+
+   useEffect(() => {
+    if (user && user.token) {
+      setToken(user.token); 
+    }
+  }, [user]);
 
   useEffect(() => {
     if (Number.isFinite(limit) && Number.isFinite(page)) {
