@@ -1,7 +1,14 @@
 import { instance } from './authServices'; 
+import { registerUser } from './authServices';
 
 export const saveUser = async (user) => {
+
+    if (!user || !user.uid || !user.email) {
+    throw new Error("Invalid user object");
+  }
+  
   const token = await user.getIdToken();
+
   try {
     const response = await instance.put(`/users/${user.uid}.json`, {
       uid: user.uid,
@@ -31,8 +38,8 @@ export const getCurrentUser = () => {
 export const registerUserAndSave = async (userData) => {
   const { email, password, name } = userData;
 
-  const { user, idToken } = await registerUser({ email, password });
-  const savedUser = await saveUser(user, idToken, name);
+  const { user } = await registerUser({ email, password, name });
 
-  return savedUser;
+  return user;
+
 };

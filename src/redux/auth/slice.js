@@ -6,8 +6,7 @@ import {
   logout
 } from './operations';
 
-const rawToken = localStorage.getItem('token');
-const token = rawToken ? rawToken.replace(/(^"|"$)/g, '') : null;
+const token = localStorage.getItem('token')?.replace(/"/g, ''); 
 
 const initialState = {
   user: {
@@ -25,11 +24,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      const { uid, email, displayName } = action.payload; 
-      state.user = { uid, email, name: displayName }; 
-      state.uid = uid; 
-      state.isLoggedIn = true; 
-      state.error = null; 
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -53,7 +48,8 @@ const authSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.error = null;
       })
-        .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
+           console.log(action.payload);
             const { uid, email, name, token } = action.payload; 
             state.user = { uid, email, name };
             state.token = token;

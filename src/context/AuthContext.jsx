@@ -13,18 +13,20 @@ export const AuthProvider = ({ children }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-            if (currentUser) {
-                const { uid, email, displayName } = currentUser;
-                dispatch(setCurrentUser({ uid, email, displayName }));
-            } else {
-                dispatch(logoutAction());
-            }
-        });
+useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+        if (currentUser) {
+            const { uid, email, displayName } = currentUser;
+            console.log('User logged in:', { uid, email, displayName });
+            dispatch(setCurrentUser({ uid, email, displayName }));
+        } else {
+            console.log('User logged out');
+            dispatch(logoutAction());
+        }
+    });
 
-        return () => unsubscribe();
-    }, [dispatch]);
+    return () => unsubscribe();
+}, [dispatch]);
 
 const logout = () => {
   dispatch(logoutAction());

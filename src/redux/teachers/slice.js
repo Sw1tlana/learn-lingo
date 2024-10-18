@@ -30,6 +30,8 @@ const teachersSlice = createSlice({
     },
     setLimit: (state, active) => {
       state.limit = active.payload;
+      state.page = 1; 
+      state.items = [];
     },
     setTotalPage: (state, active) => {
       state.totalPages = active.payload;

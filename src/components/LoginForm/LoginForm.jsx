@@ -24,12 +24,24 @@ const LoginForm = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-    const onSubmit = (formData) => {
-            console.log('Form submitted:', formData);
-            const { email, password } = formData;
-            dispatch(login({ email, password }));
-            reset();
-    };
+const onSubmit = async (formData) => {
+    console.log('Form submitted:', formData);
+    const { email, password } = formData;
+
+    if (!email || !password) {
+        console.error('Email and password must be provided');
+        return;
+    }
+
+    try {
+        await dispatch(login({ email, password })).unwrap(); // Використання unwrap для отримання результату
+        console.log('Login successful');
+    } catch (error) {
+        console.error('Login failed:', error);
+    }
+
+    reset();
+};
     
     return (
         <section>
