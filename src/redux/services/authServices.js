@@ -18,6 +18,21 @@ export const clearToken = () => {
   instance.defaults.headers.common['Authorization'] = '';
 };
 
+instance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response.status === 401) {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        const token = await currentUser.getIdToken(true);
+        error.config.headers.Authorization = `Bearer ${token}`;
+        return axios(error.config);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export const registerUser = async ({ email, password }) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;

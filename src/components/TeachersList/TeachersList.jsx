@@ -35,26 +35,36 @@ const TeachersList = () => {
   console.log('Filtered teachers:', filteredTeachers);
   console.log('Current page:', page);
   console.log('Total pages:', totalPages);
-
-   useEffect(() => {
+  
+useEffect(() => {
     if (user && user.token) {
-      setToken(user.token); 
+        console.log('User token is available:', user.token);
+        setToken(user.token);
+    } else {
+        console.log('No user token available');
     }
-  }, [user]);
+}, [user]);
 
-  useEffect(() => {
-    if (Number.isFinite(limit) && Number.isFinite(page)) {
-      console.log('Fetching teachers with:', { page, limit });
-      dispatch(fetchTeachers({ page, limit }));
-    }
-  }, [dispatch, limit, page]);
+useEffect(() => {
+  console.log('Fetching teachers with:', { page, limit });
+  if (Number.isFinite(limit) && Number.isFinite(page)) {
+    dispatch(fetchTeachers({ page, limit }))
+      .unwrap()
+      .then((data) => {
+        console.log('Fetched teachers data:', data);
+      })
+      .catch((error) => {
+        console.error('Failed to fetch teachers:', error);
+      });
+  }
+}, [dispatch, limit, page]);
 
   const handleFilterChange = (filteredTeachers) => {
-    dispatch(changeFilter(filteredTeachers)); 
-    dispatch(setPage(1)); 
+    dispatch(changeFilter(filteredTeachers));
+    dispatch(setPage(1));
     dispatch(fetchTeachers({ page: 1, limit }));
   };
-  
+
   const handleLoadMore = () => {
     if (!loading && page < totalPages) {
       dispatch(setPage(page + 1));
@@ -72,19 +82,19 @@ const TeachersList = () => {
           )}
           <TeacherFilter onFilterChange={handleFilterChange} />
 
-          <ul className={css.teacherList}>
-            {loading ? (
-              <Loader />
-            ) : (
-              Array.isArray(filteredTeachers) && filteredTeachers.length > 0 ? (
-                filteredTeachers.map((teacher) => (
-                  <TeachersItem key={teacher.id} teacher={teacher} />
-                ))
-              ) : (
-                <p>Немає вчителів для відображення.</p>
-              )
-            )}
-          </ul>
+              <ul className={css.teacherList}>
+                  {loading ? (
+                      <Loader />
+                  ) : (
+                      (filteredTeachers.length > 0 ? 
+                          filteredTeachers.map((teacher) => (
+                              <TeachersItem key={teacher.id} teacher={teacher} />
+                          )) : (
+                              <p>Немає вчителів для відображення. Спробуйте зняти фільтри.</p>
+                          )
+                      )
+                  )}
+              </ul>
 
           {!loading && teachers.length >= limit && page < totalPages && (
             <div className={css.loadMoreContainer}>

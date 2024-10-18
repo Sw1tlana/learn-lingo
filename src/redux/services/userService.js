@@ -1,16 +1,22 @@
 import { instance } from './authServices'; 
 
-export const saveUser = async (user, token, name) => {
-  const userEndpoint = `/users/${user.uid}.json?auth=${token}`;
-  
-  const response = await instance.post(userEndpoint, {
-    email: user.email,
-    name,
-    token,
-    uid: user.uid,
-  });
-  
-  return response.data;
+export const saveUser = async (user) => {
+  const token = await user.getIdToken();
+  try {
+    const response = await instance.put(`/users/${user.uid}.json`, {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error saving user:', error);
+    throw error;
+  }
 };
 
 export const getCurrentUser = () => {
