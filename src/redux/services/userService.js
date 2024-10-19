@@ -1,45 +1,47 @@
-import { instance } from './authServices'; 
-import { registerUser } from './authServices';
+import { getDatabase, ref, set } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 export const saveUser = async (user) => {
+  const auth = getAuth();
+  const currentUser = auth.currentUser;
 
-    if (!user || !user.uid || !user.email) {
-    throw new Error("Invalid user object");
-  }
-  
-  const token = await user.getIdToken();
+  if (currentUser) {
+    const token = await currentUser.getIdToken(); // Отримати токен
+    const db = getDatabase(); // Отримуємо доступ до бази даних
+    const userRef = ref(db, 'users/' + currentUser.uid); // Розташування в базі даних
 
-  try {
-    const response = await instance.put(`/users/${user.uid}.json`, {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error saving user:', error);
-    throw error;
-  }
-};
+    const userData = {
+      uid: currentUser.uid,
+      email: currentUser.email,
+      displayName: currentUser.displayName || null, // Додаємо displayName, якщо він є
+    };
 
-export const getCurrentUser = () => {
-  const user = auth.currentUser;
-  if (user) {
-    return user;
+    try {
+      await set(userRef, userData); // Зберігаємо користувача в базі даних
+      return userData; // Повертаємо дані користувача
+    } catch (error) {
+      console.error('Error saving user to database:', error.message);
+      throw new Error('Failed to save user data');
+    }
   } else {
-    throw new Error('No user is currently logged in');
+    throw new Error('Користувача не знайдено');
   }
 };
 
 export const registerUserAndSave = async (userData) => {
   const { email, password, name } = userData;
+  const auth = getAuth();
 
-  const { user } = await registerUser({ email, password, name });
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  const user = userCredential.user;
 
-  return user;
+  // Зберігаємо лише необхідні дані
+  const userPayload = {
+    uid: user.uid,
+    email: user.email,
+    displayName: name,
+  };
 
+  await saveUser(user); // Передайте фактичний об'єкт користувача
+  return userPayload; // Поверніть серіалізовані дані
 };
