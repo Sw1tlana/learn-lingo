@@ -19,13 +19,10 @@ export const registerUser = async (userData) => {
   const { email, password, name } = userData;
 
   try {
-
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-  
     const token = await user.getIdToken();
-
 
     const userPayload = {
       uid: user.uid,
@@ -34,8 +31,9 @@ export const registerUser = async (userData) => {
       token, 
     };
 
+    setToken(token);
  
-    await saveUser(userPayload);
+    await saveUser(userPayload, token); // Передайте токен
 
     return userPayload; 
   } catch (error) {

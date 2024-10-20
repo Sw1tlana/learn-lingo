@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
     requestSignIn,
+    registerUser,
     logOutUser,
     setToken,
     clearToken,
 } from "../services/authServices.js";
 import { requestGetTeachers } from '../services/teacherService';
-import { registerUserAndSave } from '../services/userService.js';
 import toast from 'react-hot-toast';
 import { instance } from '../services/authServices';
 
@@ -15,7 +15,7 @@ export const register = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
            console.log('Registering with data:', userData);
-      const response = await registerUserAndSave(userData);
+      const response = await registerUser(userData);
       console.log('Response from registration:', response);
       toast.success("Registration successful!");
       return response;

@@ -33,13 +33,13 @@ const authSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.error = null;
       })
-        .addCase(register.fulfilled, (state, action) => {
-          const { name, email, token, uid } = action.payload;
-          state.user = { name, email };
-          state.token = token;
-          state.uid = uid;
-          state.isLoggedIn = true;
-          state.error = null;
+      .addCase(register.fulfilled, (state, action) => {
+        const { name, email, token, uid } = action.payload;
+        state.user = { name, email };
+        state.token = token;
+        state.uid = uid;
+        state.isLoggedIn = true;
+        state.error = null;
         })
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload || 'Registration failed';
@@ -81,14 +81,14 @@ const authSlice = createSlice({
       console.log('Logout process started. Current state:', state);
       state.error = null;
     })
-      .addCase(logout.fulfilled, (state) => {
-          localStorage.removeItem('token'); 
-          state.user = initialState.user; 
-          state.token = null;
-          state.uid = null;
-          state.isLoggedIn = false;
-          state.error = null;
-      })
+    .addCase(logout.fulfilled, (state) => {
+      localStorage.removeItem('token');
+      state.user = initialState.user;
+      state.token = null;
+      state.uid = null;
+      state.isLoggedIn = false;
+      state.error = null;
+    })
       .addCase(logout.rejected, (state, action) => {
     console.error('Logout rejected:', action.error.message); 
     state.error = action.payload || 'Logout failed';
