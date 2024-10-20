@@ -1,7 +1,9 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import axios from 'axios';
 import { saveUser } from './userService'; 
-import { auth } from '../../firebase'; 
+// import { auth } from '../../firebase'; 
+// import { ref, set } from 'firebase/database';
+import { auth } from '../../firebase';
 
 export const instance = axios.create({
   baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/',
@@ -14,6 +16,7 @@ export const setToken = (token) => {
 export const clearToken = () => {
   instance.defaults.headers.common['Authorization'] = '';
 };
+
 
 export const registerUser = async (userData) => {
   const { email, password, name } = userData;
@@ -28,12 +31,10 @@ export const registerUser = async (userData) => {
       uid: user.uid,
       email: user.email,
       displayName: name,
-      token, 
     };
 
-    setToken(token);
- 
-    await saveUser(userPayload, token); // Передайте токен
+    // Зберігаємо користувача, використовуючи saveUser
+    await saveUser(userPayload, token);
 
     return userPayload; 
   } catch (error) {
