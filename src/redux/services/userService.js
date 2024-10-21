@@ -2,25 +2,17 @@ import { instance } from './authServices';
 // import { setToken } from './authServices';
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export const saveUser = async (user, token) => {
-  if (!user || !user.uid || !user.email) {
-    throw new Error("Invalid user object");
-  }
-
+export const saveUser = async (userPayload, token) => {
   try {
-    const response = await instance.post(`/users/${user.uid}.json`, {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName
-    }, {
+    const response = await instance.post(`/users/${userPayload.uid}.json`, userPayload, {
       headers: {
-        Authorization: `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     });
     return response.data;
   } catch (error) {
     console.error('Error saving user:', error);
-    throw error;
+    throw error; // Зберігаємо помилку для подальшої обробки
   }
 };
 
