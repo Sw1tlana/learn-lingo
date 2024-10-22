@@ -1,10 +1,9 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext,useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout as logoutAction } from '../redux/auth/operations'; 
 import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
-import { setCurrentUser } from '../redux/auth/slice'; 
+import { setCurrentUser } from '../redux/auth/slice';
 import { auth } from '../firebase';
-// import { saveUser } from '../redux/services/userService';
 
 export const AuthContext = createContext();
 

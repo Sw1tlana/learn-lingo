@@ -15,7 +15,7 @@ const initialState = {
     },
     token: null,
     uid: null,
-    isLoggedIn: !!token, 
+    isLoggedIn: false, 
     error: null,
 };
 

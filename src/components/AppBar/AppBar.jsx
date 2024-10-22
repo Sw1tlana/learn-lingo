@@ -1,9 +1,7 @@
 import css from './AppBar.module.css';
 import clsx from 'clsx'; 
-import { useContext, useState  } from 'react'; 
+import { useState } from 'react'; 
 import Logo from '../../shared/components/Logo/Logo';
-import { icons as sprite } from '../../shared/icons';
-import { AuthContext } from '../../context/AuthContext';
 import { NavLink } from "react-router-dom";
 import ModalWindow from '../../shared/components/ModalWindow/ModalWindow';
 import LoginForm from '../LoginForm/LoginForm';
@@ -12,9 +10,9 @@ import Container from '../../shared/components/Container/Container';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import {logout as reduxLogout } from '../../redux/auth/operations';
 import { useSelector, useDispatch } from 'react-redux';
+import UserMenu from '../../components/UserMenu/UserMenu'; 
 
 const AppBar = () => {
- const { currentUser, logout: contextLogout } = useContext(AuthContext);
   const dispatch = useDispatch();
 
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -32,7 +30,7 @@ const AppBar = () => {
   const closeRegister = () => setRegisterModalOpen(false);
     
   return (
-  <Container>
+<Container>
    <div className={css.containerHeader}>
       <header className={css.header}>
         <NavLink to="/">
@@ -49,27 +47,24 @@ const AppBar = () => {
               isActive && css.active)}>
             Teachers
           </NavLink>
-          {isLoggedIn && (
-            <NavLink to="/favorites" className={
-              ({ isActive }) => clsx(css.navLink, isActive && css.active)}>
-              Favorites
-            </NavLink>
-          )}
         </nav>
         <div className={css.authButtons}>
-          {isLoggedIn ? (
-            <button onClick={handleLogout} className={css.logoutButton}>
-              Logout
-            </button>
+          {currentUser ? (
+            <button onClick={handleLogout} className={css.logoutButton}>Logout</button>
           ) : (
             <>
-              <button onClick={openLogin} className={css.loginButton}>Login</button>
+                <button onClick={openLogin} className={css.loginButton}>
+                  <svg width={73} height={20} className={css.iconArrow}>
+                    <use xlinkHref={`${sprite}#icon-arrow`} />
+                  </svg>
+                  Login
+                </button>
               <button onClick={openRegister} className={css.registerButton}>Register</button>
             </>
           )}
         </div>
       </header>
-      
+
       <ModalWindow
         isOpen={isLoginModalOpen}
         onClose={closeLogin}
@@ -83,7 +78,7 @@ const AppBar = () => {
         className={css.modalRegister}>
         <RegistrationForm />
       </ModalWindow>
-      </div>
+    </div>
     </Container>
   )
 };

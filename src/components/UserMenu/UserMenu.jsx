@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/auth/operations';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors'; 
 import css from './UserMenu.module.css';
-import { useEffect } from 'react';
 
 const UserMenu = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -13,11 +12,6 @@ const UserMenu = () => {
         console.log('Logout button clicked');
         dispatch(logout());
     };
-    
-    useEffect(() => {
-        console.log('User:', user);
-        console.log('Is Logged In:', isLoggedIn);
-    }, [isLoggedIn, user]);
 
     return (
   <div>

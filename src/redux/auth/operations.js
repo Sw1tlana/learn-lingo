@@ -14,7 +14,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-           console.log('Registering with data:', userData);
+      console.log('Registering with data:', userData);
       const response = await registerUser(userData);
       console.log('Response from registration:', response);
       toast.success("Registration successful!");

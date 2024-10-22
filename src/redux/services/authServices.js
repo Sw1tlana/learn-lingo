@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut } 
+  from 'firebase/auth';
 import axios from 'axios';
 import { auth } from '../../firebase';
 
@@ -14,38 +18,35 @@ export const clearToken = () => {
   instance.defaults.headers.common['Authorization'] = '';
 };
 
-export const registerUser = async (userData) => {
-  const { email, password, name } = userData;
-
+export const registerUser = async ({ email, password, name }) => {
   if (!email || !password || !name) {
-    throw new Error("Всі поля (email, password, name) є обов'язковими.");
+    throw new Error('Required fields are missing');
   }
 
   try {
-    console.log("Registering user with data:", userData); // Логування введених даних
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    
-    const token = await user.getIdToken();
-    
-    if (!token) {
-      throw new Error("Token is null after registration");
-    }
+    const idToken = await user.getIdToken();
 
-    setToken(token);
+    console.log('User UID:', user.uid);
+    console.log('ID Token:', idToken);
 
-    const userPayload = {
-      uid: user.uid,
-      email: user.email,
-      displayName: name,
+    const userEndpoint = `/users/${user.uid}.json?auth=${idToken}`;
+    console.log('User Endpoint:', userEndpoint);
+
+    const userResponse = await instance.post(userEndpoint, {
+      email,
+      name,
+      uid: user.uid
+    });
+
+    return {
+      firebaseUser: { uid: user.uid, email },
+      backendResponse: userResponse.data
     };
-
-    // Збереження користувача у базі даних
-    const savedUser = await saveUser(userPayload, token);
-    return { ...userPayload, token }; 
   } catch (error) {
-    console.error('Error registering user:', error.message);
-    throw new Error(error.message || "Failed to register user");
+    console.error('Registration Error:', error.response ? error.response.data : error.message);
+    throw new Error(error.response?.data?.error || error.message || 'Failed to register user');
   }
 };
 
@@ -64,6 +65,16 @@ export const requestSignIn = async ({ email, password }) => {
   }
 };
 
+export const requestGetCurrentUser = async () => {
+  const user = auth.currentUser;
+
+  if (user) {
+    return user;
+  } else {
+    throw new Error('No user is currently logged in');
+  }
+};
+
 export const logOutUser = async () => {
   try {
     await signOut(auth);
@@ -74,17 +85,3 @@ export const logOutUser = async () => {
   }
 };
 
-export const saveUser = async (userPayload, token) => {
-  try {
-    console.log("Saving user data:", userPayload); // Логування даних користувача
-    const response = await instance.post(`users/${userPayload.uid}.json`, userPayload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error saving user:', error.message);
-    throw new Error(error.message || "Failed to save user");
-  }
-};
