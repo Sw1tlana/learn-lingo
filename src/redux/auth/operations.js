@@ -31,12 +31,13 @@ export const login = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const response = await requestSignIn(formData);
+      console.log('Response from Firebase:', response);
       const { uid, token } = response;
-      
       setToken(token);
       toast.success("Login successful!");
       return { uid, token };
     } catch (error) {
+      console.error('Error during login:', error);
       toast.error(error.message || "Failed to log in.");
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -76,6 +76,7 @@ useEffect(() => {
 <div className={css.listWraper}>
   <Container>
     <section className={css.sectionTeacher}>
+    <TeacherFilter />
       <ul className={css.teacherList}>
         {loading ? (
           <Loader />

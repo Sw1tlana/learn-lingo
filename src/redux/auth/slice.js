@@ -24,7 +24,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCurrentUser: (state, action) => {
-      state.user = action.payload;
+      const { uid, email, displayName } = action.payload;
+      state.user = { uid, email, displayName };
+      state.isLoggedIn = true;
     },
   },
   extraReducers: (builder) => {
@@ -34,9 +36,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        const { name, email, token, uid } = action.payload;
+        const { name, email } = action.payload.backendResponse; 
+        const { uid } = action.payload.firebaseUser; 
         state.user = { name, email };
-        state.token = token;
+        state.token = action.payload.token; 
         state.uid = uid;
         state.isLoggedIn = true;
         state.error = null;
@@ -49,11 +52,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-           console.log(action.payload);
-            const { uid, email, name, token } = action.payload; 
-            state.user = { uid, email, name };
-            state.token = token;
-            state.isLoggedIn = true;
+        state.user = { uid: action.payload.uid }; 
+        state.token = action.payload.token; 
+        state.loading = false;
         })
       .addCase(login.rejected, (state, action) => {
         console.error('Login failed:', action.payload); 
