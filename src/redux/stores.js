@@ -3,6 +3,7 @@ import { authReducer } from "./auth/slice";
 import { teachersReducer } from "./teachers/slice";
 import { filterReducer } from "./filters/slice";
 import { favoritesReducer } from './favorites/slice';
+import { bookLessonReducer }from './trialLesson/silece';
 
 import {
   persistStore,
@@ -37,6 +38,7 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     filters: filterReducer,
     teachers: teachersReducer,
+    bookLesson: bookLessonReducer,
     favorites: persistedFavoritesReducer
   },
   

@@ -37,7 +37,7 @@ export const login = createAsyncThunk(
       toast.success("Login successful!");
       return { uid, token };
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Error during login:', error); І
       toast.error(error.message || "Failed to log in.");
       return thunkAPI.rejectWithValue(error.message);
     }

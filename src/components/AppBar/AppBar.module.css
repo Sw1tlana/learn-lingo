@@ -22,6 +22,11 @@
     text-decoration: underline;
 }
 
+.active {
+    font-weight: bold;
+    color: var(--primery-btn-color);
+}
+
 .authButtons {
     display: flex;
     gap: 14px;

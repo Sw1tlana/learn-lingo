@@ -7,7 +7,7 @@ import {
   selectLimit,
   selectTotalPages,
   selectLoading,
-  selectTeachers
+  selectTeachers,
 } from '../../redux/teachers/selectors';
 import { setPage } from '../../redux/teachers/slice';
 import TeachersItem from '../../components/TeachersItem/TeachersItem';
@@ -29,39 +29,29 @@ const TeachersList = () => {
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
   const user = useSelector(selectUser);
-
-  console.log('Loading state:', loading);
-  console.log('User info:', user);
-  console.log('Filtered teachers:', filteredTeachers);
-  console.log('Current page:', page);
-  console.log('Total pages:', totalPages);
   
-useEffect(() => {
-    if (user && user.token) {
-        console.log('User token is available:', user.token);
-        setToken(user.token);
-    } else {
-        console.log('No user token available');
+  useEffect(() => {
+    if (user?.token) {
+      setToken(user.token);
     }
-}, [user]);
+  }, [user]);
 
-useEffect(() => {
-  const fetchData = async () => {
-    if (Number.isFinite(limit) && Number.isFinite(page)) {
-      try {
-        const data = await dispatch(fetchTeachers({ page, limit })).unwrap();
-        console.log('Fetched teachers data:', data);
-      } catch (error) {
-        console.error('Failed to fetch teachers:', error);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (Number.isFinite(limit) && Number.isFinite(page)) {
+        try {
+          await dispatch(fetchTeachers({ page, limit })).unwrap();
+        } catch (error) {
+          console.error('Failed to fetch teachers:', error);
+        }
       }
-    }
-  };
-  
-  fetchData();
-}, [dispatch, limit, page]);
+    };
 
-  const handleFilterChange = (filteredTeachers) => {
-    dispatch(changeFilter(filteredTeachers));
+    fetchData();
+  }, [dispatch, limit, page]);
+
+  const handleFilterChange = (newFilteredTeachers) => {
+    dispatch(changeFilter(newFilteredTeachers));
     dispatch(setPage(1));
     dispatch(fetchTeachers({ page: 1, limit }));
   };
@@ -73,35 +63,28 @@ useEffect(() => {
   };
 
   return (
-<div className={css.listWraper}>
-  <Container>
-    <section className={css.sectionTeacher}>
-    <TeacherFilter />
-      <ul className={css.teacherList}>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {filteredTeachers.length > 0 ? (
-              filteredTeachers.map((teacher) => {
-                console.log('Rendering teacher:', teacher); 
-                return <TeachersItem key={teacher.id} teacher={teacher} />;
-              })
+    <div className={css.listWraper}>
+      <Container>
+        <section className={css.sectionTeacher}>
+          <TeacherFilter onFilterChange={handleFilterChange} />
+          <ul className={css.teacherList}>
+            {loading ? (
+              <Loader />
             ) : (
-              <p>Немає вчителів для відображення. Спробуйте зняти фільтри.</p>
+              filteredTeachers.map((teacher, index) => (
+                <TeachersItem key={`${teacher.id}-${index}`} teacher={teacher} />
+              ))
             )}
-          </>
-        )}
-      </ul>
+          </ul>
 
-      {!loading && teachers.length >= limit && page < totalPages && (
-        <div className={css.loadMoreContainer}>
-          <LoadMore onClick={handleLoadMore} />
-        </div>
-      )}
-    </section>
-  </Container>
-</div>
+          {!loading && teachers.length >= limit && page < totalPages && (
+            <div className={css.loadMoreContainer}>
+              <LoadMore onClick={handleLoadMore} />
+            </div>
+          )}
+        </section>
+      </Container>
+    </div>
   );
 };
 

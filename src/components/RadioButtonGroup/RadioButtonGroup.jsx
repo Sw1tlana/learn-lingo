@@ -1,15 +1,20 @@
 import css from './RadioButtonGroup.module.css';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedOption } from '../../redux/trialLesson/silece';
+import { setSelectedOptionState } from '../../redux/trialLesson/selectors';
 
 const RadioButtonGroup = () => {
-    const [selectedOption, setSelectedOption] = useState('');
+  const dispatch = useDispatch();
+
+    const selectedOption = useSelector(setSelectedOptionState);
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value);
+    const value = event.target.value;
+    dispatch(setSelectedOption(value)); 
     };
     
   return (
-      <div>
+    <form>
         <label className={css.label}>
             <input
             type="radio"
@@ -46,7 +51,7 @@ const RadioButtonGroup = () => {
               />
               Culture travel or hobby
           </label>
-    </div>
+  </form>
   )
 }
 

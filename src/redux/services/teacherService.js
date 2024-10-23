@@ -1,13 +1,13 @@
 import { instance } from './authServices';
 
-export const requestGetTeachers = async (page = 1, limit = 10, filteredTeachers = '') => {
+export const requestGetTeachers = async (page = 1, limit = 10) => {
   try {
     const response = await instance.get(
       `teachers.json`, {
         params: {
           page,
           limit,
-          filter: filteredTeachers
+          filter: 'simpleValue'
         }
       }
     );
@@ -30,7 +30,7 @@ export const requestGetTeachers = async (page = 1, limit = 10, filteredTeachers 
       totalPages
     };
   } catch (error) {
-    console.error('Error fetching teachers:', error);
+    console.error('Error fetching teachers:', error.response ? error.response.data : error.message);
     throw new Error(error.message || "Failed to fetch teachers");
   }
 };

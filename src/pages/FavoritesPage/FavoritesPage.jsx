@@ -19,7 +19,8 @@ const FavoritesPage = () => {
   
 
 const handleFavoriteClick = (teacher) => {
-  const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id);
+  const isFavorite = favoriteTeachers.some(
+    favTeacher => favTeacher.id === teacher.id);
 
 
   if (isFavorite) {

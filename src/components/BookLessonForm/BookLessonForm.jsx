@@ -2,9 +2,11 @@ import css from "./BookLessonForm.module.css";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { INITIAL_FORM_DATA, bookLessonSchema } from '../schemas/bookLessonSchemas';
-
+import { useDispatch } from 'react-redux';
+import { setBookingData } from '../../redux/trialLesson/silece';
 
 const BookLessonForm = () => {
+  const dispatch = useDispatch();
 
 const { handleSubmit,  reset, register, formState: { errors } } = useForm({
     resolver: yupResolver(bookLessonSchema),
@@ -12,6 +14,15 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
 });
     
     const onSubmit = async (data) => {
+
+      const bookingData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        selectedOption: data.selectedOption 
+    };
+
+      dispatch(setBookingData(bookingData));
         reset();
     };
     

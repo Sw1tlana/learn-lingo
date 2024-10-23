@@ -4,10 +4,10 @@ import { requestGetTeachers } from "../services/teacherService.js";
  
 export const fetchTeachers = createAsyncThunk(
   "contacts/fetchTeachers",
-  async ({ page, limit, filteredTeachers }, thunkAPI) => {
+  async ({ page, limit }, thunkAPI) => {
     try {
       console.log('Fetching teachers...');
-      const response = await requestGetTeachers(page, limit, filteredTeachers); 
+      const response = await requestGetTeachers(page, limit); 
       console.log('Response from requestGetTeachers:', response);
       return response;
     } catch (error) {

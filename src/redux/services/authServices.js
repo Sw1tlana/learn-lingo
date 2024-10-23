@@ -53,7 +53,7 @@ export const registerUser = async ({ email, password, name }) => {
 };
 
 export const requestSignIn = async ({ email, password }) => {
-  // Перевірка, чи є email і password
+  
   if (!email || !password) {
     console.error('Email or password is missing.');
     throw new Error('Email or password is required.');
@@ -62,24 +62,23 @@ export const requestSignIn = async ({ email, password }) => {
   console.log('Attempting to sign in with email:', email);
 
   try {
-    // Спроба увійти
     const response = await signInWithEmailAndPassword(auth, email, password);
     const user = response.user;
     
-    console.log('User signed in successfully:', user.uid); // Лог UID користувача
+    console.log('User signed in successfully:', user.uid);
 
     const token = await user.getIdToken();
-    console.log('Retrieved ID Token:', token); // Лог ID токена
+    console.log('Retrieved ID Token:', token); 
 
     setToken(token); 
     console.log('Token set in axios instance.');
 
     return { uid: user.uid, user, token };
   } catch (error) {
-    console.error('Error signing in:', error); // Виводимо деталі помилки
+    console.error('Error signing in:', error); 
 
     if (error.code) {
-      console.error('Firebase error code:', error.code); // Лог коду помилки Firebase
+      console.error('Firebase error code:', error.code); 
     }
 
     throw new Error(error.message || "Failed to sign in");

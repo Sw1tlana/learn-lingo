@@ -48,6 +48,11 @@ const AppBar = () => {
             <NavLink to="/teachers" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
               Teachers
             </NavLink>
+            {isLoggedIn && (
+              <NavLink to="/favorites" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+                Favorites
+              </NavLink>
+            )}
           </nav>
           <div className={css.authButtons}>
             {isLoggedIn && currentUser ? (
