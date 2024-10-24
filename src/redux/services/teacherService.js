@@ -1,7 +1,7 @@
 import { instance } from './authServices';
 import { store } from '../stores';
 
-export const requestGetTeachers = async (page = 1, limit = 10) => {
+export const requestGetTeachers = async (page = 1, limit = 4) => {
   try {
 
     const state = store.getState();

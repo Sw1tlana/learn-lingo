@@ -29,6 +29,7 @@ const TeachersList = () => {
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
   const user = useSelector(selectUser);
+  const filters = useSelector((state) => state.filters);
   
   useEffect(() => {
     if (user?.token) {
@@ -41,7 +42,7 @@ const TeachersList = () => {
     const fetchData = async () => {
       if (user?.token && Number.isFinite(limit) && Number.isFinite(page)) {
         try {
-          await dispatch(fetchTeachers({ page, limit })).unwrap();
+          await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
           console.log('Response from fetchTeachers:', response); 
         } catch (error) {
           console.error('Failed to fetch teachers:', error);
@@ -50,17 +51,18 @@ const TeachersList = () => {
     };
 
     fetchData();
-  }, [dispatch, limit, page, user]);
+  }, [dispatch, limit, page, user, filters]);
 
   const handleFilterChange = (newFilteredTeachers) => {
     dispatch(changeFilter(newFilteredTeachers));
     dispatch(setPage(1));
-    dispatch(fetchTeachers({ page: 1, limit }));
+    dispatch(fetchTeachers({ page: 1, limit, filters: newFilteredTeachers }));
   };
 
   const handleLoadMore = () => {
     if (!loading && page < totalPages) {
       dispatch(setPage(page + 1));
+      dispatch(fetchTeachers({ page: page + 1, limit, filters }));
     }
   };
 

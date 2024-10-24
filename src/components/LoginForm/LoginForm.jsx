@@ -34,15 +34,14 @@ const onSubmit = async (formData) => {
     }
 
     try {
-        await dispatch(login({ email, password })).unwrap(); // Використання unwrap для отримання результату
+        await dispatch(login({ email, password })).unwrap(); 
         console.log('Login successful');
     } catch (error) {
         console.error('Login failed:', error);
     }
 
     reset();
-};
-    
+}; 
     return (
         <section>
             <h2 className={css.titleLogin}>Log In</h2> 

@@ -29,14 +29,13 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}>
-      
       <div>
         <input 
-          id="text"
+          id="Full Name"
           placeholder="Full Name"
           className={css.formInput}
           {...register('name')}
-          aria-required="true"/>
+          required/>
         {errors.name &&
           <p className={css.errorMsg}>
             {errors.name.message}</p>}
@@ -48,7 +47,7 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
           placeholder="Email"
           className={css.formInput}
           {...register('email')}
-          aria-required="true"/>
+          required/>
         {errors.email &&
           <p className={css.errorMsg}>
             {errors.email.message}</p>}
@@ -56,11 +55,11 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
 
       <div>
     <input
-          id="text"
+          id="Phone number"
           placeholder="Phone number"
           className={css.formInput}
           {...register('phone')}
-          aria-required="true"/>
+          required/>
           {errors.phone &&
           <p className={css.errorMsg}>
           {errors.phone.message}</p>}  

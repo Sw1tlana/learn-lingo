@@ -7,9 +7,11 @@ const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
 
   return (
     <div>
-      <ModalWindow isOpen={isOpen}
+      <ModalWindow 
+        isOpen={isOpen}
         onClose={onClose}
         className={css.modalLesson}
+        ariaHideApp={false}
         >      
         <h2 className={css.titleModalLesson}>Book trial lesson</h2>
         <p className={css.textModalLesson}>
