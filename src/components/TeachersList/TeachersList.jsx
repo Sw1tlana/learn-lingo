@@ -32,15 +32,17 @@ const TeachersList = () => {
   
   useEffect(() => {
     if (user?.token) {
+      console.log('Токен, що передається в axios:', user.token);
       setToken(user.token);
     }
-  }, [user]);
+  }, [dispatch, limit, page, user]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (Number.isFinite(limit) && Number.isFinite(page)) {
+      if (user?.token && Number.isFinite(limit) && Number.isFinite(page)) {
         try {
           await dispatch(fetchTeachers({ page, limit })).unwrap();
+          console.log('Response from fetchTeachers:', response); 
         } catch (error) {
           console.error('Failed to fetch teachers:', error);
         }
@@ -48,7 +50,7 @@ const TeachersList = () => {
     };
 
     fetchData();
-  }, [dispatch, limit, page]);
+  }, [dispatch, limit, page, user]);
 
   const handleFilterChange = (newFilteredTeachers) => {
     dispatch(changeFilter(newFilteredTeachers));

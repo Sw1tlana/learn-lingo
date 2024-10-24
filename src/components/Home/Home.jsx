@@ -8,6 +8,7 @@ import {
 import Container from '../../shared/components/Container/Container';
 
 const Home = () => {
+
     return (
         <Container>
         <div className={css.wrapperHome}>

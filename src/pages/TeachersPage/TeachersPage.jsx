@@ -1,5 +1,4 @@
 import TeachersList from '../../components/TeachersList/TeachersList';
-import css from './TeachersPage.module.css';
 import Loader from '../../shared/components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { selectError, selectLoading } from '../../redux/teachers/selectors';

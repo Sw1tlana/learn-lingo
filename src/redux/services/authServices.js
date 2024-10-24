@@ -8,6 +8,9 @@ import { auth } from '../../firebase';
 
 export const instance = axios.create({
   baseURL: 'https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/',
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 export const setToken = (token) => {
@@ -98,7 +101,8 @@ export const requestGetCurrentUser = async () => {
 export const logOutUser = async () => {
   try {
     await signOut(auth);
-    clearToken();  
+    clearToken(); 
+
     console.log("User logged out. Token has been cleared.");
   } catch (error) {
     console.error("Error during logout:", error.message);

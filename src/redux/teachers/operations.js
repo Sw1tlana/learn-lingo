@@ -4,7 +4,7 @@ import { requestGetTeachers } from "../services/teacherService.js";
  
 export const fetchTeachers = createAsyncThunk(
   "contacts/fetchTeachers",
-  async ({ page, limit }, thunkAPI) => {
+  async ({ page = 1, limit = 10 } = {}, thunkAPI) => {
     try {
       console.log('Fetching teachers...');
       const response = await requestGetTeachers(page, limit); 

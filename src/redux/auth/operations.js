@@ -35,6 +35,7 @@ export const login = createAsyncThunk(
       const { uid, token } = response;
       setToken(token);
       toast.success("Login successful!");
+
       return { uid, token };
     } catch (error) {
       console.error('Error during login:', error); І
