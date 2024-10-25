@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { INITIAL_FORM_DATA, bookLessonSchema } from '../schemas/bookLessonSchemas';
 import { useDispatch } from 'react-redux';
 import { setBookingData } from '../../redux/trialLesson/silece';
+import toast from 'react-hot-toast';
+import { FaSmile } from 'react-icons/fa';
 
 const BookLessonForm = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,12 @@ const { handleSubmit,  reset, register, formState: { errors } } = useForm({
     };
 
       dispatch(setBookingData(bookingData));
+      toast.success(
+        <>
+        <FaSmile style={{ color: '#F4C550', fontSize: '1.5em' }} /> 
+        Form submitted successfully!
+      </>
+      );
         reset();
     };
     

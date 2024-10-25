@@ -11,6 +11,7 @@ import Container from '../../shared/components/Container/Container';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors';
 import { logout as reduxLogout } from '../../redux/auth/operations';
 import { useSelector, useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const AppBar = () => {
   const dispatch = useDispatch();
@@ -23,8 +24,9 @@ const AppBar = () => {
   const handleLogout = async () => {
     try {
       await dispatch(reduxLogout());
+      toast.success('You have logged out successfully!');
     } catch (error) {
-      console.error('Logout error:', error);
+      toast.error('Logout failed. Please try again.');
     }
   };
 

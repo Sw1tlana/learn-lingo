@@ -6,8 +6,8 @@ import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 import { useDispatch } from 'react-redux';
 import { fetchTeachers } from "./redux/teachers/operations";
+// import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-// import { auth } from './firebase';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const TeachersPage = lazy(() => import('./pages/TeachersPage/TeachersPage'));
@@ -26,10 +26,12 @@ function App() {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/teachers" element={<TeachersPage />} />
+            <Route path="/teachers" element={
+                <TeachersPage />
+              } />
             <Route path="/favorites" element={
              <PrivateRoute>
-                  <FavoritesPage />
+                <FavoritesPage />
               </PrivateRoute> 
           
             } />

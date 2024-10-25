@@ -148,6 +148,7 @@ return (
           teacherPhoto={teacher.avatar_url}
           onClose={closeModal}
           isOpen={isModalOpen}
+          aria-hidden="false" 
         />
       )}
    </li>
