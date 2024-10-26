@@ -4,6 +4,7 @@ import { logout as logoutAction } from '../redux/auth/operations';
 import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors';
 import { setCurrentUser } from '../redux/auth/slice';
 import { auth } from '../firebase';
+import { fetchTeachers } from '../redux/teachers/operations';
 
 export const AuthContext = createContext();
 
@@ -18,12 +19,13 @@ export const AuthProvider = ({ children }) => {
         const { uid, email, displayName } = currentUser;
         console.log('User logged in:', { uid, email, displayName });
         dispatch(setCurrentUser({ uid, email, displayName }));
-      } else if (isLoggedIn) { // Викликаємо logoutAction лише якщо користувач був в системі
+        dispatch(fetchTeachers()); 
+      } else if (isLoggedIn) { 
         console.log('User logged out');
         dispatch(logoutAction());
       }
     });
-  
+
     return () => {
       console.log('Unsubscribing from auth changes');
       unsubscribe();
@@ -35,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, logout }}> {/* Додаємо функцію logout у контекст */}
+    <AuthContext.Provider value={{ user, logout }}> 
       {children}
     </AuthContext.Provider>
   );

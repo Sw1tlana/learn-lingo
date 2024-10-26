@@ -6,7 +6,6 @@ import Layout from './components/Layout/Layout';
 import Loader from './shared/components/Loader/Loader';
 import { useDispatch } from 'react-redux';
 import { fetchTeachers } from "./redux/teachers/operations";
-// import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));

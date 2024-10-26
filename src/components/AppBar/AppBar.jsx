@@ -17,6 +17,7 @@ const AppBar = () => {
   const dispatch = useDispatch();
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const currentUser = useSelector(selectUser); 
@@ -36,43 +37,56 @@ const AppBar = () => {
   const openRegister = () => setRegisterModalOpen(true);
   const closeRegister = () => setRegisterModalOpen(false);
 
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(prevState => !prevState); 
+  };
+
   return (
     <Container>
-      <div className={css.containerHeader}>
-        <header className={css.header}>
+      <header className={css.containerHeader}>
+        <div className={css.containerLogo}>
           <NavLink to="/">
             <Logo />
           </NavLink>
-          <nav>
-            <NavLink to="/" end className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
-              Home
-            </NavLink>
-            <NavLink to="/teachers" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
-              Teachers
-            </NavLink>
-            {isLoggedIn && (
-              <NavLink to="/favorites" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
-                Favorites
-              </NavLink>
-            )}
-          </nav>
-          <div className={css.authButtons}>
-            {isLoggedIn && currentUser ? (
-              <button onClick={handleLogout} className={css.logoutButton}>Logout</button>
-            ) : (
-              <>
-                <button onClick={openLogin} className={css.loginButton}>
-                  <svg width={73} height={20} className={css.iconArrow}>
-                    <use xlinkHref={`${sprite}#icon-arrow`} />
-                  </svg>
-                  Login
-                </button>
-                <button onClick={openRegister} className={css.registerButton}>Register</button>
-              </>
-            )}
           </div>
-        </header>
-
+          <div className={css.burgerButton} onClick={toggleMobileMenu}>
+            <div className={`${css.burgerLine} ${isMobileMenuOpen ? css.active : ''}`} />
+            <div className={`${css.burgerLine} ${isMobileMenuOpen ? css.active : ''}`} />
+            <div className={`${css.burgerLine} ${isMobileMenuOpen ? css.active : ''}`} />
+          </div>
+        <nav className={clsx(css.nav, isMobileMenuOpen && css.open)}>
+        <div className={css.navigationPage}>
+          <NavLink to="/" end className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+            Home
+          </NavLink>
+          <NavLink to="/teachers" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+            Teachers
+          </NavLink>
+          {isLoggedIn && (
+            <NavLink to="/favorites" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+              Favorites
+            </NavLink>
+          )}
+        </div>
+          {!isLoggedIn && (
+            <div className={css.navigationPage}>
+              <button onClick={openLogin} className={css.loginButton}>
+              <svg width={73} height={20} className={css.iconArrow}>
+                    <use xlinkHref={`${sprite}#icon-arrow`} />
+              </svg>
+                Login
+              </button>
+              <button onClick={openRegister} className={css.registerButton}>
+                Register
+              </button>
+            </div>
+          )}
+          {isLoggedIn && currentUser && (
+            <button onClick={handleLogout} className={css.logoutButton}>
+              Logout
+            </button>
+          )}
+        </nav>
         <ModalWindow isOpen={isLoginModalOpen} onClose={closeLogin} className={css.modalLogin}>
           <LoginForm />
         </ModalWindow>
@@ -80,7 +94,7 @@ const AppBar = () => {
         <ModalWindow isOpen={isRegisterModalOpen} onClose={closeRegister} className={css.modalRegister}>
           <RegistrationForm />
         </ModalWindow>
-      </div>
+      </header>
     </Container>
   );
 };

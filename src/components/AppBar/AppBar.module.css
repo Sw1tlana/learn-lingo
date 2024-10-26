@@ -1,16 +1,21 @@
 .containerHeader { 
-   margin: 0 auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
    padding: 32px 64px 32px 0;
 }
 
-.header {
+.navigationPage {
+    display: flex;
+    gap: 28px; 
+}
+  
+.nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
 .navLink {
-    margin-right: 28px;
     line-height: 1.2;
     letter-spacing: 0%;
     color: var(--primery-color);
@@ -40,6 +45,8 @@
     font-size: 14px;
     color: var(--primery-color);
     padding-left: 73px;
+    padding-right: 14px;
+    margin-left: 180px;
 }
 
 .loginButton:active,
@@ -83,7 +90,7 @@
 }
 
 .logoutButton {
-    margin-left: auto;
+    margin-left: 200px;
     margin-right: 64px;
     display: flex;
     justify-content: center;
@@ -103,3 +110,104 @@
 }
 
 /* Modal */
+
+.burgerButton {
+    display: none; 
+    cursor: pointer;
+    flex-direction: column; 
+    justify-content: center; 
+    height: 18px; 
+    cursor: pointer;
+}
+
+.burgerLine {
+    width: 26px; 
+    height: 4px; 
+    background-color: var(--primery-color); 
+    transition: transform 0.3s ease, opacity 0.3s ease; 
+    margin: 2px 0; 
+    transform-origin: center; 
+}
+
+.burgerLine.active:nth-child(1) {
+    transform: rotate(45deg) translateY(9px); 
+}
+
+.burgerLine.active:nth-child(2) {
+    opacity: 0; 
+}
+
+.burgerLine.active:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px); 
+}
+
+@media (max-width: 320px) {
+    .containerHeader {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px; 
+    }
+
+    .containerLogo {
+        display: flex; 
+        margin-right: auto;
+    }
+
+    .navigationPage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px; 
+    }
+
+    .nav {
+        width: 100vw; 
+        padding: 10px;
+    }
+
+    .loginButton, .registerButton, .logoutButton {
+        margin: 0; 
+        padding: 10px 20px; 
+        font-size: 12px; 
+    }
+
+    .burgerButton {
+        top: 10px;
+        right: 10px;
+        position: absolute;
+    }
+
+    .navLink {
+        font-size: 14px; 
+        margin: 0; 
+    }
+}
+
+@media (max-width: 768px) { 
+
+    .containerLogo {
+      display: flex;
+ 
+    }
+
+    .burgerButton {
+        display: flex; 
+    }
+
+    .nav {
+        display: none; 
+        position: absolute;
+        top: 60px; 
+        right: auto;
+        height: 90%;
+        background-color: var(--white-bg-color); 
+        width: 70%; 
+        box-shadow: 0 4px 6px var(--secondary-bg-color);
+        z-index: 10;
+    }
+
+    .nav.open {
+        display: flex; 
+        flex-direction: column; 
+    }
+}

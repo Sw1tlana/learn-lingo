@@ -2,12 +2,12 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    margin-left: 64px;
+    /* margin-left: 64px; */
 }
 
-.svgLogo {
+/* .svgLogo {
    margin-left: 64px;
-}
+}  */
 
 .titleHeader {
     font-size: 20px;
@@ -16,4 +16,10 @@
     letter-spacing: -2%;
     color: var(--primery-color);
 
+}
+
+@media (max-width: 320px) {
+    .containerLogo {
+        margin-left: 16px; 
+    }
 }
