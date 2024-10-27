@@ -36,6 +36,9 @@ const teachersSlice = createSlice({
     setTotalPage: (state, active) => {
       state.totalPages = active.payload;
     },
+    clearTeachers: (state) => { 
+      state.items = [];
+    },
 },
 
   extraReducers: (builder) => {
@@ -58,7 +61,8 @@ const teachersSlice = createSlice({
 export const {
   setPage,
   setLimit,
-  setTotalPage
+  setTotalPage,
+  clearTeachers
 } = teachersSlice.actions;
 
 export const teachersReducer = teachersSlice.reducer;

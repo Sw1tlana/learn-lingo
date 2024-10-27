@@ -36,22 +36,22 @@ const TeachersList = () => {
       console.log('Токен, що передається в axios:', user.token);
       setToken(user.token);
     }
-  }, [dispatch, limit, page, user]);
+  }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user?.token && Number.isFinite(limit) && Number.isFinite(page)) {
+      if (user?.token && loading && Number.isFinite(limit) && Number.isFinite(page)) {
         try {
-          await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
+          const response = await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
           console.log('Response from fetchTeachers:', response); 
         } catch (error) {
           console.error('Failed to fetch teachers:', error);
         }
       }
     };
-
+  
     fetchData();
-  }, [dispatch, limit, page, user, filters]);
+  }, [dispatch, limit, page, user?.token, filters, loading]);
 
   const handleFilterChange = (newFilteredTeachers) => {
     dispatch(changeFilter(newFilteredTeachers));
@@ -66,28 +66,48 @@ const TeachersList = () => {
     }
   };
 
+  const createWaveText = (text) => {
+    return text.split(' ').map((word, wordIndex) => (
+      <span key={wordIndex} style={{ display: 'inline-block', marginRight: '0.2em' }}>
+        {word.split('').map((char, charIndex) => (
+          <span key={charIndex} style={{ animationDelay: `${(wordIndex * 0.2) + (charIndex * 0.1)}s` }}>
+            {char}
+          </span>
+        ))}
+      </span>
+    ));
+  };
+  
   return (
     <div className={css.listWraper}>
-      <Container>
-        <section className={css.sectionTeacher}>
-          <TeacherFilter onFilterChange={handleFilterChange} />
-          <ul className={css.teacherList}>
-            {loading ? (
-              <Loader />
+  <Container>
+    <section className={css.sectionTeacher}>
+      <TeacherFilter onFilterChange={handleFilterChange} />
+      <ul className={css.teacherList}>
+        {loading ? (
+          <Loader />
+        ) : (
+          filteredTeachers.length > 0 ? (
+            filteredTeachers.map((teacher) => (
+              <TeachersItem key={teacher.id} teacher={teacher} />
+            ))
+          ) : (
+            !loading ? ( 
+              <p className={`${css.fadeIn} ${css.wave}`}>{createWaveText("You need to log in to see the teachers.")}</p>
             ) : (
-              filteredTeachers.map((teacher, index) => (
-                <TeachersItem key={`${teacher.id}-${index}`} teacher={teacher} />
-              ))
-            )}
-          </ul>
+              <p className={`${css.fadeIn} ${css.wave}`}>{createWaveText("No teachers found for the current criteria.")}</p>
+            )
+          )
+        )}
+      </ul>
 
-          {!loading && teachers.length >= limit && page < totalPages && (
-            <div className={css.loadMoreContainer}>
-              <LoadMore onClick={handleLoadMore} />
-            </div>
-          )}
-        </section>
-      </Container>
+      {!loading && teachers.length >= limit && page < totalPages && (
+        <div className={css.loadMoreContainer}>
+          <LoadMore onClick={handleLoadMore} />
+        </div>
+      )}
+    </section>
+  </Container>
     </div>
   );
 };

@@ -41,11 +41,13 @@ const AppBar = () => {
     setMobileMenuOpen(prevState => !prevState); 
   };
 
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
     <Container>
       <header className={css.containerHeader}>
         <div className={css.containerLogo}>
-          <NavLink to="/">
+          <NavLink to="/" onClick={closeMobileMenu}>
             <Logo />
           </NavLink>
           </div>
@@ -56,14 +58,14 @@ const AppBar = () => {
           </div>
         <nav className={clsx(css.nav, isMobileMenuOpen && css.open)}>
         <div className={css.navigationPage}>
-          <NavLink to="/" end className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+          <NavLink to="/" end className={({ isActive }) => clsx(css.navLink, isActive && css.active)} onClick={closeMobileMenu}>
             Home
           </NavLink>
-          <NavLink to="/teachers" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+          <NavLink to="/teachers" className={({ isActive }) => clsx(css.navLink, isActive && css.active)} onClick={closeMobileMenu}>
             Teachers
           </NavLink>
           {isLoggedIn && (
-            <NavLink to="/favorites" className={({ isActive }) => clsx(css.navLink, isActive && css.active)}>
+            <NavLink to="/favorites" className={({ isActive }) => clsx(css.navLink, isActive && css.active)} onClick={closeMobileMenu}>
               Favorites
             </NavLink>
           )}
@@ -72,7 +74,7 @@ const AppBar = () => {
             <div className={css.navigationPage}>
               <button onClick={openLogin} className={css.loginButton}>
               <svg width={73} height={20} className={css.iconArrow}>
-                    <use xlinkHref={`${sprite}#icon-arrow`} />
+                  <use xlinkHref={`${sprite}#icon-arrow`} />
               </svg>
                 Login
               </button>

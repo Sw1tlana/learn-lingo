@@ -19,13 +19,13 @@ export const AuthProvider = ({ children }) => {
         const { uid, email, displayName } = currentUser;
         console.log('User logged in:', { uid, email, displayName });
         dispatch(setCurrentUser({ uid, email, displayName }));
-        dispatch(fetchTeachers()); 
+        // fetchTeachers() не викликаємо тут
       } else if (isLoggedIn) { 
         console.log('User logged out');
         dispatch(logoutAction());
       }
     });
-
+  
     return () => {
       console.log('Unsubscribing from auth changes');
       unsubscribe();
