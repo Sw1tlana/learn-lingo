@@ -46,6 +46,12 @@
     flex-direction: column;
 }
 
+.listInfoLessons {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: yellow;
+}
+
 .textLessonInfo {
     font-weight: 500;
     line-height: 1.5;
@@ -57,7 +63,7 @@
 }
 
 .withMargin {
-    margin-left: 100px; 
+    margin-left: 30px; 
 }
 
 .icon {
@@ -220,8 +226,7 @@
 
 @media (max-width: 768px) {
     .teacherCard {
-        gap: 24px;
-        max-width: 800px;
+        gap: 24px;  
         padding: 16px;
      }
 
@@ -230,40 +235,38 @@
      }
 
     .infoContainer {
-         display: flex;
-         flex-direction: column;    
+       width: 100%;  
      }
 
     .listInfoLessons {
         display: flex;
         flex-wrap: wrap;
     }
-     
+
      .textLessonInfo {
-         font-weight: 400;
+        font-weight: 400;
      }
      
      .textLesson {
-         color: var(--secondary-bg-color);
+        color: var(--secondary-bg-color);
      }
      
      .withMargin {
-         margin-left: 10px; 
+        margin-left: 10px; 
      }
      
      .listInfoLessons {
-         display: flex;
-         align-items: center;
-         width: 100%;
+        display: flex;
+        align-items: center;
+        width: 100%;
      }
      
      .listInfoLessons li {
-         position: relative;
-         margin-bottom: 8px;
-         padding: 8px;
-         display: flex;
-    
-         align-items: center;
+        position: relative;
+        margin-bottom: 8px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
      }
      
      .additionalInfo {
@@ -271,17 +274,47 @@
     }
      
      .nameTeachers {
-         font-size: 18px;
+        font-size: 18px;
      }
      
      .levelsInfo {
-         display: flex;
-         flex-wrap: wrap;
-         gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
      }
-     
-     
+         
      .heartItem {
-         margin-left: 40px;
+        margin-left: 20px;
      }
+} 
+
+@media (max-width: 1440px) {
+    .teacherCard {
+        gap: 24px;  /* Зменшуємо gap */
+        padding: 20px;  /* Зменшуємо padding */
+    }
+
+    .avatarContainer {
+        margin-right: 30px;  /* Зменшуємо margin */
+    }
+
+    .nameTeachers {
+        font-size: 22px;  /* Зменшуємо розмір шрифту */
+    }
+
+    .textLessonInfo {
+        font-weight: 400;  /* Зменшуємо жирність шрифту для більшої компактності */
+    }
+
+    .levelsInfo {
+        gap: 4px;  /* Зменшуємо відстань між елементами */
+    }
+
+    .heartItem {
+        margin-left: 30px;  /* Зменшуємо margin */
+    }
+
+    .btnBookLesson {
+        padding: 14px 40px;  /* Зменшуємо padding кнопки */
+    }
 }

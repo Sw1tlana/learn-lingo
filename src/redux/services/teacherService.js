@@ -1,16 +1,16 @@
 import { instance } from './authServices';
-import { store } from '../stores';
+// import { store } from '../stores';
 
 export const requestGetTeachers = async (page = 1, limit = 4) => {
   try {
 
-    const state = store.getState();
-    const token = state.auth.token;
+    // const state = store.getState();
+    // const token = state.auth.token;
     
-    console.log('Токен авторизації:', token);
-    if (!token) {
-      throw new Error('No authorization token found');
-    }
+    // console.log('Токен авторизації:', token);
+    // if (!token) {
+    //   throw new Error('No authorization token found');
+    // }
 
     const response = await instance.get(
       `teachers.json`, {

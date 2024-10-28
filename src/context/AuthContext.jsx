@@ -32,6 +32,12 @@ export const AuthProvider = ({ children }) => {
     };
   }, [dispatch, isLoggedIn]);
 
+  
+
+  useEffect(() => {
+    dispatch(fetchTeachers()); 
+  }, [dispatch]);
+
   const logout = () => {
     dispatch(logoutAction());
   };

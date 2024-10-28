@@ -46,8 +46,7 @@ const TeachersItem = ({teacher}) => {
       dispatch(addFavorite(teacher));
     }
   };
-
-  
+ 
 return (
   <li key={teacher.id}
     className={css.teacherCard}>  
@@ -101,8 +100,7 @@ return (
               message="This feature is only available to authorized users." />
         )}
           </ul>
-
-          <ul className={css.additionalInfo}>
+        <ul className={css.additionalInfo}>
             <li>
               <h2 className={css.nameTeachers}>{teacher.name} {teacher.surname}</h2>
             </li>

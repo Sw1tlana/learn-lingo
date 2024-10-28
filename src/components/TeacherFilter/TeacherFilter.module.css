@@ -32,12 +32,12 @@
     }
 
     .containerSelect {
-        max-width: none; 
+        max-width: 300px; 
         width: 100%; 
     }
 
     .containerSelectPrice {
-        max-width: none; 
+        max-width: 300px; 
         width: 100%; 
     }
 

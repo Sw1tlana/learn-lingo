@@ -2,7 +2,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    background-color: var(--yellow-bg-color);
+    background-color: var(--color-avatar);
     color: var(--black-color);
     padding: 15px 20px;
     border-radius: 5px;
@@ -21,3 +21,42 @@
     top: 10px;
     right: 10px;
 }
+
+.wave {
+    display: inline-block;
+    opacity: 0; 
+    color: var(--black-color);
+    font-size: 24px;
+    transform: translateY(10px);
+    animation: wave 0.8s forwards; 
+}
+
+@keyframes wave {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+      color: var(--black-color);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-5px);
+      color: var(--blue-bg-color);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--blue-bg-color);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .notification {
+        width: 300px;
+    }
+
+    .closeButton {
+        font-size: 14px;
+
+    }
+    
+  }

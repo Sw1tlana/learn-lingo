@@ -31,16 +31,32 @@ const TeachersList = () => {
   const user = useSelector(selectUser);
   const filters = useSelector((state) => state.filters);
   
-  useEffect(() => {
-    if (user?.token) {
-      console.log('Токен, що передається в axios:', user.token);
-      setToken(user.token);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user?.token) {
+  //     console.log('Токен, що передається в axios:', user.token);
+  //     setToken(user.token);
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (user?.token && loading && Number.isFinite(limit) && Number.isFinite(page)) {
+  //       try {
+  //         const response = await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
+  //         console.log('Response from fetchTeachers:', response); 
+  //       } catch (error) {
+  //         console.error('Failed to fetch teachers:', error);
+  //       }
+  //     }
+  //   };
+  
+  //   fetchData();
+  // }, [dispatch, limit, page, user?.token, filters, loading]);
+
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user?.token && loading && Number.isFinite(limit) && Number.isFinite(page)) {
+      if (loading && Number.isFinite(limit) && Number.isFinite(page) && teachers.length === 0) {
         try {
           const response = await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
           console.log('Response from fetchTeachers:', response); 
@@ -51,7 +67,7 @@ const TeachersList = () => {
     };
   
     fetchData();
-  }, [dispatch, limit, page, user?.token, filters, loading]);
+  }, [dispatch, limit, page, filters, loading, teachers.length]);
 
   const handleFilterChange = (newFilteredTeachers) => {
     dispatch(changeFilter(newFilteredTeachers));
@@ -79,7 +95,7 @@ const TeachersList = () => {
   };
   
   return (
-    <div className={css.listWraper}>
+<div className={css.listWraper}>
   <Container>
     <section className={css.sectionTeacher}>
       <TeacherFilter onFilterChange={handleFilterChange} />
@@ -88,15 +104,11 @@ const TeachersList = () => {
           <Loader />
         ) : (
           filteredTeachers.length > 0 ? (
-            filteredTeachers.map((teacher) => (
-              <TeachersItem key={teacher.id} teacher={teacher} />
+            filteredTeachers.map((teacher, index) => (
+              <TeachersItem key={`${teacher.id}-${index}`} teacher={teacher} />
             ))
           ) : (
-            !loading ? ( 
-              <p className={`${css.wave}`}>{createWaveText("You need to log in to see the teachers.")}</p>
-            ) : (
-              <p className={`${css.wave}`}>{createWaveText("No teachers found for the current criteria.")}</p>
-            )
+            <p className={`${css.wave}`}>{createWaveText("No teachers found for the current criteria.")}</p>
           )
         )}
       </ul>
@@ -108,7 +120,7 @@ const TeachersList = () => {
       )}
     </section>
   </Container>
-    </div>
+</div>
   );
 };
 
