@@ -93,9 +93,9 @@ const TeachersList = () => {
             ))
           ) : (
             !loading ? ( 
-              <p className={`${css.fadeIn} ${css.wave}`}>{createWaveText("You need to log in to see the teachers.")}</p>
+              <p className={`${css.wave}`}>{createWaveText("You need to log in to see the teachers.")}</p>
             ) : (
-              <p className={`${css.fadeIn} ${css.wave}`}>{createWaveText("No teachers found for the current criteria.")}</p>
+              <p className={`${css.wave}`}>{createWaveText("No teachers found for the current criteria.")}</p>
             )
           )
         )}

@@ -6,8 +6,26 @@ import {
     boyWebp2x
 } from '../../shared/images/index';
 import Container from '../../shared/components/Container/Container';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
+import { toast } from 'react-hot-toast';
+
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+
+    const handleGetStartedClick = () => {
+        if (isLoggedIn) {
+            navigate('/teachers'); 
+        } else {
+            toast.error('You need to log in!', {
+                className: `${css.toast}`, 
+            });
+        }
+    };
 
     return (
         <Container>
@@ -26,6 +44,7 @@ const Home = () => {
                 <button
                     type='button'
                     className={css.btnHome}
+                    onClick={handleGetStartedClick}
                     >Get started
                 </button>
                 </div>

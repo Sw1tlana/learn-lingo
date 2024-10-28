@@ -212,7 +212,76 @@
     transition: background-color 0.1s ease, transform 0.1s ease;
 }
 
+.btnBookLesson:active,
 .btnBookLesson:hover {
     background-color: var(--secondary-btn-accent);
     transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .teacherCard {
+        gap: 24px;
+        max-width: 800px;
+        padding: 16px;
+     }
+
+     .teacherInfoContainer {
+        flex-wrap: wrap;
+     }
+
+    .infoContainer {
+         display: flex;
+         flex-direction: column;    
+     }
+
+    .listInfoLessons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+     
+     .textLessonInfo {
+         font-weight: 400;
+     }
+     
+     .textLesson {
+         color: var(--secondary-bg-color);
+     }
+     
+     .withMargin {
+         margin-left: 10px; 
+     }
+     
+     .listInfoLessons {
+         display: flex;
+         align-items: center;
+         width: 100%;
+     }
+     
+     .listInfoLessons li {
+         position: relative;
+         margin-bottom: 8px;
+         padding: 8px;
+         display: flex;
+    
+         align-items: center;
+     }
+     
+     .additionalInfo {
+        margin-top: 20px;
+    }
+     
+     .nameTeachers {
+         font-size: 18px;
+     }
+     
+     .levelsInfo {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 8px;
+     }
+     
+     
+     .heartItem {
+         margin-left: 40px;
+     }
 }

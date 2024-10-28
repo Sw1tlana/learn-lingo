@@ -25,6 +25,26 @@
     line-height: 1.2;
 }
 
+@media (max-width: 768px) {
+    .filterContainer {
+        flex-direction: column; 
+        gap: 16px; 
+    }
+
+    .containerSelect {
+        max-width: none; 
+        width: 100%; 
+    }
+
+    .containerSelectPrice {
+        max-width: none; 
+        width: 100%; 
+    }
+
+    .label {
+        font-size: 12px;
+    }
+}
 
 
 

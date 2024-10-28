@@ -22,23 +22,40 @@
   .wave span {
     display: inline-block;
     opacity: 0; 
-    color: var(--yellow-bg-color);
+    color: var(--black-color);
     font-size: 24px;
     transform: translateY(10px); 
-    animation: wave 0.5s forwards; 
+    animation: wave 0.8s forwards; 
   }
   
   @keyframes wave {
     0% {
       opacity: 0;
       transform: translateY(10px); 
+      color: var(--black-color);
     }
     50% {
       opacity: 1;
       transform: translateY(-5px); 
+      color: var(--primery-btn-color);
     }
     100% {
       opacity: 1;
-      transform: translateY(0); 
+      transform: translateY(0);
+      color: var(--primery-btn-color); 
     }
   }
+
+  @media (max-width: 768px) {
+    .sectionTeacher {
+        padding: 48px 16px; 
+    }
+
+    .teacherList {
+        gap: 16px; 
+    }
+
+    .wave span {
+        font-size: 20px; 
+    }
+}

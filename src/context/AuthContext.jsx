@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         const { uid, email, displayName } = currentUser;
         console.log('User logged in:', { uid, email, displayName });
         dispatch(setCurrentUser({ uid, email, displayName }));
-        // fetchTeachers() не викликаємо тут
+  
       } else if (isLoggedIn) { 
         console.log('User logged out');
         dispatch(logoutAction());

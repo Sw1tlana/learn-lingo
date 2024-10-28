@@ -45,6 +45,8 @@ export const registerUser = async ({ email, password, name }) => {
       uid: user.uid
     });
 
+    window.location.href = '/';
+
     return {
       firebaseUser: { uid: user.uid, email },
       backendResponse: userResponse.data
@@ -75,7 +77,7 @@ export const requestSignIn = async ({ email, password }) => {
 
     setToken(token); 
     console.log('Token set in axios instance.');
-
+    window.location.href = '/teachers';
     return { uid: user.uid, user, token };
   } catch (error) {
     console.error('Error signing in:', error); 
@@ -104,6 +106,7 @@ export const logOutUser = async () => {
     clearToken(); 
 
     console.log("User logged out. Token has been cleared.");
+    window.location.href = '/';
   } catch (error) {
     console.error("Error during logout:", error.message);
   }
