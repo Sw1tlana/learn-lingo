@@ -56,3 +56,27 @@
     text-align: left;
     margin-bottom: 20px;
 }
+
+@media (max-width: 768px) {
+    .modalLesson {
+        padding: 32px; 
+    }
+
+    .titleModalLesson {
+        font-size: 32px; 
+        margin-bottom: 20px; 
+    }
+
+    .textModalLesson {
+        font-size: 16px; 
+        margin-bottom: 15px; 
+    }
+
+    .containerModalTeacher {
+        flex-direction: column; 
+    }
+
+    .teacherPhoto {
+        max-width: 36px;
+    }
+}

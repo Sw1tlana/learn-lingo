@@ -11,6 +11,7 @@ const BookTrialLesson = ({ teacherName, teacherPhoto, onClose, isOpen }) => {
         isOpen={isOpen}
         onClose={onClose}
         className={css.modalLesson}
+        size="large"
         ariaHideApp={false}
         >      
         <h2 className={css.titleModalLesson}>Book trial lesson</h2>

@@ -37,7 +37,7 @@
 
 .iconEye {
     position: absolute;
-    top: 50%;
+    top: 26px;
     right: 16px;
     transform: translateY(-50%);
     cursor: pointer;
@@ -68,8 +68,4 @@
 .btnLogin:active,
 .btnLogin:hover {
     background-color: var(--secondary-btn-accent);
-}
-
-.iconEye {
-
 }

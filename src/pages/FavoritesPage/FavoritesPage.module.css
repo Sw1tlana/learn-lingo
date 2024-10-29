@@ -220,8 +220,102 @@
     transform: scale(1.02);
 }
 
+@media (max-width: 768px) {
+    .teacherCard {
+        gap: 24px;  
+        padding: 16px;
+     }
 
-/* now faworite */
+     .teacherInfoContainer {
+        flex-wrap: wrap;
+     }
+
+    .infoContainer {
+       width: 100%;  
+     }
+
+    .listInfoLessons {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+     .textLessonInfo {
+        font-weight: 400;
+     }
+     
+     .textLesson {
+        color: var(--secondary-bg-color);
+     }
+     
+     .withMargin {
+        margin-left: 10px; 
+     }
+     
+     .listInfoLessons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+     }
+     
+     .listInfoLessons li {
+        position: relative;
+        margin-bottom: 8px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+     }
+     
+     .additionalInfo {
+        margin-top: 20px;
+    }
+     
+     .nameTeachers {
+        font-size: 18px;
+     }
+     
+     .levelsInfo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+     }
+         
+     .heartItem {
+        margin-left: 20px;
+     }
+} 
+
+@media (max-width: 1440px) {
+    .teacherCard {
+        gap: 24px;  
+        padding: 20px;  
+    }
+
+    .avatarContainer {
+        margin-right: 30px;  
+    }
+
+    .nameTeachers {
+        font-size: 22px; 
+    }
+
+    .textLessonInfo {
+        font-weight: 400; 
+    }
+
+    .levelsInfo {
+        gap: 4px;  
+    }
+
+    .heartItem {
+        margin-left: 30px;  
+    }
+
+    .btnBookLesson {
+        padding: 14px 40px;  
+    }
+}
+
+/* no faworite */
 
 .noFavorites {
     display: flex;

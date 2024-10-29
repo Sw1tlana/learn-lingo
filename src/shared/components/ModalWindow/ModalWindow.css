@@ -24,6 +24,8 @@
 .modal-content {
   background-color: var(--white-bg-color);
   border-radius: 20px;
+  padding: 64px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -56,4 +58,41 @@
 .iconClose:active,
 .iconClose:hover {
   stroke: var(--primery-btn-color);
+}
+
+.modal-content-small {
+  width: 566px;
+  max-height: 506px;
+}
+
+.modal-content-medium {
+  width: 566px;
+  max-height: 95%;
+}
+
+.modal-content-large {
+  width: 600px;
+  max-height: 972px;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 16px; 
+    margin: 0 5%; 
+  }
+
+  .modal-content-small {
+    width: 90%;
+    max-height: 400px; 
+  }
+
+  .modal-content-medium {
+    width: 90%;
+    max-height: 500px;
+  }
+
+  .modal-content-large {
+    width: 90%;
+    max-height: auto;
+  }
 }

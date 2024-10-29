@@ -49,7 +49,6 @@
 .listInfoLessons {
     display: flex;
     flex-wrap: wrap;
-    background-color: yellow;
 }
 
 .textLessonInfo {
@@ -173,6 +172,7 @@
 
 .levelsInfo {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
@@ -290,31 +290,31 @@
 
 @media (max-width: 1440px) {
     .teacherCard {
-        gap: 24px;  /* Зменшуємо gap */
-        padding: 20px;  /* Зменшуємо padding */
+        gap: 24px;  
+        padding: 20px;  
     }
 
     .avatarContainer {
-        margin-right: 30px;  /* Зменшуємо margin */
+        margin-right: 30px;  
     }
 
     .nameTeachers {
-        font-size: 22px;  /* Зменшуємо розмір шрифту */
+        font-size: 22px; 
     }
 
     .textLessonInfo {
-        font-weight: 400;  /* Зменшуємо жирність шрифту для більшої компактності */
+        font-weight: 400; 
     }
 
     .levelsInfo {
-        gap: 4px;  /* Зменшуємо відстань між елементами */
+        gap: 4px;  
     }
 
     .heartItem {
-        margin-left: 30px;  /* Зменшуємо margin */
+        margin-left: 30px;  
     }
 
     .btnBookLesson {
-        padding: 14px 40px;  /* Зменшуємо padding кнопки */
+        padding: 14px 40px;  
     }
 }

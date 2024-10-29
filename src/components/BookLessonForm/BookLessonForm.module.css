@@ -36,3 +36,14 @@
 .btnBookLesson:hover {
     background-color: var(--secondary-btn-accent);
 }
+
+@media (max-width: 480px) {
+    .formInput {
+        flex-direction: column;  
+    }
+
+    .btnBookLesson {
+        padding: 12px;  
+        font-size: 14px; 
+    }
+}
