@@ -27,3 +27,10 @@
         margin-left: 0;
      } 
 }
+
+@media (max-width: 1440px) {
+    .containerLogo {
+        margin-right: 40px;
+    }
+
+}

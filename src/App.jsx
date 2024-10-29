@@ -31,8 +31,7 @@ function App() {
             <Route path="/favorites" element={
              <PrivateRoute>
                 <FavoritesPage />
-              </PrivateRoute> 
-          
+              </PrivateRoute>          
             } />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
