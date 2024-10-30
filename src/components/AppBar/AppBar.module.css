@@ -223,6 +223,10 @@
     .logoutButton {
        margin-left: 80px;
     }
+
+    .loginButton {
+        margin-left: 20px;
+    }
 }
 
 

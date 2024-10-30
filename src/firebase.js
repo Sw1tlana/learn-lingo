@@ -13,6 +13,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+console.log("Firebase initialized successfully");
 const database = getDatabase(app);
 const auth = getAuth(app);
 
