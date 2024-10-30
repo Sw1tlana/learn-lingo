@@ -1,19 +1,19 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth"; 
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_API_KEY,
-    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_APP_ID,
+    apiKey: API_KEY,
+    authDomain: "teachersapp-dd91b.firebaseapp.com",
+    projectId: "teachersapp-dd91b",
+    storageBucket: "teachersapp-dd91b.appspot.com",
+    messagingSenderId: "165416372744",
+    appId: "1:165416372744:web:bf5ca8acead8649ad41fbd",
     databaseURL: "https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 const app = initializeApp(firebaseConfig);
-console.log("Firebase initialized successfully");
 const database = getDatabase(app);
 const auth = getAuth(app);
 
