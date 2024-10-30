@@ -10,7 +10,6 @@ const firebaseConfig = {
     storageBucket: "teachersapp-dd91b.appspot.com",
     messagingSenderId: "165416372744",
     appId: "1:165416372744:web:bf5ca8acead8649ad41fbd",
-    databaseURL: "https://teachersapp-dd91b-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 const app = initializeApp(firebaseConfig);
