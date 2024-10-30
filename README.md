@@ -13,12 +13,11 @@ These pages provide users with access to information about tutors, their advanta
 
 ## Main Technologies
 
-![React](https://upload.wikimedia.org/wikipedia/commons/4/47/React.svg) **React**: for creating the user interface.  
-![Firebase](https://firebase.google.com/downloads/brand-guidelines/PNG/logo-logomark.png) **Firebase**: for implementing the database (Realtime Database) and user authentication.  
-![React Hook Form](https://react-hook-form.com/logo.png) **React Hook Form**: for form validation during registration and authentication.  
-![Yup](https://raw.githubusercontent.com/jquense/yup/master/logo.png) **Yup**: for validating data schemas in forms.  
-![Styled Components](https://styled-components.com/logo.png) **Styled Components**: for styling components according to the mockup.
-
+**React**: for creating the user interface.  
+**Firebase**: for implementing the database (Realtime Database) and user authentication.  
+**React Hook Form**: for form validation during registration and authentication.  
+**Yup**: for validating data schemas in forms.  
+**Styled Components**: for styling components according to the mockup.
 ## Mockup
 The mockup of the application can be found [here](link_to_mockup). The styling is implemented considering the examples provided in the mockup, with unique variations of the color palette.
 
