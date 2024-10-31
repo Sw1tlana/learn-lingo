@@ -1,4 +1,5 @@
 import RedMore from '../RedMore/RedMore';
+import { useState } from 'react';
 
 const TeacherCard = ({teacher}) => {
     const [isExpanded, setIsExpanded] = useState(false);

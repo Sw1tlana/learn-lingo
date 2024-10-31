@@ -28,7 +28,7 @@ const Notification = ({ message, onClose, duration = 5000 }) => {
 
   return (
     <div className={css.notification}>
-      <p className={`${css.wave}`}>{createWaveText(message)}</p>
+      <p>{createWaveText(message)}</p>
       <button className={css.closeButton} onClick={onClose}>
         &times; 
       </button>

@@ -33,7 +33,7 @@ const onSubmit = async (formData) => {
     try {
         await dispatch(login({ email, password })).unwrap(); 
     } catch (error) {
-        throw new Error('Login failed:', error);
+        throw new Error('Login failed');
     }
 
     reset();

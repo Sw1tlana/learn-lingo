@@ -8,7 +8,6 @@ import {
 } from "../services/authServices.js";
 import { requestGetTeachers } from '../services/teacherService';
 import toast from 'react-hot-toast';
-import { instance } from '../services/authServices';
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -46,18 +45,13 @@ export const fetchCurrentUser = createAsyncThunk(
   "auth/refreshCurrentUser",
   async (_, thunkAPI) => {
     try {
-       console.log('Fetching current user...');
       const firebaseUser = await requestGetTeachers();
-
-      console.log('Firebase user:', firebaseUser);
 
       const token = await firebaseUser.getIdToken(true);
       setToken(token); 
-       console.log('User fetched:', firebaseUser);
 
       return { uid: firebaseUser.uid, token };
     } catch (err) {
-      console.error('Error fetching current user:', err.message);
       return thunkAPI.rejectWithValue(err.message);
     }
   },
@@ -76,17 +70,12 @@ export const logout = createAsyncThunk(
    "auth/logout",
   async (_, thunkAPI) => {
     try {
-      console.log('Logout thunk started.');
-      console.log('instance:', instance);
-      await logOutUser();
-      console.log('User signed out from Firebase.');
-      console.log('Token after logout:', instance.defaults.headers.common.Authorization);
-
+      await logOutUser(); 
+           
       clearToken();
       
       return {};
     } catch (error) {
-      console.error('Error during logout:', error);
       return thunkAPI.rejectWithValue(error.message);
     }
-    });
+});

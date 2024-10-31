@@ -318,3 +318,35 @@
          padding: 14px 40px;  
      }
  }
+
+ .noFavorites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px; 
+  }
+  
+  .animationContainer {
+    position: relative; 
+  }
+  
+  .heartAnimation {
+    animation: pulse 1.5s infinite; 
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1); 
+    }
+    50% {
+      transform: scale(1.1); 
+    }
+  }
+  
+  .noFavoritesText {
+    margin-top: 10px; 
+    font-size: 18px; 
+    color: var(--blue-bg-color); 
+  }
