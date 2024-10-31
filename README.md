@@ -51,13 +51,6 @@ The mockup of the application can be found <a href="https://www.figma.com/file/d
 8. **Booking a Trial Lesson**: Clicking the "Book trial lesson" button opens a modal window with a booking form.
 9. **Private "Favorites" Page**: Available only to authorized users to view their favorite tutors.
 
-## Installation and Running
-To run the application, follow these steps:
-
-1. **Clone the repository**:
-   ```bash
-   git clone <repository_URL>
-
   Author
 
 Miroshnychenko Svitlana
