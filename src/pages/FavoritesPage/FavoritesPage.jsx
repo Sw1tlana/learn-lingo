@@ -57,11 +57,13 @@ const handleFavoriteClick = (teacher) => {
   }, [favoriteTeachers]);
 
   return (
+    <div className={css.sectionWraper}>
       <Container> 
         <ul className={css.listTeacher}>     
           {Array.isArray(favoriteTeachers) && favoriteTeachers.length > 0 ? (
             favoriteTeachers.map((teacher) => {
-              const isFavorite = favoriteTeachers.some(favTeacher => favTeacher.id === teacher.id); // Додано визначення isFavorite
+              const isFavorite = favoriteTeachers.some(favTeacher => 
+                favTeacher.id === teacher.id); 
 
               return (
                 <li key={teacher.id} className={css.teacherCard}>
@@ -196,6 +198,7 @@ const handleFavoriteClick = (teacher) => {
           )}
         </ul>
       </Container>
+    </div>
   )
 };
 
