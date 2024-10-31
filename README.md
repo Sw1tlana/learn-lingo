@@ -19,7 +19,8 @@ These pages provide users with access to information about tutors, their advanta
 **Yup**: for validating data schemas in forms.  
 **Styled Components**: for styling components according to the mockup.
 ## Mockup
-The mockup of the application can be found [here](link_to_mockup). The styling is implemented considering the examples provided in the mockup, with unique variations of the color palette.
+The mockup of the application can be found <a href="https://www.figma.com/file/dewf5jVviSTuWMMyU3d8Mc/%D0%9F%D0%B5%D1%82-%D0%BF%D1%80%D0%BE%D94%0B%D1%94%D0%BA%D1%82-%D0%B4%D0%BB%D1%8F-%D0%9A%D0%A6?type=design&node-id=0-1&mode=design&t=jCmjSs9PeOjObYSc-0">here</a>. The design has been implemented considering the provided examples, complemented by unique color solutions.
+
 
 ## Technical Task
 ### Main Functionalities:
@@ -62,5 +63,6 @@ To run the application, follow these steps:
 Miroshnychenko Svitlana
 
 Contacts
+   "If you have any questions, please feel free to contact me at <a href="mailto:example@example.com">example@example.com</a>.
 
 - 💼 [LinkedIn](https://www.linkedin.com/in/svitlana-miroshnychenko-12659a2b6/)  
