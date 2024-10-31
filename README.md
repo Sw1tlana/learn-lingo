@@ -63,6 +63,6 @@ To run the application, follow these steps:
 Miroshnychenko Svitlana
 
 Contacts
-   "If you have any questions, please feel free to contact me at <a href="mailto:example@example.com">example@example.com</a>.
+   "If you have any questions, please feel free to contact me at <a href="svitlana.lightbeam@gmail.com">svitlana.lightbeam@gmail.com</a>.
 
 - 💼 [LinkedIn](https://www.linkedin.com/in/svitlana-miroshnychenko-12659a2b6/)  
