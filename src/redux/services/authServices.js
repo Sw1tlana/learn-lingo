@@ -31,13 +31,9 @@ export const registerUser = async ({ email, password, name }) => {
     const user = userCredential.user;
     const idToken = await user.getIdToken();
 
-    console.log('User UID:', user.uid);
-    console.log('ID Token:', idToken);
-
     setToken(idToken);
 
     const userEndpoint = `/users/${user.uid}.json?auth=${idToken}`;
-    console.log('User Endpoint:', userEndpoint);
 
     const userResponse = await instance.post(userEndpoint, {
       email,
@@ -52,7 +48,6 @@ export const registerUser = async ({ email, password, name }) => {
       backendResponse: userResponse.data
     };
   } catch (error) {
-    console.error('Registration Error:', error.response ? error.response.data : error.message);
     throw new Error(error.response?.data?.error || error.message || 'Failed to register user');
   }
 };
@@ -60,31 +55,19 @@ export const registerUser = async ({ email, password, name }) => {
 export const requestSignIn = async ({ email, password }) => {
   
   if (!email || !password) {
-    console.error('Email or password is missing.');
     throw new Error('Email or password is required.');
   }
-
-  console.log('Attempting to sign in with email:', email);
 
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
     const user = response.user;
-    
-    console.log('User signed in successfully:', user.uid);
 
     const token = await user.getIdToken();
-    console.log('Retrieved ID Token:', token); 
 
     setToken(token); 
-    console.log('Token set in axios instance.');
     window.location.href = '/teachers';
     return { uid: user.uid, user, token };
   } catch (error) {
-    console.error('Error signing in:', error); 
-
-    if (error.code) {
-      console.error('Firebase error code:', error.code); 
-    }
 
     throw new Error(error.message || "Failed to sign in");
   }
@@ -105,10 +88,9 @@ export const logOutUser = async () => {
     await signOut(auth);
     clearToken(); 
 
-    console.log("User logged out. Token has been cleared.");
     window.location.href = '/';
   } catch (error) {
-    console.error("Error during logout:", error.message);
+    throw new Error("Error during logout");
   }
 };
 

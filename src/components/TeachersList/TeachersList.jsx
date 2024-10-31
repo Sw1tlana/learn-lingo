@@ -17,8 +17,6 @@ import Container from '../../shared/components/Container/Container';
 import css from './TeachersList.module.css';
 import LoadMore from '../LoadMore/LoadMore';
 import { changeFilter } from '../../redux/filters/slice';
-import { selectUser } from '../../redux/auth/selectors';
-import { setToken } from '../../redux/services/authServices';
 
 const TeachersList = () => {
   const dispatch = useDispatch();
@@ -28,40 +26,15 @@ const TeachersList = () => {
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
   const loading = useSelector(selectLoading);
-  const user = useSelector(selectUser);
   const filters = useSelector((state) => state.filters);
-  
-  // useEffect(() => {
-  //   if (user?.token) {
-  //     console.log('Токен, що передається в axios:', user.token);
-  //     setToken(user.token);
-  //   }
-  // }, [user]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (user?.token && loading && Number.isFinite(limit) && Number.isFinite(page)) {
-  //       try {
-  //         const response = await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
-  //         console.log('Response from fetchTeachers:', response); 
-  //       } catch (error) {
-  //         console.error('Failed to fetch teachers:', error);
-  //       }
-  //     }
-  //   };
-  
-  //   fetchData();
-  // }, [dispatch, limit, page, user?.token, filters, loading]);
-
 
   useEffect(() => {
     const fetchData = async () => {
       if (loading && Number.isFinite(limit) && Number.isFinite(page) && teachers.length === 0) {
         try {
-          const response = await dispatch(fetchTeachers({ page, limit, filters })).unwrap();
-          console.log('Response from fetchTeachers:', response); 
+          await dispatch(fetchTeachers({ page, limit, filters })).unwrap()
         } catch (error) {
-          console.error('Failed to fetch teachers:', error);
+          throw new Error('Failed to load teachers. Please try again.');
         }
       }
     };

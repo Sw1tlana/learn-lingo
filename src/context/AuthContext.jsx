@@ -17,22 +17,17 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         const { uid, email, displayName } = currentUser;
-        console.log('User logged in:', { uid, email, displayName });
         dispatch(setCurrentUser({ uid, email, displayName }));
   
       } else if (isLoggedIn) { 
-        console.log('User logged out');
         dispatch(logoutAction());
       }
     });
   
     return () => {
-      console.log('Unsubscribing from auth changes');
       unsubscribe();
     };
   }, [dispatch, isLoggedIn]);
-
-  
 
   useEffect(() => {
     dispatch(fetchTeachers()); 

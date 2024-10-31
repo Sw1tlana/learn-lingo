@@ -1,17 +1,7 @@
 import { instance } from './authServices';
-// import { store } from '../stores';
 
 export const requestGetTeachers = async (page = 1, limit = 4) => {
   try {
-
-    // const state = store.getState();
-    // const token = state.auth.token;
-    
-    // console.log('Токен авторизації:', token);
-    // if (!token) {
-    //   throw new Error('No authorization token found');
-    // }
-
     const response = await instance.get(
       `teachers.json`, {
         params: {
@@ -20,7 +10,6 @@ export const requestGetTeachers = async (page = 1, limit = 4) => {
           filter: 'simpleValue'
         }
   });
-    console.log('Response from teachers API:', response.data);
     
     if (!response.data) {
       return { teachers: [], totalPages: 0 };
@@ -40,7 +29,6 @@ export const requestGetTeachers = async (page = 1, limit = 4) => {
       totalPages
     };
   } catch (error) {
-    console.error('Error fetching teachers:', error.response ? error.response.data : error.message);
     throw new Error(error.message || "Failed to fetch teachers");
   }
 };

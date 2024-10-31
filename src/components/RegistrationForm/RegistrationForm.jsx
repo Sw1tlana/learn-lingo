@@ -27,7 +27,7 @@ const onSubmit = async (data) => {
     await dispatch(registerUser(data));
     reset();
   } catch (error) {
-    console.error('Error during registration:', error);
+    throw new Error('Error during registration:', error);
   }
 };  
     return (

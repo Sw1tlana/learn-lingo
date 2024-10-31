@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/auth/operations';
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/selectors'; 
-import css from './UserMenu.module.css';
 
 const UserMenu = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -16,8 +15,8 @@ const UserMenu = () => {
     return (
   <div>
     {isLoggedIn && user ? (
-      <div className={css.containerMenu}>
-          <button onClick={onLogOut} className={css.logoutButton}>Logout</button>
+      <div>
+          <button onClick={onLogOut}>Logout</button>
       </div>
     ) : null}
   </div>

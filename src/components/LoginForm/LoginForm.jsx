@@ -7,11 +7,9 @@ import { loginSchema } from '../schemas/loginSchemas';
 import { icons as sprite } from '../../shared/icons';
 import { INITIAL_LOGIN_DATA } from '../schemas/loginSchemas';
 import { login } from '../../redux/auth/operations';
-import { selectUser } from '../../redux/auth/selectors';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
-    const user = useSelector(selectUser);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(loginSchema),
@@ -29,15 +27,13 @@ const onSubmit = async (formData) => {
     const { email, password } = formData;
 
     if (!email || !password) {
-        console.error('Email and password must be provided');
         return;
     }
 
     try {
         await dispatch(login({ email, password })).unwrap(); 
-        console.log('Login successful');
     } catch (error) {
-        console.error('Login failed:', error);
+        throw new Error('Login failed:', error);
     }
 
     reset();

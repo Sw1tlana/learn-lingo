@@ -14,11 +14,10 @@ export const register = createAsyncThunk(
   "auth/register",
   async (userData, thunkAPI) => {
     try {
-      console.log('Registering with data:', userData);
       const response = await registerUser(userData);
-      console.log('Response from registration:', response);
       toast.success("Registration successful!");
       return response;
+
     } catch (error) {
       toast.error(error.message || "Failed to register.");
       return thunkAPI.rejectWithValue(error.message || "Failed to register");
@@ -31,14 +30,12 @@ export const login = createAsyncThunk(
   async (formData, thunkAPI) => {
     try {
       const response = await requestSignIn(formData);
-      console.log('Response from Firebase:', response);
       const { uid, token } = response;
       setToken(token);
       toast.success("Login successful!");
 
       return { uid, token };
     } catch (error) {
-      console.error('Error during login:', error); І
       toast.error(error.message || "Failed to log in.");
       return thunkAPI.rejectWithValue(error.message);
     }

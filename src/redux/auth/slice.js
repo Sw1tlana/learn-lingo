@@ -6,8 +6,6 @@ import {
   logout
 } from './operations';
 
-const token = localStorage.getItem('token')?.replace(/"/g, ''); 
-
 const initialState = {
   user: {
     name: null,
@@ -57,7 +55,6 @@ const authSlice = createSlice({
         state.loading = false;
         })
       .addCase(login.rejected, (state, action) => {
-        console.error('Login failed:', action.payload); 
         state.error = action.payload || 'Login failed';
       })
       // Fetch Current User
@@ -79,7 +76,6 @@ const authSlice = createSlice({
       })
       // Logout
      .addCase(logout.pending, (state) => {
-      console.log('Logout process started. Current state:', state);
       state.error = null;
     })
     .addCase(logout.fulfilled, (state) => {
@@ -91,7 +87,6 @@ const authSlice = createSlice({
       state.error = null;
     })
       .addCase(logout.rejected, (state, action) => {
-    console.error('Logout rejected:', action.error.message); 
     state.error = action.payload || 'Logout failed';
       });
   }
