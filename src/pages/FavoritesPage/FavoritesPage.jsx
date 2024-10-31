@@ -57,7 +57,6 @@ const handleFavoriteClick = (teacher) => {
   }, [favoriteTeachers]);
 
   return (
-    <section className={css.sectionWraper}>
       <Container> 
         <ul className={css.listTeacher}>     
           {Array.isArray(favoriteTeachers) && favoriteTeachers.length > 0 ? (
@@ -197,7 +196,6 @@ const handleFavoriteClick = (teacher) => {
           )}
         </ul>
       </Container>
-    </section>
   )
 };
 

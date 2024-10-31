@@ -18,7 +18,7 @@ export const register = createAsyncThunk(
       return response;
 
     } catch (error) {
-      toast.error(error.message || "Failed to register.");
+      toast.error("Registration failed. Please check your input and try again.");
       return thunkAPI.rejectWithValue(error.message || "Failed to register");
     }
   }
@@ -35,8 +35,8 @@ export const login = createAsyncThunk(
 
       return { uid, token };
     } catch (error) {
-      toast.error(error.message || "Failed to log in.");
-      return thunkAPI.rejectWithValue(error.message);
+      toast.error("Failed to log in. Please check your credentials and try again.");
+      return thunkAPI.rejectWithValue(error.message|| "Failed to Login");
     }
   }
 );
