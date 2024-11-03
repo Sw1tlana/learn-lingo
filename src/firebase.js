@@ -2,14 +2,21 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth"; 
 const API_KEY = import.meta.env.VITE_API_KEY;
+const API_AUTH_DOMAIN = import.meta.env.API_AUTH_DOMAIN;
+const API_PROJECT_ID = import.meta.env.API_PROJECT_ID;
+const API_STORADGE_BUCKET = import.meta.env.API_STORADGE_BUCKET;
+const API_MESSAGING_SENDER_ID = import.meta.env.API_MESSAGING_SENDER_ID;
+const API_APP_ID = import.meta.env.API_APP_ID;
+const API_DATABASE_URL = import.meta.env.API_DATABASE_URL;
 
 const firebaseConfig = {
     apiKey: API_KEY,
-    authDomain: "teachersapp-dd91b.firebaseapp.com",
-    projectId: "teachersapp-dd91b",
-    storageBucket: "teachersapp-dd91b.appspot.com",
-    messagingSenderId: "165416372744",
-    appId: "1:165416372744:web:bf5ca8acead8649ad41fbd",
+    authDomain: API_AUTH_DOMAIN,
+    projectId: API_PROJECT_ID,
+    storageBucket: API_STORADGE_BUCKET,
+    messagingSenderId: API_MESSAGING_SENDER_ID,
+    appId: API_APP_ID,
+    databaseURL: API_DATABASE_URL,
 };
 
 const app = initializeApp(firebaseConfig);
