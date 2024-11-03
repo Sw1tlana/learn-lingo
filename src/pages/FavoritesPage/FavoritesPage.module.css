@@ -1,6 +1,7 @@
 .sectionWraper {
     padding: 96px 128px;
     background-color: var(--bg-color-section);
+    height: 100vh;
 }
 
 .teacherCard {
@@ -264,22 +265,28 @@
         gap: 24px;
         padding: 16px;
     }
+
     .teacherInfoContainer {
         flex-wrap: wrap;
     }
+
     .infoContainer {
         width: 100%;
     }
+
     .listInfoLessons {
         display: flex;
         flex-wrap: wrap;
     }
+
     .textLessonInfo {
         font-weight: 400;
     }
+
     .withMargin {
         margin-left: 30px;
     }
+
     .levelsInfo {
         gap: 4px;
     }
@@ -290,16 +297,29 @@
     .teacherCard {
         gap: 24px;
         padding: 20px;
+        flex-wrap: wrap;
     }
+
     .avatarContainer {
         margin-right: 30px;
     }
+
+    .teacherInfoContainer {
+        flex-wrap: wrap;
+    }
+
+    .listInfoLessons {
+        flex-wrap: wrap;
+    }
+
     .nameTeachers {
         font-size: 22px;
     }
+
     .heartItem {
         margin-left: 30px;
     }
+
     .btnBookLesson {
         padding: 14px 40px;
     }

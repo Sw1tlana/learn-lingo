@@ -23,7 +23,6 @@ const LoginForm = () => {
   };
 
 const onSubmit = async (formData) => {
-    console.log('Form submitted:', formData);
     const { email, password } = formData;
 
     if (!email || !password) {

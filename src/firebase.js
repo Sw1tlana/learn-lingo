@@ -7,7 +7,7 @@ const API_PROJECT_ID = import.meta.env.API_PROJECT_ID;
 const API_STORADGE_BUCKET = import.meta.env.API_STORADGE_BUCKET;
 const API_MESSAGING_SENDER_ID = import.meta.env.API_MESSAGING_SENDER_ID;
 const API_APP_ID = import.meta.env.API_APP_ID;
-const API_DATABASE_URL = import.meta.env.API_DATABASE_URL;
+const API_DATABASE_URL = import.meta.env.VITE_DATABASE_URL;
 
 const firebaseConfig = {
     apiKey: API_KEY,
